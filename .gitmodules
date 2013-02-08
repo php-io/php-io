@@ -1,0 +1,6 @@
+[submodule "vendor/php-service-manager"]
+	path = vendor/php-service-manager
+	url = git://github.com/gplanchat/php-service-manager.git
+[submodule "vendor/php-event-manager"]
+	path = vendor/php-event-manager
+	url = git://github.com/gplanchat/php-event-manager.git
