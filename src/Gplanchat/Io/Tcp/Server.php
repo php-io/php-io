@@ -1,11 +1,11 @@
 <?php
 
-namespace Gplanchat\Uv\Tcp;
+namespace Gplanchat\Io\Tcp;
 
-use Gplanchat\Uv\Loop\LoopInterface;
-use Gplanchat\Uv\Net\SocketInterface;
-use Gplanchat\Uv\Net\Ip4;
-use Gplanchat\Uv\Net\Ip6;
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Net\Ip4;
+use Gplanchat\Io\Net\Ip6;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
@@ -30,11 +30,7 @@ class Server
 
     public function registerSocket(SocketInterface $socket)
     {
-        if ($socket instanceof Ip4) {
-            \uv_tcp_bind($this->connection, $socket->getResource());
-        } else if ($socket instanceof Ip6) {
-            \uv_tcp_bind6($this->connection, $socket->getResource());
-        }
+        $socket->bind($this);
 
         return $this;
     }

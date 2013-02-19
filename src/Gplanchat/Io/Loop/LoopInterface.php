@@ -1,6 +1,6 @@
 <?php
 
-namespace Gplanchat\Uv\Loop;
+namespace Gplanchat\Io\Loop;
 
 interface LoopInterface
 {

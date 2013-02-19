@@ -1,8 +1,8 @@
 <?php
 
-namespace Gplanchat\Uv\Loop;
+namespace Gplanchat\Io\Loop;
 
-use Gplanchat\Uv\Loop\LoopInterface;
+use Gplanchat\Io\Loop\LoopInterface;
 
 class Loop
     implements LoopInterface

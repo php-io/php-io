@@ -1,11 +1,11 @@
 <?php
 
-namespace Gplanchat\Uv\Tcp;
+namespace Gplanchat\Io\Tcp;
 
-use Gplanchat\Uv\Loop\LoopInterface;
-use Gplanchat\Uv\Net\SocketInterface;
-use Gplanchat\Uv\Net\Ip4;
-use Gplanchat\Uv\Net\Ip6;
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Net\Ip4;
+use Gplanchat\Io\Net\Ip6;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
@@ -53,16 +53,7 @@ class Client
      */
     public function connect(SocketInterface $socket, callable $callback)
     {
-        $client = $this;
-        $internalCallback = function($resource) use($callback, $client) {
-            $client->on(['data'], $callback);
-        };
-
-        if ($socket instanceof Ip4) {
-            \uv_tcp_connect($this->connection, $internalCallback);
-        } else if ($socket instanceof Ip6) {
-            \uv_tcp_connect6($this->connection, $internalCallback);
-        }
+        $socket->connect($socket, $callback);
 
         return $this;
     }
