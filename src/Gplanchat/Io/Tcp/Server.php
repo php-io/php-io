@@ -4,14 +4,12 @@ namespace Gplanchat\Io\Tcp;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\Ip4;
-use Gplanchat\Io\Net\Ip6;
+use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 
 class Server
-    implements EventEmitterInterface
+    implements ServerInterface
 {
     use EventEmitterTrait;
 
@@ -61,5 +59,24 @@ class Server
     public function getResource()
     {
         return $this->connection;
+    }
+
+    /**
+     * @param LoopInterface $loop
+     * @return ServerInterface|Server
+     */
+    public function setLoop(LoopInterface $loop)
+    {
+        $this->loop = $loop;
+
+        return $this;
+    }
+
+    /**
+     * @return LoopInterface
+     */
+    public function getLoop()
+    {
+        return $this->loop;
     }
 }

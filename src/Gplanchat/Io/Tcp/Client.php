@@ -4,14 +4,13 @@ namespace Gplanchat\Io\Tcp;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\Ip4;
-use Gplanchat\Io\Net\Ip6;
+use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 
 class Client
-    implements EventEmitterInterface
+    implements ClientInterface
 {
     use EventEmitterTrait;
 
@@ -38,7 +37,7 @@ class Client
      * @param Server $server
      * @return Client
      */
-    public function accept(Server $server)
+    public function accept(ServerInterface $server)
     {
         $this->server = $server;
         \uv_accept($server->getResource(), $this->connection);
@@ -97,5 +96,32 @@ class Client
     public function getResource()
     {
         return $this->connection;
+    }
+
+    /***
+     * @param LoopInterface $loop
+     * @return Client
+     */
+    public function setLoop(LoopInterface $loop)
+    {
+        $this->loop = $loop;
+
+        return $this;
+    }
+
+    /**
+     * @return LoopInterface
+     */
+    public function getLoop()
+    {
+        return $this->loop;
+    }
+
+    /**
+     * @return Server|null
+     */
+    public function getServer()
+    {
+        return $this->server;
     }
 }
