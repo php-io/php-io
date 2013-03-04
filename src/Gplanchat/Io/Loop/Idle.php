@@ -4,6 +4,9 @@ namespace Gplanchat\Io\Loop;
 
 class Idle
 {
+    /**
+     * @var resource
+     */
     private $idler = null;
 
     /**
