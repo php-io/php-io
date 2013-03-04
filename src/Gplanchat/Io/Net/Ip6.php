@@ -2,8 +2,8 @@
 
 namespace Gplanchat\Io\Net;
 
-use Gplanchat\Io\Tcp\Client;
-use Gplanchat\Io\Tcp\Server;
+use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\ServerInterface;
 
 class Ip6
     implements SocketInterface
@@ -36,11 +36,11 @@ class Ip6
     }
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      * @param callable $callback
      * @return SocketInterface
      */
-    public function connect(Client $client, callable $callback)
+    public function connect(ClientInterface $client, callable $callback)
     {
         $internalCallback = function($resource) use($callback, $client) {
             $client->on(['data'], $callback);
@@ -52,10 +52,10 @@ class Ip6
     }
 
     /**
-     * @param Server $server
+     * @param ServerInterface $server
      * @return SocketInterface
      */
-    public function bind(Server $server)
+    public function bind(ServerInterface $server)
     {
         \uv_tcp_bind6($server->getResource(), $this->socket);
 

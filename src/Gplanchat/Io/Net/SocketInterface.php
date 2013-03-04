@@ -2,8 +2,8 @@
 
 namespace Gplanchat\Io\Net;
 
-use Gplanchat\Io\Tcp\Client;
-use Gplanchat\Io\Tcp\Server;
+use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\ServerInterface;
 
 interface SocketInterface
 {
@@ -18,15 +18,15 @@ interface SocketInterface
     public function __toString();
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      * @param $callback
-     * @return mixed
+     * @return SocketInterface
      */
-    public function connect(Client $client, callable $callback);
+    public function connect(ClientInterface $client, callable $callback);
 
     /**
-     * @param Server $server
-     * @return mixed
+     * @param ServerInterface $server
+     * @return SocketInterface
      */
-    public function bind(Server $server);
+    public function bind(ServerInterface $server);
 }
