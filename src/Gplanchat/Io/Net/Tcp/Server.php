@@ -1,12 +1,13 @@
 <?php
 
-namespace Gplanchat\Io\Tcp;
+namespace Gplanchat\Io\Net\Tcp;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
+use RuntimeException;
 
 class Server
     implements ServerInterface
@@ -19,7 +20,13 @@ class Server
     public function __construct(LoopInterface $loop, SocketInterface $socket = null)
     {
         $this->loop = $loop;
-        $this->connection = \uv_tcp_init($this->loop->getResource());
+        $errno = null;
+        $errstr = null;
+        $this->socket = \stream_socket_server($socket, $errno, $errstr, \STREAM_SERVER_LISTEN, $socket->getContext());
+        if ($this->socket === false) {
+            throw new RuntimeException(sprintf('Socket initialization failed: %s (%d)', $errstr, $errno));
+        }
+        $this->connection = \uv_poll_init_socket($this->loop->getResource(), $this->socket);
 
         if ($socket !== null) {
             $this->registerSocket($socket);

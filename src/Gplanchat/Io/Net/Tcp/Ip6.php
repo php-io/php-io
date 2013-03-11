@@ -1,40 +1,15 @@
 <?php
 
-namespace Gplanchat\Io\Net;
+namespace Gplanchat\Io\Net\Tcp;
 
+use Gplanchat\Io\Net\AbstractIp4;
+use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\ServerInterface;
 
 class Ip6
-    implements SocketInterface
+    extends AbstractIp6
 {
-    protected $socket = null;
-    protected $port = 0;
-
-    /**
-     * @return resource
-     */
-    public function __construct($address, $port)
-    {
-        $this->socket = \uv_ip6_addr($address, $port);
-        $this->port = $port;
-    }
-    /**
-     * @return resource
-     */
-    public function getResource()
-    {
-        return $this->socket;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return sprintf('%s:%d', \uv_ip6_name($this->socket), $this->port);
-    }
-
     /**
      * @param ClientInterface $client
      * @param callable $callback

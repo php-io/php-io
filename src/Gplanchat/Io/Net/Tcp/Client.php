@@ -1,6 +1,6 @@
 <?php
 
-namespace Gplanchat\Io\Tcp;
+namespace Gplanchat\Io\Net\Tcp;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;

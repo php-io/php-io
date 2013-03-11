@@ -10,13 +10,10 @@ use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
 use RuntimeException;
 
-class ConnectionHandler
+class ServerConnectionHandler
     implements ServiceManagerInterface, ConnectionHandlerInterface
 {
     use ServiceManagerTrait;
-
-    const VERSION_HTTP10 = 'Http10';
-    const VERSION_HTTP11 = 'Http11';
 
     private $callback = null;
 

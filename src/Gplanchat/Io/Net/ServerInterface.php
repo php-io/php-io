@@ -9,12 +9,6 @@ interface ServerInterface
     extends EventEmitterInterface
 {
     /**
-     * @param LoopInterface $loop
-     * @param SocketInterface $socket
-     */
-    public function __construct(LoopInterface $loop, SocketInterface $socket = null);
-
-    /**
      * @param SocketInterface $socket
      * @return ServerInterface
      */
