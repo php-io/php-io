@@ -4,3 +4,9 @@
 [submodule "vendor/php-event-manager"]
 	path = vendor/php-event-manager
 	url = git://github.com/gplanchat/php-event-manager.git
+[submodule "vendor/php-log"]
+	path = vendor/php-log
+	url = git@github.com:gplanchat/php-log.git
+[submodule "vendor/psr-log"]
+	path = vendor/psr-log
+	url = git@github.com:php-fig/log.git
