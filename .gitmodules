@@ -10,3 +10,6 @@
 [submodule "vendor/psr-log"]
 	path = vendor/psr-log
 	url = git@github.com:php-fig/log.git
+[submodule "vendor/php-plugin-manager"]
+	path = vendor/php-plugin-manager
+	url = git@github.com:gplanchat/php-plugin-manager.git
