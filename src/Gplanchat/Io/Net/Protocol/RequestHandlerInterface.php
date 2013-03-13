@@ -13,7 +13,7 @@ interface RequestHandlerInterface
      * @param int $length
      * @param bool $isError
      * @throws \Exception
-     * @return callable
+     * @return RequestHandlerInterface
      */
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError);
 }

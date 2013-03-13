@@ -37,6 +37,8 @@ class Response
                 $client->close();
             }
         });
+
+        return $this;
     }
 
     public function  setReturnCode($code, $message)
@@ -57,6 +59,8 @@ class Response
     public function setHeader($headerName, $headerValue)
     {
         $this->headers[$headerName] = $headerValue;
+
+        return $this;
     }
 
     public function hasHeader($headerName)

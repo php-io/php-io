@@ -9,8 +9,8 @@ use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\Io\Net\ClientInterface;
-use RuntimeException;
-use ArrayObject;
+use Gplanchat\Log\Logger;
+use Psr\Log\LogLevel;
 
 class RequestHandler
     implements ServiceManagerInterface, RequestHandlerInterface, EventEmitterInterface
@@ -18,74 +18,83 @@ class RequestHandler
     use ServiceManagerTrait;
     use EventEmitterTrait;
 
-    const VERSION_HTTP10 = 'Http10';
-    const VERSION_HTTP11 = 'Http11';
-
-    public function __construct()
-    {
-        $this->registerSingleton('Http10', __NAMESPACE__ . '\\ProtocolVersion\\Http10');
-        $this->registerSingleton('Http11', __NAMESPACE__ . '\\ProtocolVersion\\Http11');
-
-        $this->registerInvokable('Response', __NAMESPACE__ . '\\Response');
-        $this->registerInvokable('Request', __NAMESPACE__ . '\\Request');
-    }
-
     /**
      * @param ClientInterface $client
      * @param string $buffer
      * @param int $length
      * @param bool $isError
-     * @throws RuntimeException
-     * @return Request|null
+     * @return RequestHandlerInterface
      */
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError)
     {
-        $parserHandle = \uv_http_parser_init(\UV::HTTP_REQUEST);
+        if ($isError) {
+            $this->get('Logger')->log(LogLevel::ERROR, sprintf('%s encountered an error.', __METHOD__));
 
-        $result = [];
-        if (!\uv_http_parser_execute($parserHandle, $buffer, $result)) {
-            $response = new Response();
-            $response->setReturnCode(500, 'Internal Server Error');
-            $response->setBody('Server Error');
-            $response->send($client);
-            return;
+            (new Response())
+                ->setReturnCode(500, 'Internal Server Error')
+                ->setBody('Server Error')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+
+            return $this;
         }
 
-        if (!isset($result['REQUEST_METHOD']) || !isset($result['PATH'])) {
-            $response = new Response();
-            $response->setReturnCode(400, 'Bad Request');
-            $response->setBody('Bad Request');
-            $response->send($client);
-            return;
+        try {
+            /** @var Request $request */
+            $request = $this->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length]);
+        } catch (Exception\UnexpectedValueException $e) {
+            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+
+            (new Response())
+                ->setReturnCode(400, 'Bad Request')
+                ->setBody('Bad Request')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+
+            return $this;
+        } catch (Exception\BadRequestException $e) {
+            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+
+            (new Response())
+                ->setReturnCode(500, 'Internal Server Error')
+                ->setBody('Server Error')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+
+            return $this;
+        } catch (\Exception $e) {
+            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+
+            (new Response())
+                ->setReturnCode(417, 'Expectation Failed')
+                ->setBody('Expectation Failed')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+
+            return $this;
         }
 
-        $request = new Request($result['REQUEST_METHOD'], $result['PATH']);
+        try {
+            /** @var response $response */
+            $response = $this->get('Response');
+        } catch (\Exception $e) {
+            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
 
-        if (strtoupper($result['REQUEST_METHOD']) != 'GET' && isset($result['HEADERS']) && isset($result['HEADERS']['BODY'])) {
-            $postData = [];
-            parse_str($result['HEADERS']['BODY'], $postData);
+            (new Response())
+                ->setReturnCode(417, 'Expectation Failed')
+                ->setBody('Expectation Failed')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
 
-            $request->setPostParams(new ArrayObject($postData));
+            return $this;
         }
 
-        if (isset($result['QUERY'])) {
-            $queryData = [];
-            parse_str($result['HEADERS']['BODY'], $queryData);
-
-            $request->setQueryParams(new ArrayObject($queryData));
-        }
-
-        if (isset($result['HEADERS']) && isset($result['HEADERS']['COOKIE'])) {
-            $cookieData = [];
-            parse_str($result['HEADERS']['COOKIE'], $cookieData);
-
-            $request->setCookieParams(new ArrayObject($cookieData));
-        }
-
-        $response = new Response();
-
-        $requestHandler = $this;
-        $response->on(['ready'], function(Event $event) use($client, $requestHandler, $request) {
+        $response->on(['ready'], function(Event $event) use($client, $request) {
             $response = $event->getData('eventEmitter');
 
             $this->emit(new Event('afterRequestProcessing'), [$request, $response]);
@@ -96,9 +105,11 @@ class RequestHandler
         $this->emit($event = new Event('beforeRequestProcessing'), [$request, $response]);
         if ($event->getData('isError')) {
             $response->emit(new Event('ready'));
-            return;
+            return $this;
         }
 
         $this->emit(new Event('request'), [$client, $request, $response]);
+
+        return $this;
     }
 }

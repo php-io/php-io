@@ -20,13 +20,7 @@ class Server
     public function __construct(LoopInterface $loop, SocketInterface $socket = null)
     {
         $this->loop = $loop;
-        $errno = null;
-        $errstr = null;
-        $this->socket = \stream_socket_server($socket, $errno, $errstr, \STREAM_SERVER_LISTEN, $socket->getContext());
-        if ($this->socket === false) {
-            throw new RuntimeException(sprintf('Socket initialization failed: %s (%d)', $errstr, $errno));
-        }
-        $this->connection = \uv_poll_init_socket($this->loop->getResource(), $this->socket);
+        $this->connection = \uv_tcp_init($this->loop->getResource());
 
         if ($socket !== null) {
             $this->registerSocket($socket);

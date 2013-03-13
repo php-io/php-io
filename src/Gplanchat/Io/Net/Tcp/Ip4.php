@@ -32,8 +32,6 @@ class Ip4
      */
     public function bind(ServerInterface $server)
     {
-        var_dump($this->getResource());
-        var_dump($server->getResource());
         \uv_tcp_bind($server->getResource(), $this->getResource());
 
         return $this;
