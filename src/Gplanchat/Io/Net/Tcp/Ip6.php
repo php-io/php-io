@@ -22,7 +22,7 @@
 
 namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\Io\Net\AbstractIp4;
+use Gplanchat\Io\Net\AbstractIp6;
 use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\ServerInterface;
