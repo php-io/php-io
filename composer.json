@@ -1,0 +1,28 @@
+{
+    "name": "gplanchat/php-io",
+    "description": "An asynchronous IO library using chobie's php-uv extension, built to create network deamons",
+    "minimum-stability": "stable",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Grégory PLANCHAT",
+            "email": "g.planchat@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "gplanchat/php-event-manager": ">=1.0",
+        "gplanchat/php-service-manager": ">=1.0",
+        "gplanchat/php-plugin-manager": ">=1.0",
+        "gplanchat/php-log": ">=1.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/gplanchat/php-io.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Gplanchat\\Io": "src/"}
+    }
+}
