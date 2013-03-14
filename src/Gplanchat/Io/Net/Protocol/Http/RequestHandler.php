@@ -3,20 +3,31 @@
 namespace Gplanchat\Io\Net\Protocol\Http;
 
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\ServiceManagerTrait;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Log\Logger;
+use Psr\Log\LoggerInterface;
+use Gplanchat\Log\LoggerAwareInterface;
+use Gplanchat\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
 
 class RequestHandler
-    implements ServiceManagerInterface, RequestHandlerInterface, EventEmitterInterface
+    implements ServiceManagerAwareInterface, RequestHandlerInterface, EventEmitterInterface, LoggerAwareInterface
 {
-    use ServiceManagerTrait;
+    use ServiceManagerAwareTrait;
     use EventEmitterTrait;
+    use LoggerAwareTrait;
+
+    public function __construct(ServiceManagerInterface $serviceManager)
+    {
+        $this->setServiceManager($serviceManager);
+
+        $this->setLogger($this->getServiceManager()->get('Logger'));
+    }
 
     /**
      * @param ClientInterface $client
@@ -28,7 +39,7 @@ class RequestHandler
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError)
     {
         if ($isError) {
-            $this->get('Logger')->log(LogLevel::ERROR, sprintf('%s encountered an error.', __METHOD__));
+            $this->getLogger()->log(LogLevel::ERROR, sprintf('%s encountered an error.', __METHOD__));
 
             (new Response())
                 ->setReturnCode(500, 'Internal Server Error')
@@ -40,11 +51,13 @@ class RequestHandler
             return $this;
         }
 
+        /** @var ServiceManagerInterface $serviceManager */
+        $serviceManager = $this->getServiceManager();
         try {
             /** @var Request $request */
-            $request = $this->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length]);
+            $request = $serviceManager->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length]);
         } catch (Exception\UnexpectedValueException $e) {
-            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
             (new Response())
                 ->setReturnCode(400, 'Bad Request')
@@ -55,7 +68,7 @@ class RequestHandler
 
             return $this;
         } catch (Exception\BadRequestException $e) {
-            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
             (new Response())
                 ->setReturnCode(500, 'Internal Server Error')
@@ -66,7 +79,7 @@ class RequestHandler
 
             return $this;
         } catch (\Exception $e) {
-            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
             (new Response())
                 ->setReturnCode(417, 'Expectation Failed')
@@ -80,9 +93,9 @@ class RequestHandler
 
         try {
             /** @var response $response */
-            $response = $this->get('Response');
+            $response = $serviceManager->get('Response');
         } catch (\Exception $e) {
-            $this->get('Logger')->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
             (new Response())
                 ->setReturnCode(417, 'Expectation Failed')
@@ -97,17 +110,12 @@ class RequestHandler
         $response->on(['ready'], function(Event $event) use($client, $request) {
             $response = $event->getData('eventEmitter');
 
-            $this->emit(new Event('afterRequestProcessing'), [$request, $response]);
-
             $response->send($client);
         });
 
-        $this->emit($event = new Event('beforeRequestProcessing'), [$request, $response]);
-        if ($event->getData('isError')) {
-            $response->emit(new Event('ready'));
-            return $this;
-        }
-
+        // FIXME: what if the request was chunked?
+        // FIXME: what if the request does not close after response?
+        // FIXME: how do we implement WebSockets?
         $this->emit(new Event('request'), [$client, $request, $response]);
 
         return $this;

@@ -7,17 +7,21 @@ use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 use RuntimeException;
 
 class Server
-    implements ServerInterface
+    implements ServerInterface, ServiceManagerAwareInterface
 {
     use EventEmitterTrait;
+    use ServiceManagerAwareTrait;
 
     private $loop = null;
     private $connection = null;
 
-    public function __construct(LoopInterface $loop, SocketInterface $socket = null)
+    public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null)
     {
         $this->loop = $loop;
         $this->connection = \uv_tcp_init($this->loop->getResource());
@@ -25,6 +29,8 @@ class Server
         if ($socket !== null) {
             $this->registerSocket($socket);
         }
+
+        $this->setServiceManager($serviceManager);
     }
 
     public function registerSocket(SocketInterface $socket)

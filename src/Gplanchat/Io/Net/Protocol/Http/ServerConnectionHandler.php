@@ -2,36 +2,35 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\ServiceManagerTrait;
 use Gplanchat\Io\Net\Protocol\ConnectionHandlerInterface;
 use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\Log\Logger;
+use Psr\Log\LoggerInterface;
+use Gplanchat\Log\LoggerAwareInterface;
+use Gplanchat\Log\LoggerAwareTrait;
 use Gplanchat\Log\Writer\Stream;
-use RuntimeException;
 
 class ServerConnectionHandler
-    implements ServiceManagerInterface, ConnectionHandlerInterface
+    implements ServiceManagerAwareInterface, ConnectionHandlerInterface, LoggerAwareInterface
 {
-    use ServiceManagerTrait;
+    use ServiceManagerAwareTrait;
+    use LoggerAwareTrait;
 
     private $callback = null;
 
     /**
      * @param callable $callback
-     * @param string|null $requestHandlerClass
+     * @param ServiceManagerInterface $serviceManager
+     * @throws Exception\RuntimeException
      */
-    public function __construct(callable $callback, $requestHandlerClass = null)
+    public function __construct(ServiceManagerInterface $serviceManager, callable $callback)
     {
-        if ($requestHandlerClass === null) {
-            $requestHandlerClass = __NAMESPACE__ . '\\RequestHandler';
-        }
-
-        $this->registerInvokable('RequestHandler', $requestHandlerClass);
-
-        $this->registerSingleton('Logger', new Logger(new Stream('http.log')));
+        $this->setServiceManager($serviceManager);
+        $this->setLogger($this->getServiceManager()->get('Logger'));
 
         $this->callback = $callback;
     }
@@ -45,12 +44,10 @@ class ServerConnectionHandler
     public function __invoke(Event $event, ClientInterface $client, ServerInterface $server)
     {
         /** @var RequestHandler $requestHandler */
-        $requestHandler = $this->get('RequestHandler');
+        $requestHandler = $this->getServiceManager()
+            ->get('RequestHandler', [$this->getServiceManager()])
+        ;
         $client->on(['data'], $requestHandler);
-
-        $requestHandler->registerSingleton('Logger', $this->get('Logger'));
-        $requestHandler->registerFactory('Response', new ResponseFactory());
-        $requestHandler->registerFactory('Request', new RequestFactory());
 
         $requestHandler->on(['request'], $this->callback);
 

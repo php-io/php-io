@@ -7,7 +7,7 @@ Asynchronous object-oriented I/O PHP library
 
 A simple HTTP server could be implemented this way :
 
-<pre>
+```php
 &lt;?php
 use Gplanchat\Io\Loop\Loop;
 use Gplanchat\EventManager\Event;
@@ -20,17 +20,17 @@ $loop = Loop::getDefaultInstance();
 $loop->init();
 $socket = new Ip4('0.0.0.0', 8080);
 
-$tcp = new Server($loop, $socket);
+$tcp = new Http\Server($loop, $socket);
 
-$tcp->listen(200, new Http\ConnectionHandler(function(Event $event, ClientInterface $client, Http\Request $request, Http\Response $response) {
+$tcp->listen(200, function(Event $event, ClientInterface $client, Http\Request $request, Http\Response $response) {
     $response
         ->setBody('Hello World!')
         ->setReturnCode(200, 'OK')
         ->emit(new Event('ready'))
     ;
-}));
+});
 $loop->run();
-</pre>
+```
 
 ## Documentation
 
