@@ -32,15 +32,11 @@ abstract class AbstractIp6
     /**
      * @param string $address
      * @param int $port
-     * @param string $transport
-     * @param resource|null $context
      */
-    public function __construct($address, $port, $transport = self::TRANSPORT_TCP, $context = null)
+    public function __construct($address, $port)
     {
         $this->socket = \uv_ip6_addr($address, $port);
         $this->port = $port;
-        $this->transport = $transport;
-        $this->context = $context;
     }
 
     /**

@@ -45,42 +45,12 @@ interface SocketInterface
     /**
      * @return string
      */
-    public function toStreamString();
-
-    /**
-     * @return string
-     */
     public function getAddress();
 
     /**
      * @return int
      */
     public function getPort();
-
-    /**
-     * @return string
-     */
-    public function getTransport();
-
-    /**
-     * @return resource
-     */
-    public function getContext();
-
-    /**
-     * @param string $option
-     * @param mixed $value
-     * @param string|null $wrapper
-     * @return SocketInterface
-     */
-    public function setContextOption($option, $value, $wrapper = null);
-
-    /**
-     * @param string $param
-     * @param mixed $value
-     * @return SocketInterface
-     */
-    public function setContextParam($param, $value);
 
     /**
      * @param ClientInterface $client
