@@ -28,6 +28,7 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\Io\Net\Protocol\ConnectionHandlerInterface;
 use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\ServerInterface;
+use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\EventManager\Event;
 use Psr\Log\LoggerInterface;
 use Gplanchat\Log\LoggerAwareInterface;
@@ -63,12 +64,13 @@ class ServerConnectionHandler
      */
     public function __invoke(Event $event, ClientInterface $client, ServerInterface $server)
     {
-        /** @var RequestHandler $requestHandler */
+        /** @var RequestHandlerInterface $requestHandler */
         $requestHandler = $this->getServiceManager()
             ->get('RequestHandler', [$this->getServiceManager()])
         ;
-        $client->on(['data'], $requestHandler);
+        $callbackHandler = $client->on(['data'], $requestHandler);
 
+        $requestHandler->setCallbackHanlder($callbackHandler);
         $requestHandler->on(['request'], $this->callback);
 
         return $requestHandler;

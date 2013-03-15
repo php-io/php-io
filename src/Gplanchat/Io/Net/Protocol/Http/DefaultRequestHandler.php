@@ -25,9 +25,9 @@ namespace Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
-use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\EventManager\Event;
+use Gplanchat\EventManager\CallbackHandler;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\Io\Net\ClientInterface;
 use Psr\Log\LoggerInterface;
@@ -35,18 +35,35 @@ use Gplanchat\Log\LoggerAwareInterface;
 use Gplanchat\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
 
-class RequestHandler
-    implements ServiceManagerAwareInterface, RequestHandlerInterface, EventEmitterInterface, LoggerAwareInterface
+class DefaultRequestHandler
+    implements ServiceManagerAwareInterface, RequestHandlerInterface, LoggerAwareInterface
 {
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;
     use LoggerAwareTrait;
+
+    /**
+     * @var CallbackHandler
+     */
+    private $callbackHanlder = null;
 
     public function __construct(ServiceManagerInterface $serviceManager)
     {
         $this->setServiceManager($serviceManager);
 
         $this->setLogger($this->getServiceManager()->get('Logger'));
+    }
+
+    public function setCallbackHanlder(CallbackHandler $callbackHanlder)
+    {
+        $this->callbackHanlder = $callbackHanlder;
+
+        return $this;
+    }
+
+    public function getCallbackHanlder()
+    {
+        return $this->callbackHanlder;
     }
 
     /**
@@ -133,11 +150,36 @@ class RequestHandler
             $response->send($client);
         });
 
+        if ($request->getHeader('UPGRADE') !== null) {
+            var_dump($request->getHeader('UPGRADE'));
+            $this->getCallbackHanlder()->setCallback(function(){});
+            return $this;
+        }
+
         // FIXME: what if the request was chunked?
         // FIXME: what if the request does not close after response?
-        // FIXME: how do we implement WebSockets?
         $this->emit(new Event('request'), [$client, $request, $response]);
 
         return $this;
+    }
+
+    public function registerProtocolUpgrade($name, callable $requestHandler)
+    {
+
+    }
+
+    public function registerProtocolUpgradeAlias($alias, $name)
+    {
+
+    }
+
+    public function hasProtocolUpgrade($name)
+    {
+
+    }
+
+    public function getProtocolUpgrade($name)
+    {
+
     }
 }

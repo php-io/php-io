@@ -64,11 +64,15 @@ class RequestFactory
             $request->setQueryParams(new ArrayObject($queryData));
         }
 
-        if (isset($result['HEADERS']) && isset($result['HEADERS']['COOKIE'])) {
-            $cookieData = [];
-            parse_str($result['HEADERS']['COOKIE'], $cookieData);
+        if (isset($result['HEADERS'])) {
+            $request->setHeaders(new ArrayObject($result['HEADERS']));
 
-            $request->setCookieParams(new ArrayObject($cookieData));
+            if (isset($result['HEADERS']['COOKIE'])) {
+                $cookieData = [];
+                parse_str($result['HEADERS']['COOKIE'], $cookieData);
+
+                $request->setCookieParams(new ArrayObject($cookieData));
+            }
         }
 
         return $request;

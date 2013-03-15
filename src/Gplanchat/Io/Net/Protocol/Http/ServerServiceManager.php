@@ -40,10 +40,11 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'RequestHandler' => __NAMESPACE__ . '\\RequestHandler'
+                    'RequestHandler' => __NAMESPACE__ . '\\DefaultRequestHandler'
                 ],
                 'singletons' => [
-                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler'
+                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler',
+                    'ProtocolUpgrader'        => __NAMESPACE__ . '\\ProtocolUpgrader'
                     ],
                 'alias'      => [],
                 'factories'  => [

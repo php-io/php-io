@@ -39,6 +39,11 @@ class Request
     /**
      * @var ArrayObject
      */
+    private $headers = [];
+
+    /**
+     * @var ArrayObject
+     */
     private $params = null;
 
     /**
@@ -65,6 +70,25 @@ class Request
     {
         $this->method = $method;
         $this->uri = $uri;
+    }
+
+    /**
+     * @param ArrayObject $headers
+     * @return Request
+     */
+    public function setHeaders(ArrayObject $headers)
+    {
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayObject
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**
@@ -160,6 +184,19 @@ class Request
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return string
+     */
+    public function getHeader($key, $default = null)
+    {
+        if (!isset($this->headers[$key])) {
+            return $default;
+        }
+        return $this->headers[$key];
     }
 
     /**
