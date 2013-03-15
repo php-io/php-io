@@ -20,8 +20,19 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io;
+namespace Gplanchat\Io\Net\Protocol\Http\Upgrade;
 
-interface Exception
+use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\Protocol\Http\Response;
+use Gplanchat\Io\Net\Protocol\Http\Request;
+
+interface ProtocolUpgradeAwareInterface
 {
+    /**
+     * @param ClientInterface $client
+     * @param Request $request
+     * @param Response $response
+     * @return ProtocolUpgradeAwareInterface
+     */
+    public function upgrade(ClientInterface $client, Request $request, Response $response);
 }

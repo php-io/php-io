@@ -54,14 +54,14 @@ class DefaultRequestHandler
         $this->setLogger($this->getServiceManager()->get('Logger'));
     }
 
-    public function setCallbackHanlder(CallbackHandler $callbackHanlder)
+    public function setCallbackHandler(CallbackHandler $callbackHanlder)
     {
         $this->callbackHanlder = $callbackHanlder;
 
         return $this;
     }
 
-    public function getCallbackHanlder()
+    public function getCallbackHandler()
     {
         return $this->callbackHanlder;
     }
@@ -88,11 +88,46 @@ class DefaultRequestHandler
             return $this;
         }
 
+        if (($request = $this->initRequest($client, $buffer, $length)) === null) {
+            return $this;
+        }
+
+        if (($response = $this->initResponse($client)) === null) {
+            return $this;
+        }
+
+        if ($this->setupUpgrades($client, $request, $response)) {
+            return $this;
+        }
+
+        $response->on(['ready'], function(Event $event) use($client, $request) {
+            $response = $event->getData('eventEmitter');
+
+            $response->send($client);
+        });
+
+        // FIXME: what if the request was chunked?
+        // FIXME: what if the request does not close after response?
+        $this->emit(new Event('request'), [$client, $request, $response]);
+
+        return $this;
+    }
+
+    /**
+     * @param ClientInterface $client
+     * @param string $buffer
+     * @param int $length
+     * @return Request
+     */
+    public function initRequest(ClientInterface $client, $buffer, $length)
+    {
         /** @var ServiceManagerInterface $serviceManager */
         $serviceManager = $this->getServiceManager();
         try {
             /** @var Request $request */
-            $request = $serviceManager->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length]);
+            $request = $this->getServiceManager()
+                ->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length])
+            ;
         } catch (Exception\UnexpectedValueException $e) {
             $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
@@ -103,7 +138,7 @@ class DefaultRequestHandler
                 ->send($client)
             ;
 
-            return $this;
+            return null;
         } catch (Exception\BadRequestException $e) {
             $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
@@ -114,7 +149,7 @@ class DefaultRequestHandler
                 ->send($client)
             ;
 
-            return $this;
+            return null;
         } catch (\Exception $e) {
             $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
@@ -125,12 +160,21 @@ class DefaultRequestHandler
                 ->send($client)
             ;
 
-            return $this;
+            return null;
         }
 
+        return $request;
+    }
+
+    /**
+     * @param ClientInterface $client
+     * @return Response|null
+     */
+    public function initResponse(ClientInterface $client)
+    {
         try {
-            /** @var response $response */
-            $response = $serviceManager->get('Response');
+            /** @var Response $response */
+            $response = $this->getServiceManager()->get('Response');
         } catch (\Exception $e) {
             $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
 
@@ -141,38 +185,50 @@ class DefaultRequestHandler
                 ->send($client)
             ;
 
-            return $this;
+            return null;
         }
 
-        $response->on(['ready'], function(Event $event) use($client, $request) {
-            $response = $event->getData('eventEmitter');
+        return $response;
+    }
 
-            $response->send($client);
-        });
-
-        if (($upgrade = $request->getHeader('UPGRADE')) !== null) {
-            /** @var ProtocolUpgrader $protocolUpgrader */
-            $protocolUpgrader = $this->get('ProtocolUpgrader');
-
-            $upgrade = strtolower($upgrade);
-            if (!$protocolUpgrader->upgrade($upgrade, $this->getCallbackHanlder())) {
-                $this->getLogger()->log(LogLevel::INFO, sprintf('Protocol upgrade "%s" not supported.', $upgrade));
-
-                (new Response())
-                    ->setReturnCode(505, 'HTTP Version Not Supported')
-                    ->setBody('Expectation Failed')
-                    ->setHeader('Connection', 'close')
-                    ->send($client)
-                ;
-            }
-
-            return $this;
+    /**
+     * @param ClientInterface $client
+     * @param Request $request
+     * @param Response $response
+     * @return bool
+     */
+    public function setupUpgrades(ClientInterface $client, Request $request, Response $response)
+    {
+        if (($upgrade = $request->getHeader('UPGRADE')) === null) {
+            return false;
         }
 
-        // FIXME: what if the request was chunked?
-        // FIXME: what if the request does not close after response?
-        $this->emit(new Event('request'), [$client, $request, $response]);
+        /** @var ProtocolUpgrader $protocolUpgrader */
+        $protocolUpgrader = $this->getServiceManager()->get('ProtocolUpgrader');
 
-        return $this;
+        $upgrade = strtolower($upgrade);
+        try {
+            $protocolUpgrader->upgrade($upgrade, $this->getCallbackHandler(), $client, $request, $response);
+        } catch (Exception\UnsupportedUpgradeException $e) {
+            $this->getLogger()->log(LogLevel::INFO, $e->getMessage());
+
+            $response
+                ->setReturnCode(505, 'HTTP Version Not Supported')
+                ->setBody('Expectation Failed')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+        } catch (Exception\BadRequestException $e) {
+            $this->getLogger()->log(LogLevel::INFO, $e->getMessage());
+
+            $response
+                ->setReturnCode(400, 'Bad Request')
+                ->setBody('Bad Request')
+                ->setHeader('Connection', 'close')
+                ->send($client)
+            ;
+        }
+
+        return true;
     }
 }

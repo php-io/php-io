@@ -44,10 +44,10 @@ interface RequestHandlerInterface
      * @param CallbackHandler $callbackHanlder
      * @return RequestHandlerInterface
      */
-    public function setCallbackHanlder(CallbackHandler $callbackHanlder);
+    public function setCallbackHandler(CallbackHandler $callbackHanlder);
 
     /**
      * @return CallbackHandler
      */
-    public function getCallbackHanlder();
+    public function getCallbackHandler();
 }

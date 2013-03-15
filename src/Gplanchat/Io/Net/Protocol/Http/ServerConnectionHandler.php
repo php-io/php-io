@@ -70,7 +70,7 @@ class ServerConnectionHandler
         ;
         $callbackHandler = $client->on(['data'], $requestHandler);
 
-        $requestHandler->setCallbackHanlder($callbackHandler);
+        $requestHandler->setCallbackHandler($callbackHandler);
         $requestHandler->on(['request'], $this->callback);
 
         return $requestHandler;

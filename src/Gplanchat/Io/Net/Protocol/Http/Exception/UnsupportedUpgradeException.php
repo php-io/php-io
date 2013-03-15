@@ -20,8 +20,11 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io;
+namespace Gplanchat\Io\Net\Protocol\Http\Exception;
 
-interface Exception
+class UnsupportedUpgradeException
+    extends \InvalidArgumentException
+    implements Exception
 {
+
 }
