@@ -23,14 +23,15 @@ namespace Gplanchat\Io\Net;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
+use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 
 interface ClientInterface
     extends EventEmitterInterface
 {
     /**
      * @param LoopInterface $loop
-     * @param SocketInterface $socket
-     * @param null $callback
+     * @param SocketInterface|null $socket
+     * @param callable|null $callback
      */
     public function __construct(LoopInterface $loop, SocketInterface $socket = null, callable $callback = null);
 

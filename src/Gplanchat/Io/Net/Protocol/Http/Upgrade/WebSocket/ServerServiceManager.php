@@ -20,7 +20,7 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol\Http;
+namespace Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 
 use Gplanchat\ServiceManager\ServiceManager;
 use Gplanchat\ServiceManager\Configurator;
@@ -40,16 +40,13 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'RequestHandler' => __NAMESPACE__ . '\\DefaultRequestHandler'
+                    'RequestHandler' => __NAMESPACE__ . '\\RequestHandler'
                 ],
-                'singletons' => [
-                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler'
-                    ],
+                'singletons' => [],
                 'alias'      => [],
                 'factories'  => [
                     'Request'  => new RequestFactory(),
-                    'Response' => new ResponseFactory(),
-                    'ProtocolUpgrader' => new ProtocolUpgraderFactory()
+                    'Response' => new ResponseFactory()
                     ]
                 ];
         }

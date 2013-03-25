@@ -20,26 +20,14 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol\Http;
+namespace Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 
-use Gplanchat\Io\Net\Tcp;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\Configurator;
 
-/**
- * Class Server
- * @package Gplanchat\Io\Net\Protocol\Http
- *
- * @method
- */
-class Server
-    extends Tcp\Server
+class ResponseFactory
 {
-    public function listen($timeout, callable $callback)
+    public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {
-        /** @var ServerConnectionHandler $connectionHandler */
-        $connectionHandler = $this->getServiceManager()->get('ServerConnectionHandler', [$this->getServiceManager(), $callback]);
-
-        return parent::listen($timeout, $connectionHandler);
+        return (new Response());
     }
 }

@@ -35,6 +35,11 @@ use Gplanchat\Log\LoggerAwareInterface;
 use Gplanchat\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
 
+/**
+ * Class DefaultRequestHandler
+ * @package Gplanchat\Io\Net\Protocol\Http
+ * @mathod getProtocolUpgrader()
+ */
 class DefaultRequestHandler
     implements ServiceManagerAwareInterface, RequestHandlerInterface, LoggerAwareInterface
 {
@@ -76,7 +81,7 @@ class DefaultRequestHandler
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError)
     {
         if ($isError) {
-            $this->getLogger()->log(LogLevel::ERROR, sprintf('%s encountered an error.', __METHOD__));
+            $this->getLogger()->error(sprintf('%s encountered an error.', __METHOD__));
 
             (new Response())
                 ->setReturnCode(500, 'Internal Server Error')
@@ -129,7 +134,7 @@ class DefaultRequestHandler
                 ->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length])
             ;
         } catch (Exception\UnexpectedValueException $e) {
-            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->error($e->getMessage());
 
             (new Response())
                 ->setReturnCode(400, 'Bad Request')
@@ -140,7 +145,7 @@ class DefaultRequestHandler
 
             return null;
         } catch (Exception\BadRequestException $e) {
-            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->error($e->getMessage());
 
             (new Response())
                 ->setReturnCode(500, 'Internal Server Error')
@@ -151,7 +156,7 @@ class DefaultRequestHandler
 
             return null;
         } catch (\Exception $e) {
-            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->error($e->getMessage());
 
             (new Response())
                 ->setReturnCode(417, 'Expectation Failed')
@@ -176,7 +181,7 @@ class DefaultRequestHandler
             /** @var Response $response */
             $response = $this->getServiceManager()->get('Response');
         } catch (\Exception $e) {
-            $this->getLogger()->log(LogLevel::ERROR, $e->getMessage());
+            $this->getLogger()->error($e->getMessage());
 
             (new Response())
                 ->setReturnCode(417, 'Expectation Failed')
@@ -203,14 +208,17 @@ class DefaultRequestHandler
             return false;
         }
 
+        $sm = $this->getServiceManager();
         /** @var ProtocolUpgrader $protocolUpgrader */
-        $protocolUpgrader = $this->getServiceManager()->get('ProtocolUpgrader');
+        if (($protocolUpgrader = $sm->get('ProtocolUpgrader', [$sm], true)) === null) {
+            return false;
+        }
 
         $upgrade = strtolower($upgrade);
         try {
             $protocolUpgrader->upgrade($upgrade, $this->getCallbackHandler(), $client, $request, $response);
         } catch (Exception\UnsupportedUpgradeException $e) {
-            $this->getLogger()->log(LogLevel::INFO, $e->getMessage());
+            $this->getLogger()->info($e->getMessage());
 
             $response
                 ->setReturnCode(505, 'HTTP Version Not Supported')
@@ -219,7 +227,7 @@ class DefaultRequestHandler
                 ->send($client)
             ;
         } catch (Exception\BadRequestException $e) {
-            $this->getLogger()->log(LogLevel::INFO, $e->getMessage());
+            $this->getLogger()->info($e->getMessage());
 
             $response
                 ->setReturnCode(400, 'Bad Request')
@@ -228,6 +236,8 @@ class DefaultRequestHandler
                 ->send($client)
             ;
         }
+
+        $this->getLogger()->debug('Upgrades set up.');
 
         return true;
     }

@@ -22,24 +22,38 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
-use Gplanchat\Io\Net\Tcp;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\Configurator;
 
-/**
- * Class Server
- * @package Gplanchat\Io\Net\Protocol\Http
- *
- * @method
- */
-class Server
-    extends Tcp\Server
+class ProtocolUpgraderFactory
 {
-    public function listen($timeout, callable $callback)
-    {
-        /** @var ServerConnectionHandler $connectionHandler */
-        $connectionHandler = $this->getServiceManager()->get('ServerConnectionHandler', [$this->getServiceManager(), $callback]);
+    private $protocolUpgrader = null;
 
-        return parent::listen($timeout, $connectionHandler);
+    public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
+    {
+        if (($protocolUpgrader = $this->getProtocolUpgrader()) === null) {
+            $protocolUpgrader = new ProtocolUpgrader($serviceManager);
+            $this->setProtocolUpgrader($protocolUpgrader);
+        }
+
+        return $protocolUpgrader;
+    }
+
+    /**
+     * @param ProtocolUpgraderInterface $protocolUpgrader
+     * @return ProtocolUpgraderFactory
+     */
+    public function setProtocolUpgrader(ProtocolUpgraderInterface $protocolUpgrader)
+    {
+        $this->protocolUpgrader = $protocolUpgrader;
+
+        return $this;
+    }
+
+    /**
+     * @return ProtocolUpgraderInterface
+     */
+    public function getProtocolUpgrader()
+    {
+        return $this->protocolUpgrader;
     }
 }

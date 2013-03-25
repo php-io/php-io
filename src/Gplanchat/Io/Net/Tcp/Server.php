@@ -27,16 +27,20 @@ use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
+use Gplanchat\PluginManager\PluginAwareInterface;
+use Gplanchat\PluginManager\PluginAwareManagerTrait;
+use Gplanchat\PluginManager\PluginAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use RuntimeException;
 
 class Server
-    implements ServerInterface, ServiceManagerAwareInterface
+    implements ServerInterface, ServiceManagerAwareInterface, PluginAwareInterface
 {
     use EventEmitterTrait;
     use ServiceManagerAwareTrait;
+    use PluginAwareTrait;
 
     private $loop = null;
     private $connection = null;

@@ -28,35 +28,21 @@ use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\ServiceManager\Configurator;
 use Gplanchat\ServiceManager\Exception as ServiceManagerException;
-use Gplanchat\ServiceManager\ServiceManager;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\ServiceManager\ServiceManagerTrait;
 
-class ProtocolUpgrader
-    extends ServiceManager
-    implements ProtocolUpgraderInterface
+interface ProtocolUpgraderInterface
+    extends ServiceManagerInterface, ServiceManagerAwareInterface
 {
-    use ServiceManagerAwareTrait;
-
     /**
      * @param ServiceManagerInterface $serverServiceManager
      * @param array $config
      * @param Configurator $configurator
      * @throws ServiceManagerException
      */
-    public function __construct(ServiceManagerInterface $serverServiceManager, array $config = null, Configurator $configurator = null)
-    {
-        if ($config !== null) {
-            if ($configurator !== null) {
-                $configurator = new Configurator();
-            }
-
-            $configurator($this, $config);
-        }
-
-        $this->setServiceManager($serverServiceManager);
-    }
+    public function __construct(ServiceManagerInterface $serverServiceManager, array $config = null, Configurator $configurator = null);
 
     /**
      * @param string $name
@@ -65,22 +51,6 @@ class ProtocolUpgrader
      * @param Request $request
      * @param Response $response
      * @return RequestHandlerInterface
-     * @throws Exception\UnsupportedUpgradeException
      */
-    public function upgrade($name, CallbackHandler $callbackHanlder, ClientInterface $client, Request $request, Response $response)
-    {
-        try {
-            $requestHandler = $this->get($name);
-        } catch (ServiceManagerException $e) {
-            throw new Exception\UnsupportedUpgradeException(sprintf('Protocol upgrade "%s" not supported.', $name, $e));
-        }
-        if (!$requestHandler instanceof ProtocolUpgradeAwareInterface) {
-            throw new Exception\UnsupportedUpgradeException(sprintf('Protocol upgrade "%s" not supported.', $name));
-        }
-
-        $callbackHanlder->setCallback($requestHandler);
-        $requestHandler->upgrade($client, $request, $response);
-
-        return $requestHandler;
-    }
+    public function upgrade($name, CallbackHandler $callbackHanlder, ClientInterface $client, Request $request, Response $response);
 }

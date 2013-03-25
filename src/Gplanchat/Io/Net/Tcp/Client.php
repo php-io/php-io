@@ -28,11 +28,14 @@ use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
+use Gplanchat\PluginManager\PluginAwareInterface;
+use Gplanchat\PluginManager\PluginAwareTrait;
 
 class Client
-    implements ClientInterface
+    implements ClientInterface, PluginAwareInterface
 {
     use EventEmitterTrait;
+    use PluginAwareTrait;
 
     private $loop = null;
     private $server = null;

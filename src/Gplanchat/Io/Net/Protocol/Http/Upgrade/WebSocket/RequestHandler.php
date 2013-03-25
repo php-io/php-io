@@ -6,8 +6,7 @@ use Gplanchat\EventManager\CallbackHandler;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\Io\Net\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
-use Gplanchat\Io\Net\Protocol\Http\Request;
-use Gplanchat\Io\Net\Protocol\Http\Response;
+use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\EventManager\Event;
@@ -15,6 +14,7 @@ use Gplanchat\Log\LoggerAwareInterface;
 use Gplanchat\Log\LoggerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 use RuntimeException;
 use SplQueue as MessageQueue;
 
@@ -34,6 +34,13 @@ class RequestHandler
 
     private $buffer = '';
 
+    public function __construct(ServiceManagerInterface $serviceManager)
+    {
+        $this->setServiceManager($serviceManager);
+
+//        $this->setLogger($this->getServiceManager()->get('Logger'));
+    }
+
     /**
      * @param ClientInterface $client
      * @param string $input
@@ -46,17 +53,26 @@ class RequestHandler
     {
         $this->buffer .= $input;
 
-        $messagesQueue = new MessageQueue();
+        $request = $this->getServiceManager()->get('Request');
+        $response = $this->getServiceManager()->get('Response');
+
+        $response->on(['ready'], function(Event $event) use($client, $request) {
+            /** @var Response $response */
+            $response = $event->getData('eventEmitter');
+
+            $response->send($client);
+        });
+
         while (strlen($this->buffer) > 2) {
             $offset = 0;
             $tmp = ord(substr($this->buffer, $offset++, 1));
-            $fin = (bool) (($tmp & 0x80) >> 7);
-            $rsv = (($tmp & 0x70) >> 4);
-            $opcode = ($tmp & 0x0F);
+//            $fin = (bool) (($tmp & 0x80) >> 7);
+//            $rsv = (($tmp & 0x70) >> 4);
+//            $opcode = ($tmp & 0x0F);
 
-            if ($rsv !== 0) {
-                throw new Exception\BadRequestException('RSV bits defined while unsupported by any extension');
-            }
+//            if ($rsv !== 0) {
+//                throw new Exception\BadRequestException('RSV bits defined while unsupported by any extension');
+//            }
 
             /*
              * TODO: $opcode possible values:
@@ -100,7 +116,7 @@ class RequestHandler
                     (ord(substr($this->buffer, $offset++, 1)) & 0xFF)
                 );
 
-                $this->getLogger()->warning('Client data should be masked.');
+//                $this->getLogger()->warning('Client data should be masked.');
             }
 
             if (strlen($this->buffer) < $offset + $length) {
@@ -118,10 +134,10 @@ class RequestHandler
             } else {
                 $payload = $rawPayload;
             }
-            $messagesQueue->enqueue($payload);
+            $request->enqueue($payload);
         }
 
-        $this->emit(new Event('data'), [$client, $messagesQueue]);
+        $this->emit(new Event('data'), [$client, $request, $response]);
 
         return $this;
     }
@@ -142,12 +158,12 @@ class RequestHandler
      * Process WebSocket handshake
      *
      * @param ClientInterface $client
-     * @param Request $request
-     * @param Response $response
+     * @param Http\Request $request
+     * @param Http\Response $response
      * @return ProtocolUpgradeAwareInterface
      * @throws \Gplanchat\Io\Net\Protocol\Http\Exception\BadRequestException
      */
-    public function upgrade(ClientInterface $client, Request $request, Response $response)
+    public function upgrade(ClientInterface $client, Http\Request $request, Http\Response $response)
     {
         if (($connectionHeader = $request->getHeader('CONNECTION')) === null) {
             throw new Exception\BadRequestException('Header Connection required.');
@@ -163,7 +179,7 @@ class RequestHandler
             throw new Exception\BadRequestException('Header Connection required or invalid value provided.');
         }
 
-        if (($securityKey = $request->getHeader('SEC_WEBSOCKET_KEY')) === null || !preg_match('#[A-Za-z0-9+/]{23}==#', $securityKey)) {
+        if (($securityKey = $request->getHeader('SEC_WEBSOCKET_KEY')) === null || !preg_match('#[A-Za-z0-9+/]{22}==#', $securityKey, $m)) {
             throw new Exception\BadRequestException('Header Sec-WebSocket-Key required or invalid value provided.');
         }
 
@@ -194,8 +210,7 @@ class RequestHandler
         hash_update($hashHandler, '258EAFA5-E914-47DA-95CA-C5AB0DC85B11');
         $hash = base64_encode(hash_final($hashHandler, true));
 
-        var_dump('Switching to WebSocket');
-        $this->getLogger()->info('Switching to WebSocket');
+//        $this->getLogger()->info('Switching to WebSocket');
 
         $response
             ->setReturnCode(101, 'Switching Protocols')
@@ -218,53 +233,4 @@ class RequestHandler
 
         return $int;
     }
-
-//    protected function _debugFrame($buffer)
-//    {
-//        /*
-//         * packet debug
-//         * {{{
-//         */
-//        for ($i = 0; $i < strlen($buffer); $i++) {
-//            printf("%02X", ord(substr($buffer, $i, 1)));
-//            if ($i % 16 == 15) {
-//                echo PHP_EOL;
-//            } else if ($i % 2 == 1) {
-//                echo ' ';
-//            }
-//        }
-//        echo PHP_EOL;
-//        /*
-//         * }}}
-//         */
-//    }
-
-//    public function write(ClientInterface $client, MessageQueue $messageQueue, callable $callback)
-//    {
-//        $packet = '';
-//        $count = $messageQueue->count();
-//        foreach ($messageQueue as $message) {
-//            $messageLength = strlen($message);
-//
-//            if ($messageLength > 0xFFFF) {
-//                $packet .= "\x81\x7F";
-//                for ($i = 0; $i < 8; $i++) {
-//                    $packet .= chr(($messageLength & 0xFF));
-//                    $messageLength >>= 8;
-//                }
-//            } else if ($messageLength > 126) {
-//                $packet .= "\x81\x7E";
-//                $packet .= chr(($messageLength & 0x00FF));
-//                $packet .= chr(($messageLength & 0xFF00) >> 8);
-//            } else {
-//                $packet .= "\x81" . chr($messageLength);
-//            }
-//
-//            $packet .= $message;
-//        }
-//
-//        $client->write($packet, $callback)
-//
-//        return $this;
-//    }
 }
