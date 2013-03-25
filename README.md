@@ -9,28 +9,39 @@ A simple HTTP server could be implemented this way :
 
 ```php
 <?php
-use Gplanchat\Io\Loop\Loop;
-use Gplanchat\EventManager\Event;
-use Gplanchat\Io\Net\Ip4;
-use Gplanchat\Io\Tcp\Server;
-use Gplanchat\Io\Net\ClientInterface;
+
+use Gplanchat\Io\Application\Application;
 use Gplanchat\Io\Net\Protocol\Http;
+use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
 
-$loop = Loop::getDefaultInstance();
-$loop->init();
-$socket = new Ip4('0.0.0.0', 8080);
+(new Application())
+    ->init(function(Event $event, Application $application){
+        $loop = $application->getLoop();
+        $application->setCurrentLoop($loop);
+        $loop->init();
+    })
+    ->init(function(Event $event, Application $application) {
+        $httpServiceManager = new Http\ServerServiceManager();
+        $application->getServiceManager()->attachChild($httpServiceManager, 100);
 
-$serviceManager = new Http\ServerServiceManager();
-$tcp = new Http\Server($serviceManager, $loop, $socket);
+        $socket = $application->getTcpIp4('0.0.0.0', 8081);
+        $tcpServer = $application->getTcpServer($application->getServiceManager(), $application->getCurrentLoop(), $socket);
 
-$tcp->listen(200, function(Event $event, ClientInterface $client, Http\Request $request, Http\Response $response) {
-    $response
-        ->setBody('Hello World!')
-        ->setReturnCode(200, 'OK')
-        ->emit(new Event('ready'))
-    ;
-});
-$loop->run();
+        $httpServer = $httpServiceManager->getHttpServer($application->getServiceManager(), $tcpServer);
+
+        $httpServer->listen(200, function(Event $event, ClientInterface $client, Http\Request $request, Http\Response $response) {
+            $response
+                ->setHeader('Content-Type', 'text/html')
+                ->setBody('Hello World!')
+                ->setReturnCode(200, 'OK')
+                ->emit(new Event('ready'))
+            ;
+        });
+    })
+    ->bootstrap()
+    ->run()
+;
 ```
 
 ## Documentation
