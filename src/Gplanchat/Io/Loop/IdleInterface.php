@@ -19,39 +19,23 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+namespace Gplanchat\Io\Loop;
 
-namespace Gplanchat\Io\Net;
-
-use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Io\Net\ServerInterface;
-
-trait SocketTrait
+interface IdleInterface
 {
-    private $socket = null;
-    private $port = 0;
+    /**
+     * @param LoopInterface $loop
+     */
+    public function __construct(LoopInterface $loop);
 
     /**
-     * @return resource
+     * @param callable $callback
+     * @return IdleInterface
      */
-    public function getResource()
-    {
-        return $this->socket;
-    }
+    public function start(callable $callback);
 
     /**
-     * @return string
+     * @return IdleInterface
      */
-    public function __toString()
-    {
-        return sprintf('%s:%d', $this->getAddress(), $this->getPort());
-    }
-
-    /**
-     * @return int
-     */
-    public function getPort()
-    {
-        return $this->port;
-    }
+    public function stop();
 }

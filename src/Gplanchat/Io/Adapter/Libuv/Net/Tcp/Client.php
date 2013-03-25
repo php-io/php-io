@@ -20,20 +20,25 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Tcp;
+namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
+use Gplanchat\Io\Adapter\Libuv\Loop\Loop;
+use Gplanchat\Io\Exception\InvalidDependecyException;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Io\Net\ServerInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\PluginManager\PluginAwareInterface;
 use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 class Client
     implements ClientInterface, PluginAwareInterface
 {
+    use ServiceManagerAwareTrait;
     use EventEmitterTrait;
     use PluginAwareTrait;
 
@@ -42,12 +47,17 @@ class Client
     private $connection = null;
 
     /**
+     * @param ServiceManagerInterface $serviceManager
      * @param LoopInterface $loop
      * @param SocketInterface $socket
-     * @param null $callback
+     * @param callable $callback
      */
-    public function __construct(LoopInterface $loop, SocketInterface $socket = null, callable $callback = null)
+    public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null, callable $callback = null)
     {
+        if (!$loop instanceof Loop) {
+            throw new InvalidDependecyException('Loop handle should be instance of Libuv loop.');
+        }
+
         $this->loop = $loop;
         $this->connection = \uv_tcp_init($this->loop->getResource());
 
@@ -57,7 +67,7 @@ class Client
     }
 
     /**
-     * @param Server $server
+     * @param ServerInterface $server
      * @return Client
      */
     public function accept(ServerInterface $server)
@@ -75,7 +85,7 @@ class Client
      */
     public function connect(SocketInterface $socket, callable $callback)
     {
-        $socket->connect($socket, $callback);
+        $socket->connect($this, $callback);
 
         return $this;
     }
@@ -141,7 +151,7 @@ class Client
     }
 
     /**
-     * @return Server|null
+     * @return ServerInterface|null
      */
     public function getServer()
     {

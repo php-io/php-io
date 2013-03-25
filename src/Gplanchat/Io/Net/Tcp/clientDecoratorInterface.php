@@ -20,18 +20,22 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Net\SocketInterface;
 
-interface ConnectionHandlerInterface
+interface ClientDecoratorInterface
+    extends ClientInterface
 {
     /**
-     * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
+     * @return ClientInterface
      */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
+    public function getDecoratedClient();
+
+    /**
+     * @param ClientInterface $decorated
+     * @return ClientDecoratorInterface
+     */
+    public function setDecoratedClient(ClientInterface $decorated);
 }

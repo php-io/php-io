@@ -19,41 +19,31 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
-namespace Gplanchat\Io\Loop;
 
-class Idle
+namespace Gplanchat\Io\Adapter\Libuv\Net;
+
+use Gplanchat\Io\Net\SocketInterface;
+
+abstract class AbstractIp4
+    implements SocketInterface
 {
-    /**
-     * @var resource
-     */
-    private $idler = null;
+    use SocketTrait;
 
     /**
-     * @param Loop $loop
+     * @param string $address
+     * @param int $port
      */
-    public function __construct(Loop $loop)
+    public function __construct($address, $port)
     {
-        $this->idler = \uv_idle_init($loop->getResource());
+        $this->socket = \uv_ip4_addr($address, $port);
+        $this->port = $port;
     }
 
     /**
-     * @param callable $callback
-     * @return Timer
+     * @return string
      */
-    public function start(callable $callback)
+    public function getAddress()
     {
-        \uv_idle_start($this->idler, $callback);
-
-        return $this;
-    }
-
-    /**
-     * @return Timer
-     */
-    public function stop()
-    {
-        \uv_timer_stop($this->idler);
-
-        return $this;
+        return \uv_ip4_name($this->socket);
     }
 }

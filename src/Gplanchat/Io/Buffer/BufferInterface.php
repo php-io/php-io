@@ -19,41 +19,14 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+namespace Gplanchat\Io\Buffer;
 
-namespace Gplanchat\Io\Net\Tcp;
-
-use Gplanchat\Io\Net\AbstractIp6;
-use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Io\Net\ServerInterface;
-
-class Ip6
-    extends AbstractIp6
+interface BufferInterface
+    extends \Serializable
 {
-    /**
-     * @param ClientInterface $client
-     * @param callable $callback
-     * @return SocketInterface
-     */
-    public function connect(ClientInterface $client, callable $callback)
-    {
-        $internalCallback = function($resource) use($callback, $client) {
-            $client->on(['data'], $callback);
-        };
+    public function __toString();
 
-        \uv_tcp_connect6($client->getResource(), $internalCallback);
+    public function get($length);
 
-        return $this;
-    }
-
-    /**
-     * @param ServerInterface $server
-     * @return SocketInterface
-     */
-    public function bind(ServerInterface $server)
-    {
-        \uv_tcp_bind6($server->getResource(), $this->socket);
-
-        return $this;
-    }
+    public function append($raw, $length = null);
 }

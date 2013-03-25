@@ -20,20 +20,19 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Tcp;
+namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
+use Gplanchat\Io\Adapter\Libuv\Loop\Loop;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\ServerInterface;
+use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareManagerTrait;
 use Gplanchat\PluginManager\PluginAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use RuntimeException;
 
 class Server
     implements ServerInterface, ServiceManagerAwareInterface, PluginAwareInterface
@@ -45,7 +44,7 @@ class Server
     private $loop = null;
     private $connection = null;
 
-    public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null)
+    public function __construct(ServiceManagerInterface $serviceManager, Loop $loop, SocketInterface $socket = null)
     {
         $this->loop = $loop;
         $this->connection = \uv_tcp_init($this->loop->getResource());
@@ -71,7 +70,7 @@ class Server
         $server = $this;
 
         \uv_listen($this->connection, $timeout, function() use($server) {
-            $client = new Client($this->loop);
+            $client = new Client($this->getServiceManager(), $this->getLoop());
             $client->accept($server);
 
             $server->emit(new Event('connection'), [$client, $server]);

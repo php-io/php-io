@@ -4,7 +4,7 @@ namespace Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 
 use Gplanchat\EventManager\CallbackHandler;
 use Gplanchat\EventManager\EventEmitterTrait;
-use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
 use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
@@ -16,7 +16,6 @@ use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use RuntimeException;
-use SplQueue as MessageQueue;
 
 class RequestHandler
     implements RequestHandlerInterface, ProtocolUpgradeAwareInterface, ServiceManagerAwareInterface, LoggerAwareInterface
@@ -24,6 +23,8 @@ class RequestHandler
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;
     use LoggerAwareTrait;
+
+    const SECURITY_GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
     private static $supportedVersions = [6, 8, 13];
 
@@ -88,7 +89,7 @@ class RequestHandler
              */
 
             $tmp = ord(substr($this->buffer, $offset++, 1));
-            $maskBit = (bool) (($tmp & 0x80) >> 7);
+            $maskBit = (bool) ($tmp & 0x80);
             $lengthMarker = $tmp & 0x7F;
             if ($lengthMarker == 126) {
                 $length = $this->_parseInt($offset, 2);
@@ -182,6 +183,7 @@ class RequestHandler
         if (($securityKey = $request->getHeader('SEC_WEBSOCKET_KEY')) === null || !preg_match('#[A-Za-z0-9+/]{22}==#', $securityKey, $m)) {
             throw new Exception\BadRequestException('Header Sec-WebSocket-Key required or invalid value provided.');
         }
+//        $client->getDataStore('WebSocket')->set('securityKey', $securityKey);
 
         if (($protocolVersion = $request->getHeader('SEC_WEBSOCKET_VERSION')) === null || !in_array($protocolVersion, static::$supportedVersions)) {
             $response
@@ -193,8 +195,12 @@ class RequestHandler
             ;
             return $this;
         }
+//        $client->getDataStore('WebSocket')->set('protocolVersion', $protocolVersion);
+
         if (($protocol = $request->getHeader('SEC_WEBSOCKET_PROTOCOL')) !== null) {
             $protocolList = preg_split('#\s*,\s*#', strtolower($protocol), PREG_SPLIT_NO_EMPTY);
+
+//            $client->getDataStore('WebSocket')->set('protocols', $protocolList);
 
             $this->emit(new Event('registerProtocols'), [$protocolList]);
         }
@@ -202,12 +208,14 @@ class RequestHandler
         if (($extension = $request->getHeader('SEC_WEBSOCKET_EXTENSIONS')) !== null) {
             $extensionList = preg_split('#\s*,\s*#', strtolower($extension), PREG_SPLIT_NO_EMPTY);
 
+//            $client->getDataStore('WebSocket')->set('extensions', $extensionList);
+
             $this->emit(new Event('registerExtensions'), [$extensionList]);
         }
 
         $hashHandler = hash_init('sha1');
         hash_update($hashHandler, $securityKey);
-        hash_update($hashHandler, '258EAFA5-E914-47DA-95CA-C5AB0DC85B11');
+        hash_update($hashHandler, static::SECURITY_GUID);
         $hash = base64_encode(hash_final($hashHandler, true));
 
 //        $this->getLogger()->info('Switching to WebSocket');

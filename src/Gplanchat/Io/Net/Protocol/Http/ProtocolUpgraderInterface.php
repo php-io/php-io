@@ -23,7 +23,7 @@
 namespace Gplanchat\Io\Net\Protocol\Http;
 
 use Gplanchat\EventManager\CallbackHandler;
-use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\ServiceManager\Configurator;

@@ -19,7 +19,7 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
-namespace Gplanchat\Io\Loop;
+namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 use Gplanchat\Io\Loop\LoopInterface;
 
@@ -101,6 +101,8 @@ class Loop
     public function run()
     {
         \uv_run($this->loop);
+
+        var_dump($this->loop);
 
         return $this;
     }

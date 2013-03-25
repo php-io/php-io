@@ -20,18 +20,30 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Adapter\Libuv\Net;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Net\SocketInterface;
 
-interface ConnectionHandlerInterface
+abstract class AbstractIp6
+    implements SocketInterface
 {
+    use SocketTrait;
+
     /**
-     * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
+     * @param string $address
+     * @param int $port
      */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
+    public function __construct($address, $port)
+    {
+        $this->socket = \uv_ip6_addr($address, $port);
+        $this->port = $port;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return \uv_ip6_name($this->socket);
+    }
 }

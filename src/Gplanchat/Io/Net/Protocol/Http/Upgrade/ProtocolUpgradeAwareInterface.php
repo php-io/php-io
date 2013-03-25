@@ -22,7 +22,7 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http\Upgrade;
 
-use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Response;
 use Gplanchat\Io\Net\Protocol\Http\Request;
 

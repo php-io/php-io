@@ -20,16 +20,20 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Loop;
+namespace Gplanchat\Io\Adapter\Libuv\Loop;
+
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Loop\TimerInterface;
 
 class Timer
+    implements TimerInterface
 {
     private $timer = null;
 
     /**
-     * @param Loop $loop
+     * @param LoopInterface $loop
      */
-    public function __construct(Loop $loop)
+    public function __construct(LoopInterface $loop)
     {
         $this->timer = \uv_timer_init($loop->getResource());
     }

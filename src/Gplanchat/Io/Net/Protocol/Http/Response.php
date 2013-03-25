@@ -21,7 +21,7 @@
  */
 namespace Gplanchat\Io\Net\Protocol\Http;
 
-use Gplanchat\io\Net\ClientInterface;
+use Gplanchat\io\Net\Tcp\ClientInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 

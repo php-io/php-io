@@ -20,30 +20,22 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net;
+namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\Io\Net\SocketTrait;
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Net\SocketInterface;
 
-abstract class AbstractIp6
-    implements SocketInterface
+interface ServerDecoratorInterface
+    extends ServerInterface
 {
-    use SocketTrait;
+    /**
+     * @return ServerInterface
+     */
+    public function getDecoratedServer();
 
     /**
-     * @param string $address
-     * @param int $port
+     * @param ServerInterface $decorated
+     * @return ServerDecoratorInterface
      */
-    public function __construct($address, $port)
-    {
-        $this->socket = \uv_ip6_addr($address, $port);
-        $this->port = $port;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return \uv_ip6_name($this->socket);
-    }
+    public function setDecoratedServer(ServerInterface $decorated);
 }

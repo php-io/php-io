@@ -20,18 +20,14 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Net\Protocol\Http;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 
-interface ConnectionHandlerInterface
+class ResponseFactory
 {
-    /**
-     * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
-     */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
+    public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
+    {
+        return new Server($serviceManager);
+    }
 }

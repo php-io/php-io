@@ -19,21 +19,25 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
-namespace Gplanchat\Io\Net;
+namespace Gplanchat\Io\Net\Tcp;
 
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
+use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 interface ClientInterface
-    extends EventEmitterInterface
+    extends EventEmitterInterface, ServiceManagerAwareInterface
 {
     /**
+     * @param ServiceManagerInterface $serviceManager
      * @param LoopInterface $loop
      * @param SocketInterface|null $socket
      * @param callable|null $callback
      */
-    public function __construct(LoopInterface $loop, SocketInterface $socket = null, callable $callback = null);
+    public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null, callable $callback = null);
 
     /**
      * @param ServerInterface $server

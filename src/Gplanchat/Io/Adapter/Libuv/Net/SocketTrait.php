@@ -20,18 +20,39 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Adapter\Libuv\Net;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
-
-interface ConnectionHandlerInterface
+/**
+ * Class SocketTrait
+ * @package Gplanchat\Io\Adapter\Libuv\Net
+ * @method string getAddress()
+ */
+trait SocketTrait
 {
+    private $socket = null;
+    private $port = 0;
+
     /**
-     * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
+     * @return resource
      */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
+    public function getResource()
+    {
+        return $this->socket;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf('%s:%d', $this->getAddress(), $this->getPort());
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
 }

@@ -22,8 +22,8 @@
 
 namespace Gplanchat\Io\Net;
 
-use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Io\Net\ServerInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ServerInterface;
 
 interface SocketInterface
 {

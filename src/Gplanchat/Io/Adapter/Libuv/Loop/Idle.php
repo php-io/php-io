@@ -19,41 +19,45 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
-namespace Gplanchat\Io\Net;
-
+use Gplanchat\Io\Loop\IdleInterface;
 use Gplanchat\Io\Loop\LoopInterface;
-use Gplanchat\EventManager\EventEmitterInterface;
 
-interface ServerInterface
-    extends EventEmitterInterface
+class Idle
+    implements IdleInterface
 {
     /**
-     * @param SocketInterface $socket
-     * @return ServerInterface
+     * @var resource
      */
-    public function registerSocket(SocketInterface $socket);
-
-    /**
-     * @param int $timeout
-     * @param callable $callback
-     * @return ServerInterface
-     */
-    public function listen($timeout, callable $callback);
-
-    /**
-     * @return resource
-     */
-    public function getResource();
+    private $idler = null;
 
     /**
      * @param LoopInterface $loop
-     * @return ServerInterface
      */
-    public function setLoop(LoopInterface $loop);
+    public function __construct(LoopInterface $loop)
+    {
+        $this->idler = \uv_idle_init($loop->getResource());
+    }
 
     /**
-     * @return LoopInterface
+     * @param callable $callback
+     * @return Idle
      */
-    public function getLoop();
+    public function start(callable $callback)
+    {
+        \uv_idle_start($this->idler, $callback);
+
+        return $this;
+    }
+
+    /**
+     * @return Idle
+     */
+    public function stop()
+    {
+        \uv_timer_stop($this->idler);
+
+        return $this;
+    }
 }

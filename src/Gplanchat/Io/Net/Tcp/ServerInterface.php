@@ -19,22 +19,42 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
-namespace Gplanchat\Io\Loop;
 
-use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
-use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+namespace Gplanchat\Io\Net\Tcp;
 
-class ApplicationLoop
-    extends Loop
-    implements ServiceManagerAwareInterface
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\EventManager\EventEmitterInterface;
+use Gplanchat\Io\Net\SocketInterface;
+
+interface ServerInterface
+    extends EventEmitterInterface
 {
-    use ServiceManagerAwareTrait;
+    /**
+     * @param SocketInterface $socket
+     * @return ServerInterface
+     */
+    public function registerSocket(SocketInterface $socket);
 
-    public function __construct(ServiceManagerInterface $serviceManager)
-    {
-        if ($serviceManager !== null) {
-            $this->setServiceManager($serviceManager);
-        }
-    }
+    /**
+     * @param int $timeout
+     * @param callable $callback
+     * @return ServerInterface
+     */
+    public function listen($timeout, callable $callback);
+
+    /**
+     * @return resource
+     */
+    public function getResource();
+
+    /**
+     * @param LoopInterface $loop
+     * @return ServerInterface
+     */
+    public function setLoop(LoopInterface $loop);
+
+    /**
+     * @return LoopInterface
+     */
+    public function getLoop();
 }

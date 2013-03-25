@@ -20,18 +20,40 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
+use Gplanchat\Io\Adapter\Libuv\Net\AbstractIp6;
+use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
 
-interface ConnectionHandlerInterface
+class Ip6
+    extends AbstractIp6
 {
     /**
      * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
+     * @param callable $callback
+     * @return SocketInterface
      */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
+    public function connect(ClientInterface $client, callable $callback)
+    {
+        $internalCallback = function($resource) use($callback, $client) {
+            $client->on(['data'], $callback);
+        };
+
+        \uv_tcp_connect6($client->getResource(), $internalCallback);
+
+        return $this;
+    }
+
+    /**
+     * @param ServerInterface $server
+     * @return SocketInterface
+     */
+    public function bind(ServerInterface $server)
+    {
+        \uv_tcp_bind6($server->getResource(), $this->socket);
+
+        return $this;
+    }
 }

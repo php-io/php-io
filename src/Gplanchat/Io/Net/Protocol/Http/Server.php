@@ -22,9 +22,14 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Net\SocketInterface;
 use Gplanchat\Io\Net\Tcp;
+use Gplanchat\PluginManager\PluginAwareInterface;
+use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\Configurator;
 
 /**
  * Class Server
@@ -33,13 +38,61 @@ use Gplanchat\ServiceManager\Configurator;
  * @method
  */
 class Server
-    extends Tcp\Server
+    implements Tcp\ServerDecoratorInterface, ServiceManagerAwareInterface, PluginAwareInterface
 {
+    use Tcp\ServerDecoratorTrait;
+    use ServiceManagerAwareTrait;
+    use PluginAwareTrait;
+
+    public function __construct(ServiceManagerInterface $serviceManager, Tcp\ServerInterface $server)
+    {
+        $this->setDecoratedServer($server);
+        $this->setServiceManager($serviceManager);
+    }
+
     public function listen($timeout, callable $callback)
     {
         /** @var ServerConnectionHandler $connectionHandler */
         $connectionHandler = $this->getServiceManager()->get('ServerConnectionHandler', [$this->getServiceManager(), $callback]);
 
-        return parent::listen($timeout, $connectionHandler);
+        return $this->getDecoratedServer()->listen($timeout, $connectionHandler);
+    }
+
+    /**
+     * @param SocketInterface $socket
+     * @return Tcp\ServerInterface
+     */
+    public function registerSocket(SocketInterface $socket)
+    {
+        $this->getDecoratedServer()->registerSocket($socket);
+
+        return $this;
+    }
+
+    /**
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->getDecoratedServer()->getResource();
+    }
+
+    /**
+     * @param LoopInterface $loop
+     * @return Tcp\ServerInterface
+     */
+    public function setLoop(LoopInterface $loop)
+    {
+        $this->getDecoratedServer()->setLoop($loop);
+
+        return $this;
+    }
+
+    /**
+     * @return LoopInterface
+     */
+    public function getLoop()
+    {
+        return $this->getDecoratedServer()->getLoop();
     }
 }

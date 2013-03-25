@@ -29,7 +29,7 @@ use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\CallbackHandler;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
-use Gplanchat\Io\Net\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Psr\Log\LoggerInterface;
 use Gplanchat\Log\LoggerAwareInterface;
 use Gplanchat\Log\LoggerAwareTrait;

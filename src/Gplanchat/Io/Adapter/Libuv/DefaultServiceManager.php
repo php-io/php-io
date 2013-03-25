@@ -19,27 +19,26 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+namespace Gplanchat\Io\Adapter\Libuv;
 
-namespace Gplanchat\Io\Net\Protocol\Http;
-
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\ServiceManager\ServiceManager;
 use Gplanchat\ServiceManager\Configurator;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
+use Gplanchat\ServiceManager\ServiceManagerTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
- * Class ServerServiceManager
- * @package Gplanchat\Io\Net\Protocol\Http
- * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServer(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ServerInterface $server)
- * @method \Gplanchat\Io\Net\Protocol\Http\Client getHttpClient(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ClientInterface $client, callable $callback = null)
- * @method DefaultRequestHandler getRequestHandler(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager)
+ * Basic loop class. A loop is designed to run event-driven code, the loop runs
+ * until there are registered I/O loops.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Gplanchat\Io\Loop
  */
-class ServerServiceManager
-    extends ServiceManager
+class DefaultServiceManager
+    implements ServiceManagerInterface
 {
+    use ServiceManagerTrait;
+
     /**
      * @param array $config
      * @param Configurator $configurator
@@ -50,20 +49,26 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'HttpServer'     => __NAMESPACE__ . '\\Server',
-                    'HttpClient'     => __NAMESPACE__ . '\\Client',
-                    'RequestHandler' => __NAMESPACE__ . '\\DefaultRequestHandler'
+                    'Loop\\Idle'       => __NAMESPACE__ . '\\Loop\\Idle',
+                    'Loop\\Loop'       => __NAMESPACE__ . '\\Loop\\Loop',
+                    'Loop\\Timer'      => __NAMESPACE__ . '\\Loop\\Timer',
+                    'Net\\Tcp\\Client' => __NAMESPACE__ . '\\Net\\Tcp\\Client',
+                    'Net\\Tcp\\Ip4'    => __NAMESPACE__ . '\\Net\\Tcp\\Ip4',
+                    'Net\\Tcp\\Ip6'    => __NAMESPACE__ . '\\Net\\Tcp\\Ip6',
+                    'Net\\Tcp\\Server' => __NAMESPACE__ . '\\Net\\Tcp\\Server',
                 ],
-                'singletons' => [
-                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler'
-                    ],
-                'alias'      => [],
-                'factories'  => [
-                    'Request'  => new RequestFactory(),
-                    'Response' => new ResponseFactory(),
-                    'ProtocolUpgrader' => new ProtocolUpgraderFactory()
-                    ]
-                ];
+                'singletons' => [],
+                'aliases' => [
+                    'Idle'      => 'Loop\\Idle',
+                    'Loop'      => 'Loop\\Loop',
+                    'Timer'     => 'Loop\\Timer',
+                    'TcpClient' => 'Net\\Tcp\\Client',
+                    'TcpServer' => 'Net\\Tcp\\Server',
+                    'TcpIp4'    => 'Net\\Tcp\\Ip4',
+                    'TcpIp6'    => 'Net\\Tcp\\Ip6',
+                ],
+                'factories'  => []
+            ];
         }
 
         if ($configurator === null) {

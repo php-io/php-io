@@ -20,12 +20,12 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Tcp;
+namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
-use Gplanchat\Io\Net\AbstractIp4;
+use Gplanchat\Io\Adapter\Libuv\Net\AbstractIp4;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Io\Net\ClientInterface;
-use Gplanchat\Io\Net\ServerInterface;
+use Gplanchat\Io\Net\Tcp\ClientInterface;
+use Gplanchat\Io\Net\Tcp\ServerInterface;
 
 class Ip4
     extends AbstractIp4

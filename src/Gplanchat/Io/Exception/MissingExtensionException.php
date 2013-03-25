@@ -20,18 +20,12 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Exception;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Exception;
 
-interface ConnectionHandlerInterface
+class MissingExtensionException
+    extends \RuntimeException
+    implements Exception
 {
-    /**
-     * @param ClientInterface $client
-     * @param ServerInterface $server
-     * @return callable
-     */
-    public function __invoke(Event $event, ClientInterface $client, ServerInterface $server);
 }

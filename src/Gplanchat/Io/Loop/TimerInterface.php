@@ -20,34 +20,51 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol;
+namespace Gplanchat\Io\Loop;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\CallbackHandler;
-use Gplanchat\EventManager\EventEmitterInterface;
-
-interface RequestHandlerInterface
-    extends EventEmitterInterface
+interface TimerInterface
 {
     /**
-     * @param ClientInterface $client
-     * @param string $buffer
-     * @param int $length
-     * @param bool $isError
-     * @throws \Exception
-     * @return RequestHandlerInterface
+     * @param LoopInterface $loop
      */
-    public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError);
+    public function __construct(LoopInterface $loop);
 
     /**
-     * @param CallbackHandler $callbackHanlder
-     * @return RequestHandlerInterface
+     * @param int $timeout
+     * @param callable $callback
+     * @return TimerInterface
      */
-    public function setCallbackHandler(CallbackHandler $callbackHanlder);
+    public function timeout($timeout, callable $callback);
 
     /**
-     * @return CallbackHandler
+     * @param int $timeout
+     * @param callable $callback
+     * @return TimerInterface
      */
-    public function getCallbackHandler();
+    public function interval($timeout, callable $callback);
+
+    /**
+     * @param int $startTimeout
+     * @param int $repeatTimeout
+     * @param callable $callback
+     * @return TimerInterface
+     */
+    public function repeater($startTimeout, $repeatTimeout, callable $callback);
+
+    /**
+     * @return TimerInterface
+     */
+    public function repeat();
+
+    /**
+     * @param int $timeout
+     * @return TimerInterface
+     */
+    public function setRepeatTimeout($timeout);
+
+    /**
+     * @return TimerInterface
+     */
+    public function stop();
 }
+

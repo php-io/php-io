@@ -20,30 +20,12 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net;
+namespace Gplanchat\Io\Exception;
 
-use Gplanchat\Io\Net\SocketTrait;
+use Gplanchat\Io\Exception;
 
-abstract class AbstractIp4
-    implements SocketInterface
+class MissingDependecyException
+    extends \RuntimeException
+    implements Exception
 {
-    use SocketTrait;
-
-    /**
-     * @param string $address
-     * @param int $port
-     */
-    public function __construct($address, $port)
-    {
-        $this->socket = \uv_ip4_addr($address, $port);
-        $this->port = $port;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return \uv_ip4_name($this->socket);
-    }
 }
