@@ -36,6 +36,8 @@ use Psr\Log\NullLogger;
  * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServer(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ServerInterface $server)
  * @method \Gplanchat\Io\Net\Protocol\Http\Client getHttpClient(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ClientInterface $client, callable $callback = null)
  * @method DefaultRequestHandler getRequestHandler(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager)
+ * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServerBuilder(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\SocketInterface $socket)
+ * @method \Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface getDefaultProtocolUpgrader(\Gplanchat\ServiceManager\ServiceManagerInterface $serverServiceManager, array $config = null, \Gplanchat\ServiceManager\Configurator $configurator = null)
  */
 class ServerServiceManager
     extends ServiceManager
@@ -50,17 +52,18 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'HttpServer'     => __NAMESPACE__ . '\\Server',
-                    'HttpClient'     => __NAMESPACE__ . '\\Client',
-                    'RequestHandler' => __NAMESPACE__ . '\\DefaultRequestHandler'
+                    'HttpServer'        => __NAMESPACE__ . '\\Server',
+                    'HttpClient'        => __NAMESPACE__ . '\\Client',
+                    'RequestHandler'    => __NAMESPACE__ . '\\DefaultRequestHandler',
                 ],
                 'singletons' => [
-                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler'
+                    'ServerConnectionHandler' => __NAMESPACE__ . '\\ServerConnectionHandler',
+                    'DefaultProtocolUpgrader' => 'ProtocolUpgrader'
                     ],
-                'alias'      => [],
-                'factories'  => [
-                    'Request'  => new RequestFactory(),
-                    'Response' => new ResponseFactory(),
+                'aliases' => [],
+                'factories' => [
+                    'Request'          => new RequestFactory(),
+                    'Response'         => new ResponseFactory(),
                     'ProtocolUpgrader' => new ProtocolUpgraderFactory()
                     ]
                 ];

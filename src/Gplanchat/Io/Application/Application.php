@@ -71,6 +71,11 @@ class Application
     private $loop = null;
 
     /**
+     * @var array
+     */
+    private $storage = [];
+
+    /**
      * @param ServiceManagerInterface $serviceManager
      * @param LoggerInterface $logger
      * @throws MissingExtensionException
@@ -169,5 +174,30 @@ class Application
         }
 
         throw new BadMethodCallException(sprintf('Method "%s" does not exist.', $method));
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getStorage($key)
+    {
+        if (isset($this->storage[$key])) {
+            return $this->storage[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return Application
+     */
+    public function setStorage($key, $value)
+    {
+        $this->storage[$key] = $value;
+
+        return $this;
     }
 }

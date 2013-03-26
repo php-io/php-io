@@ -3,7 +3,7 @@ Asynchronous object-oriented I/O PHP library
 
 `php-io` is an object oriented and event-driven Input-Output library, primarily designed to serve network traffic to PHP scripts. This library is based upon the `php-uv`'s `libuv` binding.
 
-## The HTTP server example
+## The HTTP/WebSocket server example
 
 A simple HTTP server could be implemented this way :
 
@@ -15,6 +15,7 @@ use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 
+
 (new Application())
     ->init(function(Event $event, Application $application){
         $loop = $application->getLoop();
@@ -22,11 +23,17 @@ use Gplanchat\Io\Net\Tcp\ClientInterface;
         $loop->init();
     })
     ->init(function(Event $event, Application $application) {
-        $httpServiceManager = new Http\ServerServiceManager();
-        $application->getServiceManager()->attachChild($httpServiceManager, 100);
-
+        /*
+         * Initiating the TCP/IP server, binding on port 8081
+         */
         $socket = $application->getTcpIp4('0.0.0.0', 8081);
         $tcpServer = $application->getTcpServer($application->getServiceManager(), $application->getCurrentLoop(), $socket);
+
+        /*
+         * Initiationg HTTP support
+         */
+        $httpServiceManager = new Http\ServerServiceManager();
+        $application->getServiceManager()->attachChild($httpServiceManager, 100);
 
         $httpServer = $httpServiceManager->getHttpServer($application->getServiceManager(), $tcpServer);
 
@@ -42,6 +49,23 @@ use Gplanchat\Io\Net\Tcp\ClientInterface;
     ->bootstrap()
     ->run()
 ;
+```
+
+Adding WebSocket support can be made this way in an `init()` callback :
+
+```php
+        /*
+         * Adding WebSocket (RFC 6455) support
+         */
+        $webSocketServiceManager = new WebSocket\ServerServiceManager();
+        $httpServiceManager->attachChild($webSocketServiceManager, 100);
+
+        $httpServer->registerPlugin('WebSocket', new Http\Plugin\WebSocket($webSocketServiceManager, function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
+            $response
+                ->addMessage(['Date' => date('c'), 'Hello' => 'World'])
+                ->emit(new Event('ready'))
+            ;
+        }));
 ```
 
 ## Documentation

@@ -35,7 +35,7 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
  * Class Server
  * @package Gplanchat\Io\Net\Protocol\Http
  *
- * @method
+ * @method \Gplanchat\Io\Net\Protocol\Http\ServerServiceManager getServiceManager()
  */
 class Server
     implements Tcp\ServerDecoratorInterface, ServiceManagerAwareInterface, PluginAwareInterface
@@ -43,6 +43,8 @@ class Server
     use Tcp\ServerDecoratorTrait;
     use ServiceManagerAwareTrait;
     use PluginAwareTrait;
+
+    private $protocolUpgrader = null;
 
     public function __construct(ServiceManagerInterface $serviceManager, Tcp\ServerInterface $server)
     {
@@ -94,5 +96,28 @@ class Server
     public function getLoop()
     {
         return $this->getDecoratedServer()->getLoop();
+    }
+
+    /**
+     * @param ProtocolUpgraderInterface $protocolUpgrader
+     * @return $this
+     */
+    public function setProtocolUpgrader(ProtocolUpgraderInterface $protocolUpgrader)
+    {
+        $this->protocolUpgrader = $protocolUpgrader;
+
+        return $this;
+    }
+
+    /**
+     * @return ProtocolUpgraderInterface
+     */
+    public function getProtocolUpgrader()
+    {
+        if ($this->protocolUpgrader === null) {
+            $this->getServiceManager()->getDefaultProtocolUpgrader($this->getServiceManager());
+        }
+
+        return $this->protocolUpgrader;
     }
 }
