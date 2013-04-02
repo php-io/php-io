@@ -10,11 +10,14 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.4.7",
         "gplanchat/php-event-manager": ">=1.0",
         "gplanchat/php-service-manager": ">=1.0",
         "gplanchat/php-plugin-manager": ">=1.0",
         "gplanchat/php-log": ">=1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.8.*"
     },
     "repositories": [
         {
