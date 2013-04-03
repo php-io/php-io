@@ -59,11 +59,4 @@ interface LoopInterface
      * @return LoopInterface
      */
     public function stop($signal = null);
-
-    /**
-     * Returns the uv_loop, for direct operations on the loop
-     *
-     * @return resource
-     */
-    public function getResource();
 }
