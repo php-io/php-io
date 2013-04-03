@@ -68,7 +68,7 @@ class Client
 
     /**
      * @param ServerInterface $server
-     * @return Client
+     * @return ClientInterface
      */
     public function accept(ServerInterface $server)
     {
@@ -81,7 +81,7 @@ class Client
     /**
      * @param SocketInterface $socket
      * @param callable $callback
-     * @return Client
+     * @return ClientInterface
      */
     public function connect(SocketInterface $socket, callable $callback)
     {
@@ -90,6 +90,25 @@ class Client
         return $this;
     }
 
+    /**
+     * @return ClientInterface
+     */
+    public function poll()
+    {
+        $client = $this;
+
+        \uv_read_start($this->getResource(), function($resource, $length, $buffer) use($client) {
+            $client->emit(new Event('data'), [$client, $buffer, $length, false]);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @param $buffer
+     * @param callable $callback
+     * @return ClientInterface
+     */
     public function write($buffer, callable $callback = null)
     {
         $client = $this;
@@ -108,6 +127,10 @@ class Client
         return $this;
     }
 
+    /**
+     * @param callable $callback
+     * @return ClientInterface
+     */
     public function close(callable $callback = null)
     {
         $client = $this;
@@ -133,7 +156,7 @@ class Client
 
     /***
      * @param LoopInterface $loop
-     * @return Client
+     * @return ClientInterface
      */
     public function setLoop(LoopInterface $loop)
     {

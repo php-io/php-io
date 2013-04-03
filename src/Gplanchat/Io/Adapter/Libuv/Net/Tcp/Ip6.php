@@ -41,7 +41,7 @@ class Ip6
             $client->on(['data'], $callback);
         };
 
-        \uv_tcp_connect6($client->getResource(), $internalCallback);
+        \uv_tcp_connect6($client->getResource(), $this->getResource(), $internalCallback);
 
         return $this;
     }
@@ -52,7 +52,7 @@ class Ip6
      */
     public function bind(ServerInterface $server)
     {
-        \uv_tcp_bind6($server->getResource(), $this->socket);
+        \uv_tcp_bind6($server->getResource(), $this->getResource());
 
         return $this;
     }

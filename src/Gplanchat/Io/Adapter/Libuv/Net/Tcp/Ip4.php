@@ -37,11 +37,17 @@ class Ip4
      */
     public function connect(ClientInterface $client, callable $callback)
     {
-        $internalCallback = function($resource) use($callback, $client) {
+        $internalCallback = function($resource, $status) use($callback, $client) {
+            if (!$status) {
+                trigger_error('Could not open conection.', E_USER_WARNING);
+                return;
+            }
+
             $client->on(['data'], $callback);
         };
 
-        \uv_tcp_connect($client->getResource(), $internalCallback);
+        var_dump($client->getResource(), $this->getResource());
+        \uv_tcp_connect($client->getResource(), $this->getResource(), $internalCallback);
 
         return $this;
     }

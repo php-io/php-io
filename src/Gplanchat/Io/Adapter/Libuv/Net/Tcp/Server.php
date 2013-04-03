@@ -75,9 +75,7 @@ class Server
 
             $server->emit(new Event('connection'), [$client, $server]);
 
-            \uv_read_start($client->getResource(), function($resource, $length, $buffer) use($client, $server) {
-                $client->emit(new Event('data'), [$client, $buffer, $length, false]);
-            });
+            $client->poll();
         });
 
         return $this;

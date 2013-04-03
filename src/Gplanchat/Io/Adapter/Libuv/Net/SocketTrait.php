@@ -25,7 +25,6 @@ namespace Gplanchat\Io\Adapter\Libuv\Net;
 /**
  * Class SocketTrait
  * @package Gplanchat\Io\Adapter\Libuv\Net
- * @method string getAddress()
  */
 trait SocketTrait
 {
@@ -55,4 +54,9 @@ trait SocketTrait
     {
         return $this->port;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function getAddress();
 }
