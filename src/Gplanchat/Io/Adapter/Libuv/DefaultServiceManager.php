@@ -21,10 +21,7 @@
  */
 namespace Gplanchat\Io\Adapter\Libuv;
 
-use Gplanchat\ServiceManager\Configurator;
-use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Gplanchat\ServiceManager\ServiceManagerTrait;
-use Psr\Log\LoggerInterface;
+use Gplanchat\ServiceManager\AbstractServiceManager;
 use Psr\Log\NullLogger;
 
 /**
@@ -35,54 +32,22 @@ use Psr\Log\NullLogger;
  * @subpackage Gplanchat\Io\Loop
  */
 class DefaultServiceManager
-    implements ServiceManagerInterface
+    extends AbstractServiceManager
 {
-    use ServiceManagerTrait;
-
     /**
-     * @param array $config
-     * @param Configurator $configurator
-     * @param LoggerInterface $logger
+     * @var array
      */
-    public function __construct(array $config = null, Configurator $configurator = null, LoggerInterface $logger = null)
-    {
-        if ($config === null) {
-            $config = [
-                'invokables' => [
-                    'Loop\\Idle'       => __NAMESPACE__ . '\\Loop\\Idle',
-                    'Loop\\Loop'       => __NAMESPACE__ . '\\Loop\\Loop',
-                    'Loop\\Timer'      => __NAMESPACE__ . '\\Loop\\Timer',
-                    'Net\\Tcp\\Client' => __NAMESPACE__ . '\\Net\\Tcp\\Client',
-                    'Net\\Tcp\\Ip4'    => __NAMESPACE__ . '\\Net\\Tcp\\Ip4',
-                    'Net\\Tcp\\Ip6'    => __NAMESPACE__ . '\\Net\\Tcp\\Ip6',
-                    'Net\\Tcp\\Server' => __NAMESPACE__ . '\\Net\\Tcp\\Server',
-                ],
-                'singletons' => [],
-                'aliases' => [
-                    'Idle'      => 'Loop\\Idle',
-                    'Loop'      => 'Loop\\Loop',
-                    'Timer'     => 'Loop\\Timer',
-                    'TcpClient' => 'Net\\Tcp\\Client',
-                    'TcpServer' => 'Net\\Tcp\\Server',
-                    'TcpIp4'    => 'Net\\Tcp\\Ip4',
-                    'TcpIp6'    => 'Net\\Tcp\\Ip6',
-                ],
-                'factories'  => []
-            ];
-        }
+    protected $invokables = [
+        'Idle'      => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Idle',
+        'Loop'      => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Loop',
+        'Timer'     => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Timer',
+        'TcpClient' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Client',
+        'TcpIp4'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip4',
+        'TcpIp6'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip6',
+        'TcpServer' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Server'
+    ];
 
-        if ($configurator === null) {
-            $configurator = new Configurator();
-        }
-
-        $configurator($this, $config);
-
-        if (!$this->has('Logger')) {
-            if ($logger === null) {
-                $logger = new NullLogger();
-            }
-
-            $this->registerSingleton('Logger', $logger);
-        }
-    }
+    protected $singletons = [
+        'Logger' => 'Psr\\Log\\NullLogger'
+    ];
 }
