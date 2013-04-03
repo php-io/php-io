@@ -34,8 +34,6 @@ use Gplanchat\Io\Loop\TimerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\Log\LoggerAwareInterface;
-use Gplanchat\Log\LoggerAwareTrait;
 use Gplanchat\PluginManager\PluginAwareInterface;
 use Gplanchat\PluginManager\PluginAwareTrait;
 use Gplanchat\PluginManager\PluginInterface;
@@ -45,6 +43,8 @@ use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * Class ApplicationLoop
