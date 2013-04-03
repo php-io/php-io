@@ -22,6 +22,10 @@
 
 namespace Gplanchat\Io;
 
+/**
+ * Base Exception interface. Used as a catch-all for Gplanchat\Io package specific exceptions
+ * @package Gplanchat\Io
+ */
 interface Exception
 {
 }
