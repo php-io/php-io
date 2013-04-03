@@ -102,8 +102,6 @@ class Loop
     {
         \uv_run($this->loop);
 
-        var_dump($this->loop);
-
         return $this;
     }
 
