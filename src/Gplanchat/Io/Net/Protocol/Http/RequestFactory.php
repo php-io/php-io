@@ -22,6 +22,7 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\EventManager\Event;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
 use ArrayObject;
@@ -34,46 +35,38 @@ class RequestFactory
             throw new Exception\UnexpectedValueException('Could not parse request.');
         }
 
-        $result = [];
-        if (!\uv_http_parser_execute(\uv_http_parser_init(\UV::HTTP_REQUEST), $moreParams['buffer'], $result)) {
-            throw new Exception\UnexpectedValueException('Could not parse request.');
-        }
+        /** @var RequestParser $requestParser */
+        $requestParser = $serviceManager->get('RequestParser');
 
-        if (!isset($result['REQUEST_METHOD'])) {
-            throw new Exception\BadRequestException('No request method found or this method is not supported.');
-        }
+        /** @var Request $request */
+        $request = null;
+        $requestParser->on(['state'], function(Event $event, $method, $path, $version) use (&$request) {
+            $request = new Request($method, $path);
+        });
 
-        if (!isset($result['PATH'])) {
-            throw new Exception\BadRequestException('Invalid request path specified.');
-        }
+        $requestParser->on(['header'], function(Event $e, $headerName, $headerValue) use ($request) {
+            /** @var Request $request */
 
-        $request = new Request($result['REQUEST_METHOD'], $result['PATH']);
-
-        $method = $result['REQUEST_METHOD'];
-        if (!in_array($method, ['GET', 'HEAD']) && isset($result['HEADERS']) && isset($result['HEADERS']['BODY'])) {
-            $postData = [];
-            parse_str($result['HEADERS']['BODY'], $postData);
-
-            $request->setPostParams(new ArrayObject($postData));
-        }
-
-        if (isset($result['QUERY'])) {
-            $queryData = [];
-            parse_str($result['QUERY'], $queryData);
-
-            $request->setQueryParams(new ArrayObject($queryData));
-        }
-
-        if (isset($result['HEADERS'])) {
-            $request->setHeaders(new ArrayObject($result['HEADERS']));
-
-            if (isset($result['HEADERS']['COOKIE'])) {
+            $name = \str_replace('-', '_', \strtoupper($headerName));
+            if ($name === 'COOKIE') {
                 $cookieData = [];
-                parse_str($result['HEADERS']['COOKIE'], $cookieData);
+                parse_str($headerValue, $cookieData);
 
                 $request->setCookieParams(new ArrayObject($cookieData));
+            } else {
+                $request->setHeader($name, $headerValue);
             }
-        }
+        });
+
+        $requestParser->on(['body'], function(Event $e, $body) use ($request) {
+            /** @var Request $request */
+            if (!in_array($request->getMethod(), ['GET', 'HEAD']) && !empty($body)) {
+                $postData = [];
+                parse_str($body, $postData);
+
+                $request->setPostParams(new ArrayObject($postData));
+            }
+        });
 
         return $request;
     }

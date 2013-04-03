@@ -34,33 +34,23 @@ use Psr\Log\NullLogger;
 /**
  * Class ServerServiceManager
  * @package Gplanchat\Io\Net\Protocol\Http
- * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServer(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ServerInterface $server)
  * @method \Gplanchat\Io\Net\Protocol\Http\Client getHttpClient(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ClientInterface $client, callable $callback = null)
- * @method DefaultRequestHandler getRequestHandler(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager)
- * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServerBuilder(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\SocketInterface $socket)
- * @method \Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface getDefaultProtocolUpgrader(\Gplanchat\ServiceManager\ServiceManagerInterface $serverServiceManager, array $config = null, \Gplanchat\ServiceManager\Configurator $configurator = null)
  */
-class ServerServiceManager
+class ClientServiceManager
     extends AbstractServiceManager
 {
     /**
      * @var array
      */
     protected $invokables = [
-        'HttpServer'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Server',
         'HttpClient'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Client',
-        'RequestHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\DefaultRequestHandler',
     ];
 
     /**
      * @var array
      */
     protected $singletons = [
-        'ServerConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ServerConnectionHandler',
-        'RequestFactory'          => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory',
-        'ResponseFactory'         => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory',
-        'ProtocolUpgraderFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ProtocolUpgraderFactory',
-        'DefaultProtocolUpgrader' => 'ProtocolUpgrader'
+        'ClientConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ClientConnectionHandler',
     ];
 
     /**
@@ -70,7 +60,6 @@ class ServerServiceManager
         'Logger' => 'Psr\\Log\\NullLogger',
 
         'Request'          => 'RequestFactory',
-        'Response'         => 'ResponseFactory',
-        'ProtocolUpgrader' => 'ProtocolUpgraderFactory'
+        'Response'         => 'ResponseFactory'
     ];
 }

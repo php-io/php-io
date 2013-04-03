@@ -23,8 +23,11 @@
 namespace Gplanchat\Io\Net\Protocol\Http;
 
 use ArrayObject;
+use Gplanchat\Io\Net\Protocol\Http\Exception\BadRequestException;
+use Gplanchat\Io\Net\Protocol\RequestInterface;
 
 class Request
+    implements RequestInterface
 {
     /**
      * @var string
@@ -34,12 +37,12 @@ class Request
     /**
      * @var string
      */
-    private $uri = null;
+    private $path = null;
 
     /**
      * @var ArrayObject
      */
-    private $headers = [];
+    private $headers = null;
 
     /**
      * @var ArrayObject
@@ -68,8 +71,54 @@ class Request
 
     public function __construct($method, $uri)
     {
-        $this->method = $method;
-        $this->uri = $uri;
+        $this->method = strtoupper($method);
+
+        $explodedUrl = parse_url($uri);
+        if (!isset($explodedUrl['path']) || empty($explodedUrl['path'])) {
+            throw new BadRequestException('Invalid URI specified.');
+        }
+        $this->path = $explodedUrl['path'];
+
+        $this->headers      = new \ArrayObject();
+        $this->params       = new \ArrayObject();
+        $this->queryParams  = new \ArrayObject();
+        $this->postParams   = new \ArrayObject();
+        $this->serverParams = new \ArrayObject();
+        $this->cookieParams = new \ArrayObject();
+
+        if (isset($explodedUrl['query'])) {
+            parse_str($explodedUrl['query'], $queryParams);
+            $this->setQueryParams(new \ArrayObject($queryParams));
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri()
+    {
+        $path = $this->getPath();
+        if ($this->getQueryParams()->count()) {
+            $path .= '?' . \http_build_query($this->getQueryParams());
+        }
+
+        return $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
@@ -168,7 +217,7 @@ class Request
     }
 
     /**
-     * @param ArrayObject $serverParams
+     * @param ArrayObject $params
      * @return Request
      */
     public function setParams(ArrayObject $params)
@@ -201,6 +250,18 @@ class Request
 
     /**
      * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setHeader($key, $value)
+    {
+        $this->headers[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
      * @param mixed $default
      * @return string
      */
@@ -210,6 +271,18 @@ class Request
             return $default;
         }
         return $this->queryParams[$key];
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setQuery($key, $value)
+    {
+        $this->queryParams[$key] = $value;
+
+        return $this;
     }
 
     /**
@@ -227,6 +300,18 @@ class Request
 
     /**
      * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setPost($key, $value)
+    {
+        $this->postParams[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
      * @param mixed $default
      * @return string
      */
@@ -236,6 +321,43 @@ class Request
             return $default;
         }
         return $this->cookieParams[$key];
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setCookie($key, $value)
+    {
+        $this->cookieParams[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return string
+     */
+    public function getServer($key, $default = null)
+    {
+        if (!isset($this->serverParams[$key])) {
+            return $default;
+        }
+        return $this->serverParams[$key];
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setServer($key, $value)
+    {
+        $this->serverParams[$key] = $value;
+
+        return $this;
     }
 
     /**
@@ -262,5 +384,41 @@ class Request
         }
 
         return $default;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setParam($key, $value)
+    {
+        $this->params[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+        $buffer = sprintf('%s %s HTTP/1.1\r\n', $this->getMethod(), $this->getPath());
+
+        foreach ($this->getHeaders() as $headerName => $headerValue) {
+            $buffer .= sprintf("%s: %s\r\n", $headerName, $headerValue);
+        }
+
+        $buffer .= "\r\n";
+
+        return $buffer;
     }
 }

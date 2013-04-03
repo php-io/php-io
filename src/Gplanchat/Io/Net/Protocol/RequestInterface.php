@@ -20,11 +20,34 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol\Http\Exception;
+namespace Gplanchat\Io\Net\Protocol;
 
-class RuntimeException
-    extends \RuntimeException
-    implements Exception
+use ArrayObject;
+
+interface RequestInterface
 {
+    /**
+     * @param ArrayObject $params
+     * @return RequestInterface
+     */
+    public function setParams(ArrayObject $params);
 
+    /**
+     * @return ArrayObject
+     */
+    public function getParams();
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return string
+     */
+    public function getParam($key, $default = null);
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return string
+     */
+    public function setParam($key, $value);
 }

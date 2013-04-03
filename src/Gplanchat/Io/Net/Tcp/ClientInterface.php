@@ -29,16 +29,8 @@ use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 interface ClientInterface
-    extends EventEmitterInterface, ServiceManagerAwareInterface
+    extends EventEmitterInterface
 {
-    /**
-     * @param ServiceManagerInterface $serviceManager
-     * @param LoopInterface $loop
-     * @param SocketInterface|null $socket
-     * @param callable|null $callback
-     */
-    public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null, callable $callback = null);
-
     /**
      * @param ServerInterface $server
      * @return ClientInterface
@@ -55,13 +47,18 @@ interface ClientInterface
     /**
      * @param $buffer
      * @param callable|null $callback
-     * @return mixed
+     * @return ClientInterface
      */
     public function write($buffer, callable $callback = null);
 
     /**
+     * @return ClientInterface
+     */
+    public function poll();
+
+    /**
      * @param callable|null $callback
-     * @return mixed
+     * @return ClientInterface
      */
     public function close(callable $callback = null);
 

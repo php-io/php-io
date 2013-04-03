@@ -21,12 +21,12 @@
  */
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\Io\Net\Protocol\ResponseInterface;
 use Gplanchat\io\Net\Tcp\ClientInterface;
-use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 
 class Response
-    implements EventEmitterInterface
+    implements ResponseInterface
 {
     use EventEmitterTrait;
 

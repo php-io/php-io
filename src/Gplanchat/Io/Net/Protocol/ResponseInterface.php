@@ -19,12 +19,13 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+namespace Gplanchat\Io\Net\Protocol;
 
-namespace Gplanchat\Io\Net\Protocol\Http\Exception;
+use Gplanchat\io\Net\Tcp\ClientInterface;
+use Gplanchat\EventManager\EventEmitterInterface;
 
-class RuntimeException
-    extends \RuntimeException
-    implements Exception
+interface ResponseInterface
+    extends EventEmitterInterface
 {
-
+    public function send(ClientInterface $client);
 }
