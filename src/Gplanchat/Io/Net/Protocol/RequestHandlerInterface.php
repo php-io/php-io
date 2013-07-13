@@ -22,15 +22,16 @@
 
 namespace Gplanchat\Io\Net\Protocol;
 
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\CallbackHandler;
 use Gplanchat\EventManager\EventEmitterInterface;
 
 interface RequestHandlerInterface
     extends EventEmitterInterface
 {
     /**
+     * @param Event $event
      * @param ClientInterface $client
      * @param string $buffer
      * @param int $length
@@ -41,13 +42,13 @@ interface RequestHandlerInterface
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError);
 
     /**
-     * @param CallbackHandler $callbackHanlder
+     * @param CallbackHandlerInterface $callbackHandler
      * @return RequestHandlerInterface
      */
-    public function setCallbackHandler(CallbackHandler $callbackHanlder);
+    public function setCallbackHandler(CallbackHandlerInterface $callbackHandler);
 
     /**
-     * @return CallbackHandler
+     * @return CallbackHandlerInterface
      */
     public function getCallbackHandler();
 }

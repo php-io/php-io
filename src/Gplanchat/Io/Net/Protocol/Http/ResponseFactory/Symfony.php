@@ -24,7 +24,7 @@ namespace Gplanchat\Io\Net\Protocol\Http\ResponseFactory;
 
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
-class Standard
+class Symfony
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {

@@ -40,6 +40,16 @@ class Request
     private $path = null;
 
     /**
+     * @var string
+     */
+    private $protocol = null;
+
+    /**
+     * @var string
+     */
+    private $cachedUri = null;
+
+    /**
      * @var ArrayObject
      */
     private $headers = null;
@@ -69,9 +79,10 @@ class Request
      */
     private $cookieParams = null;
 
-    public function __construct($method, $uri)
+    public function __construct($method, $uri, $protocol = null)
     {
         $this->method = strtoupper($method);
+        $this->protocol = $protocol ?: 'HTTP/1.1';
 
         $explodedUrl = parse_url($uri);
         if (!isset($explodedUrl['path']) || empty($explodedUrl['path'])) {
@@ -79,16 +90,17 @@ class Request
         }
         $this->path = $explodedUrl['path'];
 
-        $this->headers      = new \ArrayObject();
-        $this->params       = new \ArrayObject();
-        $this->queryParams  = new \ArrayObject();
-        $this->postParams   = new \ArrayObject();
-        $this->serverParams = new \ArrayObject();
-        $this->cookieParams = new \ArrayObject();
+        $this->setHeaders(new \ArrayObject());
+        $this->setParams(new \ArrayObject());
+        $this->setPostParams(new \ArrayObject());
+        $this->setServerParams(new \ArrayObject());
+        $this->setCookieParams(new \ArrayObject());
 
         if (isset($explodedUrl['query'])) {
             parse_str($explodedUrl['query'], $queryParams);
             $this->setQueryParams(new \ArrayObject($queryParams));
+        } else {
+            $this->setQueryParams(new \ArrayObject());
         }
     }
 
@@ -101,16 +113,19 @@ class Request
     }
 
     /**
+     * @param bool $useCached
      * @return string
      */
-    public function getUri()
+    public function getUri($useCached = true)
     {
-        $path = $this->getPath();
-        if ($this->getQueryParams()->count()) {
-            $path .= '?' . \http_build_query($this->getQueryParams());
+        if (!$useCached || $this->cachedUri === null) {
+            $this->cachedUri = $this->getPath();
+            if ($this->getQueryParams()->count()) {
+                $this->cachedUri .= '?' . \http_build_query($this->getQueryParams());
+            }
         }
 
-        return $path;
+        return $this->cachedUri;
     }
 
     /**
@@ -119,6 +134,14 @@ class Request
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProtocol()
+    {
+        return $this->protocol;
     }
 
     /**

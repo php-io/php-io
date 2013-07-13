@@ -2,7 +2,7 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 
-use Gplanchat\EventManager\CallbackHandler;
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
@@ -10,26 +10,23 @@ use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\Log\LoggerAwareInterface;
-use Gplanchat\Log\LoggerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use RuntimeException;
 
 class RequestHandler
-    implements RequestHandlerInterface, ProtocolUpgradeAwareInterface, ServiceManagerAwareInterface, LoggerAwareInterface
+    implements RequestHandlerInterface, ProtocolUpgradeAwareInterface, ServiceManagerAwareInterface
 {
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;
-    use LoggerAwareTrait;
 
     const SECURITY_GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
     private static $supportedVersions = [6, 8, 13];
 
     /**
-     * @var CallbackHandler
+     * @var CallbackHandlerInterface
      */
     private $callbackHandler = null;
 
@@ -38,8 +35,6 @@ class RequestHandler
     public function __construct(ServiceManagerInterface $serviceManager)
     {
         $this->setServiceManager($serviceManager);
-
-//        $this->setLogger($this->getServiceManager()->get('Logger'));
     }
 
     /**
@@ -109,13 +104,14 @@ class RequestHandler
                 $length = $lengthMarker;
             }
 
+            $mask = [];
             if ($maskBit) {
-                $mask = array(
+                $mask = [
                     (ord(substr($this->buffer, $offset++, 1)) & 0xFF),
                     (ord(substr($this->buffer, $offset++, 1)) & 0xFF),
                     (ord(substr($this->buffer, $offset++, 1)) & 0xFF),
                     (ord(substr($this->buffer, $offset++, 1)) & 0xFF)
-                );
+                ];
 
 //                $this->getLogger()->warning('Client data should be masked.');
             }
@@ -143,7 +139,11 @@ class RequestHandler
         return $this;
     }
 
-    public function setCallbackHandler(CallbackHandler $callbackHandler)
+    /**
+     * @param CallbackHandlerInterface $callbackHandler
+     * @return $this|RequestHandlerInterface
+     */
+    public function setCallbackHandler(CallbackHandlerInterface $callbackHandler)
     {
         $this->callbackHandler = $callbackHandler;
 

@@ -22,6 +22,8 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
@@ -30,17 +32,16 @@ use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\EventManager\Event;
-use Psr\Log\LoggerInterface;
-use Gplanchat\Log\LoggerAwareInterface;
-use Gplanchat\Log\LoggerAwareTrait;
-use Gplanchat\Log\Writer\Stream;
 
 class ServerConnectionHandler
-    implements ServiceManagerAwareInterface, ConnectionHandlerInterface, LoggerAwareInterface
+    implements ServiceManagerAwareInterface, ConnectionHandlerInterface, PluginManagerInterface
 {
     use ServiceManagerAwareTrait;
-    use LoggerAwareTrait;
+    use PluginManagerTrait;
 
+    /**
+     * @var callable
+     */
     private $callback = null;
 
     /**
@@ -51,9 +52,7 @@ class ServerConnectionHandler
     public function __construct(ServiceManagerInterface $serviceManager, callable $callback)
     {
         $this->setServiceManager($serviceManager);
-        $this->setLogger($this->getServiceManager()->get('Logger'));
-
-        $this->callback = $callback;
+        $this->setCallback($callback);
     }
 
     /**
@@ -71,8 +70,29 @@ class ServerConnectionHandler
         $callbackHandler = $client->on(['data'], $requestHandler);
 
         $requestHandler->setCallbackHandler($callbackHandler);
-        $requestHandler->on(['request'], $this->callback);
+        $requestHandler->on(['request'], $this->getCallback());
+
+        $this->callPlugin('RequestHandler', [$requestHandler]);
 
         return $requestHandler;
+    }
+
+    /**
+     * @param callable $callback
+     * @return $this
+     */
+    public function setCallback(callable $callback)
+    {
+        $this->callback = $callback;
+
+        return $this;
+    }
+
+    /**
+     * @return callable
+     */
+    public function getCallback()
+    {
+        return $this->callback;
     }
 }

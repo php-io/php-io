@@ -50,6 +50,7 @@ class ServerServiceManager
         'HttpServer'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Server',
         'HttpClient'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Client',
         'RequestHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\DefaultRequestHandler',
+        'RequestParser'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestParser',
     ];
 
     /**
@@ -57,8 +58,8 @@ class ServerServiceManager
      */
     protected $singletons = [
         'ServerConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ServerConnectionHandler',
-        'RequestFactory'          => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory',
-        'ResponseFactory'         => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory',
+        'StandardRequestFactory'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory\\Standard',
+        'StandardResponseFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory\\Standard',
         'ProtocolUpgraderFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ProtocolUpgraderFactory',
         'DefaultProtocolUpgrader' => 'ProtocolUpgrader'
     ];
@@ -69,8 +70,8 @@ class ServerServiceManager
     protected $factories = [
         'Logger' => 'Psr\\Log\\NullLogger',
 
-        'Request'          => 'RequestFactory',
-        'Response'         => 'ResponseFactory',
+        'Request'          => 'StandardRequestFactory',
+        'Response'         => 'StandardResponseFactory',
         'ProtocolUpgrader' => 'ProtocolUpgraderFactory'
     ];
 }

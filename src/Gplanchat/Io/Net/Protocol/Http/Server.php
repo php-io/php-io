@@ -22,11 +22,12 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp;
-use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
@@ -38,11 +39,11 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
  * @method \Gplanchat\Io\Net\Protocol\Http\ServerServiceManager getServiceManager()
  */
 class Server
-    implements Tcp\ServerDecoratorInterface, ServiceManagerAwareInterface, PluginAwareInterface
+    implements Tcp\ServerDecoratorInterface, ServiceManagerAwareInterface, PluginManagerInterface
 {
     use Tcp\ServerDecoratorTrait;
     use ServiceManagerAwareTrait;
-    use PluginAwareTrait;
+    use PluginManagerTrait;
 
     private $protocolUpgrader = null;
 
@@ -55,7 +56,8 @@ class Server
     public function listen($timeout, callable $callback)
     {
         /** @var ServerConnectionHandler $connectionHandler */
-        $connectionHandler = $this->getServiceManager()->get('ServerConnectionHandler', [$this->getServiceManager(), $callback]);
+        $connectionHandler = $this->getServiceManager()
+            ->get('ServerConnectionHandler', [$this->getServiceManager(), $callback]);
 
         return $this->getDecoratedServer()->listen($timeout, $connectionHandler);
     }
@@ -119,5 +121,10 @@ class Server
         }
 
         return $this->protocolUpgrader;
+    }
+
+    public function stop()
+    {
+        return $this;
     }
 }

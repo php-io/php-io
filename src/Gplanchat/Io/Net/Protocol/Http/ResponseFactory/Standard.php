@@ -20,11 +20,12 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol\Http;
+namespace Gplanchat\Io\Net\Protocol\Http\ResponseFactory;
 
+use Gplanchat\Io\Net\Protocol\Http\Response;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
-class ResponseFactory
+class Standard
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {

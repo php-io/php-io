@@ -22,17 +22,16 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\Io\Net\Protocol\RequestInterface;
+use Gplanchat\Io\Net\Protocol\ResponseInterface;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\CallbackHandler;
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Psr\Log\LoggerInterface;
-use Gplanchat\Log\LoggerAwareInterface;
-use Gplanchat\Log\LoggerAwareTrait;
 use Psr\Log\LogLevel;
 
 /**
@@ -41,37 +40,45 @@ use Psr\Log\LogLevel;
  * @mathod getProtocolUpgrader()
  */
 class DefaultRequestHandler
-    implements ServiceManagerAwareInterface, RequestHandlerInterface, LoggerAwareInterface
+    implements ServiceManagerAwareInterface, RequestHandlerInterface
 {
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;
-    use LoggerAwareTrait;
 
     /**
-     * @var CallbackHandler
+     * @var CallbackHandlerInterface
      */
     private $callbackHanlder = null;
 
+    /**
+     * @param ServiceManagerInterface $serviceManager
+     */
     public function __construct(ServiceManagerInterface $serviceManager)
     {
         $this->setServiceManager($serviceManager);
-
-        $this->setLogger($this->getServiceManager()->get('Logger'));
     }
 
-    public function setCallbackHandler(CallbackHandler $callbackHanlder)
+    /**
+     * @param CallbackHandlerInterface $callbackHanlder
+     * @return $this|RequestHandlerInterface
+     */
+    public function setCallbackHandler(CallbackHandlerInterface $callbackHanlder)
     {
         $this->callbackHanlder = $callbackHanlder;
 
         return $this;
     }
 
+    /**
+     * @return CallbackHandlerInterface
+     */
     public function getCallbackHandler()
     {
         return $this->callbackHanlder;
     }
 
     /**
+     * @param Event $event
      * @param ClientInterface $client
      * @param string $buffer
      * @param int $length
@@ -80,15 +87,18 @@ class DefaultRequestHandler
      */
     public function __invoke(Event $event, ClientInterface $client, $buffer, $length, $isError)
     {
-        if ($isError) {
-            $this->getLogger()->error(sprintf('%s encountered an error.', __METHOD__));
+        echo 'HTTP: Analyzing TCP request.' . PHP_EOL;
 
-            (new Response())
+        if ($isError) {
+            $response = (new Response())
                 ->setReturnCode(500, 'Internal Server Error')
                 ->setBody('Server Error')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
+
+            $this->emit(new Event('error'), [$response, 500, LogLevel::ERROR]);
+
+            $response->send($client);
 
             return $this;
         }
@@ -106,7 +116,8 @@ class DefaultRequestHandler
         }
 
         $response->on(['ready'], function(Event $event) use($client, $request) {
-            $response = $event->getData('eventEmitter');
+            /** @var ResponseInterface $response */
+            $response = $event->getEventEmitter();
 
             $response->send($client);
         });
@@ -128,42 +139,73 @@ class DefaultRequestHandler
     {
         /** @var ServiceManagerInterface $serviceManager */
         $serviceManager = $this->getServiceManager();
+
         try {
-            /** @var Request $request */
-            $request = $this->getServiceManager()
-                ->get('Request', ['client' => $client, 'buffer' => $buffer, 'length' => $length])
+            /** @var RequestInterface $request */
+            $request = $serviceManager->get('Request', [
+                'client' => $client,
+                'buffer' => $buffer,
+                'length' => $length
+                ])
             ;
         } catch (Exception\UnexpectedValueException $e) {
-            $this->getLogger()->error($e->getMessage());
-
-            (new Response())
+            /** @var ResponseInterface $response */
+            $response = $serviceManager->get('Response', ['client' => $client])
                 ->setReturnCode(400, 'Bad Request')
                 ->setBody('Bad Request')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
+
+            $this->emit(new Event('error'), [$response, 400, LogLevel::DEBUG, $e]);
+
+            $response->send($client);
+
+            echo $e . PHP_EOL;
 
             return null;
         } catch (Exception\BadRequestException $e) {
-            $this->getLogger()->error($e->getMessage());
-
-            (new Response())
+            /** @var ResponseInterface $response */
+            $response = $serviceManager->get('Response', ['client' => $client])
                 ->setReturnCode(500, 'Internal Server Error')
                 ->setBody('Server Error')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
+
+            $this->emit(new Event('error'), [$response, 500, LogLevel::INFO, $e]);
+
+            $response->send($client);
+
+            echo $e . PHP_EOL;
+
+            return null;
+        } catch (\RuntimeException $e) {
+            /** @var ResponseInterface $response */
+            $response = $serviceManager->get('Response', ['client' => $client])
+                ->setReturnCode(500, 'Internal Server Error')
+                ->setBody('Server Error')
+                ->setHeader('Connection', 'close')
+            ;
+
+            $this->emit(new Event('error'), [$response, 500, LogLevel::WARNING, $e]);
+
+            $response->send($client);
+
+            echo $e . PHP_EOL;
 
             return null;
         } catch (\Exception $e) {
-            $this->getLogger()->error($e->getMessage());
-
-            (new Response())
+            /** @var ResponseInterface $response */
+            $response = $serviceManager->get('Response', ['client' => $client])
                 ->setReturnCode(417, 'Expectation Failed')
                 ->setBody('Expectation Failed')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
+
+            $this->emit(new Event('error'), [$response, 417, LogLevel::ERROR, $e]);
+
+            $response->send($client);
+
+            echo $e . PHP_EOL;
 
             return null;
         }
@@ -181,14 +223,15 @@ class DefaultRequestHandler
             /** @var Response $response */
             $response = $this->getServiceManager()->get('Response');
         } catch (\Exception $e) {
-            $this->getLogger()->error($e->getMessage());
-
-            (new Response())
+            $response = (new Response())
                 ->setReturnCode(417, 'Expectation Failed')
                 ->setBody('Expectation Failed')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
+
+            $this->emit(new Event('error'), [$response, 417, LogLevel::ERROR, $e]);
+
+            $response->send($client);
 
             return null;
         }
@@ -218,26 +261,26 @@ class DefaultRequestHandler
         try {
             $protocolUpgrader->upgrade($upgrade, $this->getCallbackHandler(), $client, $request, $response);
         } catch (Exception\UnsupportedUpgradeException $e) {
-            $this->getLogger()->info($e->getMessage());
-
             $response
                 ->setReturnCode(505, 'HTTP Version Not Supported')
                 ->setBody('Expectation Failed')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
-        } catch (Exception\BadRequestException $e) {
-            $this->getLogger()->info($e->getMessage());
 
+            $this->emit(new Event('error'), [$response, 505, LogLevel::ERROR, $e]);
+
+            $response->send($client);
+        } catch (Exception\BadRequestException $e) {
             $response
                 ->setReturnCode(400, 'Bad Request')
                 ->setBody('Bad Request')
                 ->setHeader('Connection', 'close')
-                ->send($client)
             ;
-        }
 
-        $this->getLogger()->debug('Upgrades set up.');
+            $this->emit(new Event('error'), [$response, 400, LogLevel::ERROR, $e]);
+
+            $response->send($client);
+        }
 
         return true;
     }

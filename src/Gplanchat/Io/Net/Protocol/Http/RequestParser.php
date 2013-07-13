@@ -34,53 +34,56 @@ class RequestParser
 
     /**
      * @param string $buffer
+     * @param mixed $requestObject
      * @return int
      */
-    public function parse($buffer)
+    public function parse($buffer, $requestObject = null)
     {
-        $offset = $this->parseState($buffer);
-        $offset = $this->parseHeaders($buffer, $offset);
-        $offset = $this->parseBody($buffer, $offset);
+        $offset = $this->parseState($requestObject, $buffer);
+        $offset = $this->parseHeaders($requestObject, $buffer, $offset);
+        $offset = $this->parseBody($requestObject, $buffer, $offset);
 
         return $offset;
     }
 
     /**
-     * @param $buffer
+     * @param mixed $requestObject
+     * @param string $buffer
      * @return int
      * @throws Exception\BadRequestException
      */
-    public function parseState($buffer)
+    public function parseState($requestObject, $buffer)
     {
         if (($offset = strpos($buffer, "\n")) === false) {
             throw new Exception\BadRequestException('Invalid request format.');
         }
         $state = \trim(\substr($buffer, 0, $offset));
 
-        if (($methodOffset = \strpos($buffer, ' ')) === false) {
+        if (($methodOffset = \strpos($state, ' ')) === false) {
             throw new Exception\BadRequestException('Invalid request format.');
         }
 
-        if (($pathOffset = \strpos($buffer, ' ', $methodOffset + 1)) === false) {
+        if (($pathOffset = \strpos($state, ' ', $methodOffset + 1)) === false) {
             throw new Exception\BadRequestException('Invalid request format.');
         }
 
-        $method = \trim(\substr($buffer, 0, $methodOffset));
-        $path = \trim(\substr($buffer, $methodOffset + 1, $pathOffset - $methodOffset));
-        $version = \trim(\substr($buffer, $pathOffset + 1, $offset - $pathOffset));
+        $method = \trim(\substr($state, 0, $methodOffset));
+        $path = \trim(\substr($state, $methodOffset + 1, $pathOffset - $methodOffset));
+        $version = \trim(\substr($state, $pathOffset + 1, $offset - $pathOffset));
 
-        $this->emit(new Event('state'), [$method, $path, $version]);
+        $this->emit(new Event('state', ['requestObject' => $requestObject]), [$method, $path, $version]);
 
         return $offset;
     }
 
     /**
-     * @param $buffer
+     * @param mixed $requestObject
+     * @param string $buffer
      * @param int $offset
      * @return int
      * @throws Exception\BadRequestException
      */
-    public function parseHeaders($buffer, $offset = 0)
+    public function parseHeaders($requestObject, $buffer, $offset = 0)
     {
         for ($counter = 0; $counter < 50; $counter++) {
             if (($eol = strpos($buffer, "\n", $offset + 1)) === false) {
@@ -98,7 +101,7 @@ class RequestParser
             $headerName = \trim(\substr($line, 0, $columnPosition));
             $headerValue = \trim(\substr($line, $columnPosition + 1));
 
-            $this->emit(new Event('header'), [$headerName, $headerValue]);
+            $this->emit(new Event('header', ['requestObject' => $requestObject]), [$headerName, $headerValue]);
 
             $offset = $eol + 1;
         }
@@ -107,15 +110,16 @@ class RequestParser
     }
 
     /**
+     * @param mixed $requestObject
      * @param $buffer
      * @param int $offset
      * @return int
      */
-    public function parseBody($buffer, $offset = 0)
+    public function parseBody($requestObject, $buffer, $offset = 0)
     {
         $body = \substr($buffer, $offset + 1);
 
-        $this->emit(new Event('body'), [$body]);
+        $this->emit(new Event('body', ['requestObject' => $requestObject]), [$body]);
 
         return strlen($buffer);
     }

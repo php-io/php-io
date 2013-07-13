@@ -3,28 +3,7 @@
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 
-spl_autoload_register(function($className){
-    $className = ltrim($className, '\\');
-    $fileName  = '';
-    if ($lastNsPos = strrpos($className, '\\')) {
-        $namespace = substr($className, 0, $lastNsPos);
-        $className = substr($className, $lastNsPos + 1);
-        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-    }
-    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-
-    require $fileName;
-});
-
-set_include_path(implode(PATH_SEPARATOR, [
-    __DIR__,
-    __DIR__ . '/../vendor/php-event-manager/src',
-    __DIR__ . '/../vendor/php-service-manager/src',
-    __DIR__ . '/../vendor/php-plugin-manager/src',
-    __DIR__ . '/../vendor/php-log/src',
-    __DIR__ . '/../vendor/psr-log',
-    __DIR__ . '/../vendor/ZendFramework2/library',
-]));
+include __DIR__ . '/../vendor/autoload.php';
 
 $htmlBody = <<<HTML_EOF
 <head>
@@ -58,36 +37,34 @@ client.onopen = function(e){
 </html>
 HTML_EOF;
 
+use Gplanchat\Io\Adapter\Libuv\DefaultServiceManager as LibuvServiceManager;
 use Gplanchat\Io\Application\Application;
 use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
+use Gplanchat\Io\Net\Tcp\Plugin\Server as TcpServerPlugin;
+use Gplanchat\Io\Net\Protocol\Http\Plugin\Server as HttpServerPlugin;
+use Gplanchat\Io\Application\Plugin;
 
-(new Application())
-    ->init(function(Event $event, Application $application){
-        $loop = $application->getLoop();
-        $application->setCurrentLoop($loop);
-        $loop->init();
-    })
+(new Application(new LibuvServiceManager()))
+    ->registerPlugin(new TcpServerPlugin(), 'TcpServer', 10)
+    //->registerPlugin(new HttpServerPlugin(), 'HttpServer', 10)
+    //->registerPlugin(new Http\Plugin\WebSocket(), 'HttpServer.WebSocket', 10)
     ->init(function(Event $event, Application $application) use ($htmlBody) {
-        /*
-         * Initiating the TCP/IP server, binding on port 8081
-         */
-        $socket = $application->getTcpIp4('0.0.0.0', 8081);
-        $tcpServer = $application->getTcpServer($application->getServiceManager(), $application->getCurrentLoop(), $socket);
+        $application->callPlugin('TcpServer', ['0.0.0.0', 8081]);
 
-        $application->setStorage('TcpServer.default', $tcpServer);
-
+        echo 'Initiating HTTP functionality.' . PHP_EOL;
         /*
          * Initiating HTTP support
          */
         $httpServiceManager = new Http\ServerServiceManager();
-        $application->getServiceManager()->attachChild($httpServiceManager, 100);
+        $application->getServiceManager()->registerPeeringServiceManager($httpServiceManager, 100);
 
-        $httpServer = $httpServiceManager->getHttpServer($application->getServiceManager(), $tcpServer);
+        $httpServer = $httpServiceManager->getHttpServer($httpServiceManager, $application->getStorage('TcpServer'));
 
         $httpServer->listen(200, function(Event $event, ClientInterface $client, Http\Request $request, Http\Response $response) use ($htmlBody) {
+            echo 'Recieving HTTP request.' . PHP_EOL;
             $response
                 ->setHeader('Content-Type', 'text/html')
                 ->setBody($htmlBody)
@@ -96,28 +73,34 @@ use Gplanchat\Io\Net\Tcp\ClientInterface;
             ;
         });
 
+        /** @var Http\ServerConnectionHandler $connectionHandler */
+//        $connectionHandler = $httpServiceManager->get('ServerConnectionHandler');
+//        $connectionHandler->registerPlugin(new Plugin\Logger(), 'Logger', 10);
+
         $application->setStorage('Http.serviceManager', $httpServiceManager);
         $application->setStorage('Http.server', $httpServer);
     })
-    ->init(function(Event $event, Application $application) {
-        /*
-         * Adding WebSocket (RFC 6455) support
-         */
-        $webSocketServiceManager = new WebSocket\ServerServiceManager();
-        $application->getStorage('Http.serviceManager')->attachChild($webSocketServiceManager, 200);
-
-        $plugin = new Http\Plugin\WebSocket($webSocketServiceManager, function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
-            $response
-                ->addMessage(['Date' => date('c'), 'Hello' => 'World'])
-                ->emit(new Event('ready'))
-            ;
-        });
-
-        $application->getStorage('Http.server')->registerPlugin('WebSocket', $plugin);
-
-        $application->setStorage('WebSocket.serviceManager', $webSocketServiceManager);
-        $application->setStorage('WebSocket.plugin', $plugin);
-    })
+//    ->init(function(Event $event, Application $application) {
+//        /*
+//         * Adding WebSocket (RFC 6455) support
+//         */
+//        $webSocketServiceManager = new WebSocket\ServerServiceManager();
+//        $application->getStorage('Http.serviceManager')->registerPeeringServiceManager($webSocketServiceManager, 200);
+//
+//        $plugin = new Http\Plugin\WebSocket($webSocketServiceManager, function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
+//            $response
+//                ->addMessage(['Date' => date('c'), 'Hello' => 'World'])
+//                ->emit(new Event('ready'))
+//            ;
+//        });
+//
+//        $application->getStorage('Http.server')
+//            ->registerPlugin($plugin, 'WebSocket')
+//            ->callPlugin('WebSocket');
+//
+//        $application->setStorage('WebSocket.serviceManager', $webSocketServiceManager);
+//        $application->setStorage('WebSocket.plugin', $plugin);
+//    })
     ->bootstrap()
     ->run()
 ;

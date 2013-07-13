@@ -22,7 +22,7 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
-use Gplanchat\EventManager\CallbackHandler;
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
@@ -60,14 +60,14 @@ class ProtocolUpgrader
 
     /**
      * @param string $name
-     * @param CallbackHandler $callbackHanlder
+     * @param CallbackHandlerInterface $callbackHanlder
      * @param ClientInterface $client
      * @param Request $request
      * @param Response $response
      * @return RequestHandlerInterface
      * @throws Exception\UnsupportedUpgradeException
      */
-    public function upgrade($name, CallbackHandler $callbackHanlder, ClientInterface $client, Request $request, Response $response)
+    public function upgrade($name, CallbackHandlerInterface $callbackHanlder, ClientInterface $client, Request $request, Response $response)
     {
         try {
             $requestHandler = $this->get($name);

@@ -22,14 +22,17 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket;
 
-use Gplanchat\ServiceManager\ServiceManager;
 use Gplanchat\ServiceManager\Configurator;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
+use Gplanchat\ServiceManager\ServiceManagerTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class ServerServiceManager
-    extends ServiceManager
+    implements ServiceManagerInterface
 {
+    use ServiceManagerTrait;
+
     /**
      * @param array $config
      * @param Configurator $configurator
@@ -40,13 +43,13 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'RequestHandler' => __NAMESPACE__ . '\\RequestHandler'
+                    'RequestHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\RequestHandler'
                 ],
                 'singletons' => [],
                 'alias'      => [],
                 'factories'  => [
-                    'Request'  => new RequestFactory(),
-                    'Response' => new ResponseFactory()
+                    'Request'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\RequestFactory',
+                    'Response' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\ResponseFactory'
                     ]
                 ];
         }

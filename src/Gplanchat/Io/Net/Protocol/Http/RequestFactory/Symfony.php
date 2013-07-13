@@ -23,11 +23,13 @@
 namespace Gplanchat\Io\Net\Protocol\Http\RequestFactory;
 
 use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Net\Protocol\Http\RequestParser;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
 use ArrayObject;
+use Symfony\Component\HttpFoundation\Request;
 
-class Standard
+class Symfony
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {
@@ -40,33 +42,37 @@ class Standard
 
         /** @var Request $request */
         $request = null;
+
         $requestParser->on(['state'], function(Event $event, $method, $path, $version) use (&$request) {
-            $request = new Request($method, $path, $version);
-        });
+            $request = Request::create($path, $method);
 
-        $requestParser->on(['header'], function(Event $e, $headerName, $headerValue) use ($request) {
-            /** @var Request $request */
+            $event->getEventEmitter()->on(['header'], function(Event $e, $headerName, $headerValue) use ($request) {
+                /** @var Request $request */
 
-            $name = \str_replace('-', '_', \strtoupper($headerName));
-            if ($name === 'COOKIE') {
-                $cookieData = [];
-                parse_str($headerValue, $cookieData);
+                $name = \str_replace('-', '_', \strtoupper($headerName));
+                if ($name === 'COOKIE') {
+                    $cookieData = [];
+                    parse_str($headerValue, $cookieData);
 
-                $request->setCookieParams(new ArrayObject($cookieData));
-            } else {
-                $request->setHeader($name, $headerValue);
-            }
-        });
+                    $request->setCookieParams(new ArrayObject($cookieData));
+                } else {
+                    $request->setHeader($name, $headerValue);
+                }
+            });
 
-        $requestParser->on(['body'], function(Event $e, $body) use ($request) {
-            /** @var Request $request */
-            if (!in_array($request->getMethod(), ['GET', 'HEAD']) && !empty($body)) {
-                $postData = [];
-                parse_str($body, $postData);
+            $event->getEventEmitter()->on(['body'], function(Event $e, $body) use ($request) {
+                /** @var Request $request */
+                if (!in_array($request->getMethod(), ['GET', 'HEAD']) && !empty($body)) {
+                    $postData = [];
+                    parse_str($body, $postData);
 
-                $request->setPostParams(new ArrayObject($postData));
-            }
-        });
+                    $request->setPostParams(new ArrayObject($postData));
+                }
+            });
+
+        }, 1);
+
+        $requestParser->parse($moreParams['buffer'])
 
         return $request;
     }

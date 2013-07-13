@@ -20,14 +20,16 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
-namespace Gplanchat\Io\Net\Protocol\Http;
+namespace Gplanchat\Io\Net\Protocol\Http\RequestFactory;
 
 use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Net\Protocol\Http\Request;
+use Gplanchat\Io\Net\Protocol\Http\RequestParser;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
 use ArrayObject;
 
-class RequestFactory
+class Standard
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {
@@ -42,31 +44,33 @@ class RequestFactory
         $request = null;
         $requestParser->on(['state'], function(Event $event, $method, $path, $version) use (&$request) {
             $request = new Request($method, $path, $version);
+
+            $event->getEventEmitter()->on(['header'], function(Event $e, $headerName, $headerValue) use ($request) {
+                /** @var Request $request */
+
+                $name = \str_replace('-', '_', \strtoupper($headerName));
+                if ($name === 'COOKIE') {
+                    $cookieData = [];
+                    parse_str($headerValue, $cookieData);
+
+                    $request->setCookieParams(new ArrayObject($cookieData));
+                } else {
+                    $request->setHeader($name, $headerValue);
+                }
+            });
+
+            $event->getEventEmitter()->on(['body'], function(Event $e, $body) use ($request) {
+                /** @var Request $request */
+                if (!in_array($request->getMethod(), ['GET', 'HEAD']) && !empty($body)) {
+                    $postData = [];
+                    parse_str($body, $postData);
+
+                    $request->setPostParams(new ArrayObject($postData));
+                }
+            });
         });
 
-        $requestParser->on(['header'], function(Event $e, $headerName, $headerValue) use ($request) {
-            /** @var Request $request */
-
-            $name = \str_replace('-', '_', \strtoupper($headerName));
-            if ($name === 'COOKIE') {
-                $cookieData = [];
-                parse_str($headerValue, $cookieData);
-
-                $request->setCookieParams(new ArrayObject($cookieData));
-            } else {
-                $request->setHeader($name, $headerValue);
-            }
-        });
-
-        $requestParser->on(['body'], function(Event $e, $body) use ($request) {
-            /** @var Request $request */
-            if (!in_array($request->getMethod(), ['GET', 'HEAD']) && !empty($body)) {
-                $postData = [];
-                parse_str($body, $postData);
-
-                $request->setPostParams(new ArrayObject($postData));
-            }
-        });
+        $requestParser->parse($moreParams['buffer']);
 
         return $request;
     }

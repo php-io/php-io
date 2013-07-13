@@ -3,7 +3,6 @@
 namespace Gplanchat\Io\Net\Protocol\Http\Plugin;
 
 use Gplanchat\Io\Net\Protocol\Http\Server;
-use Gplanchat\PluginManager\PluginAwareInterface;
 
 trait ServerPluginTrait
 {

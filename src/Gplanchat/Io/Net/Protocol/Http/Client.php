@@ -25,8 +25,8 @@ namespace Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp;
-use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
@@ -38,11 +38,11 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
  * @method \Gplanchat\Io\Net\Protocol\Http\ServerServiceManager getServiceManager()
  */
 class Client
-    implements Tcp\ClientDecoratorInterface, ServiceManagerAwareInterface, PluginAwareInterface
+    implements Tcp\ClientDecoratorInterface, ServiceManagerAwareInterface, PluginManagerInterface
 {
     use Tcp\ClientDecoratorTrait;
     use ServiceManagerAwareTrait;
-    use PluginAwareTrait;
+    use PluginManagerTrait;
 
     public function __construct(ServiceManagerInterface $serviceManager, Tcp\ClientInterface $client)
     {

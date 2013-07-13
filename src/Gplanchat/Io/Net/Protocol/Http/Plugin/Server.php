@@ -1,6 +1,6 @@
 <?php
 
-namespace Gplanchat\Io\Net\Tcp\Plugin;
+namespace Gplanchat\Io\Net\Protocol\Http\Plugin;
 
 use Gplanchat\Io\Application\Plugin\PluginInterface;
 use Gplanchat\Io\Application\Plugin\PluginTrait;
@@ -24,10 +24,10 @@ class Server
      */
     public function __construct(ServiceManagerInterface $serviceManager = null, callable $requestHandler = null)
     {
-        if ($serviceManager === null) {
+        if ($serviceManager !== null) {
             $this->setServiceManager($serviceManager);
         }
-        if ($requestHandler === null) {
+        if ($requestHandler !== null) {
             $this->setRequestHandler($requestHandler);
         }
     }
