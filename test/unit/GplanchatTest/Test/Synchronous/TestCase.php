@@ -1,11 +1,10 @@
 <?php
 
-namespace GplanchatTest\Test\Synch;
+namespace GplanchatTest\Test\Synchronous;
 
-use PHPUnit_Framework_TestCase;
+use GplanchatTest\Test\AbstractTestCase;
 
-class TestCase
-    extends PHPUnit_Framework_TestCase
+abstract class TestCase
+    extends AbstractTestCase
 {
-
 }

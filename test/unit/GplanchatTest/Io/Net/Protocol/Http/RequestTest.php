@@ -4,9 +4,10 @@
 namespace GplanchatTest\Io\Net\Protocol\Http;
 
 use Gplanchat\Io\Net\Protocol\Http\Request;
+use GplanchatTest\Test\Synchronous\TestCase;
 
 class RequestTest
-    extends \PHPUnit_Framework_TestCase
+    extends TestCase
 {
     public function testGetMethod()
     {
