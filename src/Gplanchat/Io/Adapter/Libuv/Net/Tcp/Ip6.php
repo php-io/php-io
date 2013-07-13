@@ -22,13 +22,16 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
+use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Adapter\Libuv\Net\AbstractIp6;
-use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Adapter\Libuv\Net\Exception\ConnectionError;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 
 class Ip6
     extends AbstractIp6
+    implements SocketInterface
 {
     /**
      * @param ClientInterface $client
@@ -37,7 +40,12 @@ class Ip6
      */
     public function connect(ClientInterface $client, callable $callback)
     {
-        $internalCallback = function($resource) use($callback, $client) {
+        $internalCallback = function($resource, $status) use($callback, $client) {
+            if (!$status) {
+                $client->emit(new Event('error'), [$resource, new ConnectionError('Could not open connection.', $status)]);
+                return;
+            }
+
             $client->on(['data'], $callback);
         };
 

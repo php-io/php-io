@@ -38,16 +38,25 @@ class DefaultServiceManager
      * @var array
      */
     protected $invokables = [
-        'Idle'      => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Idle',
-        'Loop'      => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Loop',
-        'Timer'     => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Timer',
-        'TcpClient' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Client',
-        'TcpIp4'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip4',
-        'TcpIp6'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip6',
-        'TcpServer' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Server'
+        'Idle'         => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Idle',
+        'Loop'         => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Loop',
+        'Timer'        => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Timer',
+        'TcpClient'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Client',
+        'TcpIp4Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip4',
+        'TcpIp6Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip6',
+        'TcpServer'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Server',
+        'UdpClient'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Client',
+        'UdpIp4Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip4',
+        'UdpIp6Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip6',
+        'UdpServer'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Server'
     ];
 
     protected $singletons = [
         'Logger' => 'Psr\\Log\\NullLogger'
+    ];
+
+    protected $factories = [
+        'TcpSocket' => 'Gplanchat\\Io\\Net\\Tcp\\SocketFactory',
+        'UdpSocket' => 'Gplanchat\\Io\\Net\\Udp\\SocketFactory'
     ];
 }

@@ -26,6 +26,7 @@ use Gplanchat\EventManager\Event;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventEmitterTrait;
 use Gplanchat\Io\Adapter\Libuv\DefaultServiceManager as LibuvServiceManager;
+use Gplanchat\Io\Exception\InvalidDependencyException;
 use Gplanchat\Io\Exception\MissingDependecyException;
 use Gplanchat\Io\Exception\MissingExtensionException;
 use Gplanchat\Io\Loop\IdleInterface;
@@ -34,9 +35,8 @@ use Gplanchat\Io\Loop\TimerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareTrait;
-use Gplanchat\PluginManager\PluginInterface;
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\BadMethodCallException;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
@@ -58,12 +58,12 @@ use Psr\Log\LoggerAwareTrait;
  * @method \Gplanchat\Io\Net\SocketInterface getTcpIp6($address, $port)
  */
 class Application
-    implements ServiceManagerAwareInterface, LoggerAwareInterface, EventEmitterInterface, PluginAwareInterface
+    implements ServiceManagerAwareInterface, LoggerAwareInterface, EventEmitterInterface, PluginManagerInterface
 {
     use ServiceManagerAwareTrait;
     use LoggerAwareTrait;
     use EventEmitterTrait;
-    use PluginAwareTrait;
+    use PluginManagerTrait;
 
     /**
      * @var LoopInterface
@@ -88,14 +88,6 @@ class Application
             $this->setLogger(new NullLogger());
         }
 
-        if ($serviceManager === null) {
-            if (class_exists('UV')) {
-                $serviceManager = new LibuvServiceManager();
-            } else {
-                throw new MissingExtensionException('Extension php-uv is missing. Aborting.');
-            }
-        }
-
         $this->setServiceManager($serviceManager);
     }
 
@@ -117,10 +109,10 @@ class Application
     {
         $this->emit(new Event('bootstrap'), [$this]);
 
-        foreach ($this->getPlugins() as $plugin) {
-            /** @var PluginInterface $plugin */
-            $plugin->register($this);
-        }
+//        foreach ($this->getPlugins('bootstrap') as $plugin) {
+//            /** @var PluginInterface $plugin */
+//            $plugin($this);
+//        }
 
         return $this;
     }
@@ -155,8 +147,13 @@ class Application
     public function getCurrentLoop()
     {
         if ($this->loop === null) {
-            throw new MissingDependecyException('No loop was registered into the application.');
+            /** @var LoopInterface $loop */
+            $loop = $this->getServiceManager()->get('Loop');
+            $this->setCurrentLoop($loop);
+
+            $loop->init();
         }
+
         return $this->loop;
     }
 

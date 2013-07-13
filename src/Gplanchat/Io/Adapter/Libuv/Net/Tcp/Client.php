@@ -22,27 +22,26 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
-use Gplanchat\Io\Adapter\Libuv\Loop\Loop;
-use Gplanchat\Io\Exception\InvalidDependecyException;
-use Gplanchat\Io\Loop\LoopInterface;
-use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Loop\LoopAwareTrait;
+use Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\EventEmitterTrait;
-use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait;
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 class Client
-    implements ClientInterface, PluginAwareInterface
+    implements ClientInterface, PluginManagerInterface
 {
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;
-    use PluginAwareTrait;
+    use PluginManagerTrait;
+    use LoopAwareTrait;
 
-    private $loop = null;
     private $server = null;
     private $connection = null;
 
@@ -54,11 +53,7 @@ class Client
      */
     public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null, callable $callback = null)
     {
-        if (!$loop instanceof Loop) {
-            throw new InvalidDependecyException('Loop handle should be instance of Libuv loop.');
-        }
-
-        $this->loop = $loop;
+        $this->setLoop($loop);
         $this->connection = \uv_tcp_init($this->loop->getResource());
 
         if ($socket !== null) {
@@ -152,25 +147,6 @@ class Client
     public function getResource()
     {
         return $this->connection;
-    }
-
-    /***
-     * @param LoopInterface $loop
-     * @return ClientInterface
-     */
-    public function setLoop(LoopInterface $loop)
-    {
-        $this->loop = $loop;
-
-        return $this;
-    }
-
-    /**
-     * @return LoopInterface
-     */
-    public function getLoop()
-    {
-        return $this->loop;
     }
 
     /**

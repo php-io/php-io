@@ -21,15 +21,12 @@
  */
 namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Loop\LoopAwareInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
-use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
-use Gplanchat\Io\Net\SocketInterface;
-use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
-use Gplanchat\ServiceManager\ServiceManagerInterface;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 
 interface ClientInterface
-    extends EventEmitterInterface
+    extends EventEmitterInterface, LoopAwareInterface
 {
     /**
      * @param ServerInterface $server
@@ -66,17 +63,6 @@ interface ClientInterface
      * @return resource
      */
     public function getResource();
-
-    /***
-     * @param LoopInterface $loop
-     * @return ClientInterface
-     */
-    public function setLoop(LoopInterface $loop);
-
-    /**
-     * @return LoopInterface
-     */
-    public function getLoop();
 
     /**
      * @return ServerInterface|null

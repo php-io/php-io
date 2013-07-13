@@ -22,9 +22,6 @@
 
 namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\Io\Loop\LoopInterface;
-use Gplanchat\Io\Net\SocketInterface;
-
 interface ServerDecoratorInterface
     extends ServerInterface
 {

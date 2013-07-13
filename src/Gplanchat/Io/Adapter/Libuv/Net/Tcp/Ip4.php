@@ -22,13 +22,16 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
+use Gplanchat\EventManager\Event;
 use Gplanchat\Io\Adapter\Libuv\Net\AbstractIp4;
-use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Adapter\Libuv\Net\Exception\ConnectionError;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 
 class Ip4
     extends AbstractIp4
+    implements SocketInterface
 {
     /**
      * @param ClientInterface $client
@@ -39,14 +42,13 @@ class Ip4
     {
         $internalCallback = function($resource, $status) use($callback, $client) {
             if (!$status) {
-                trigger_error('Could not open conection.', E_USER_WARNING);
+                $client->emit(new Event('error'), [$resource, new ConnectionError('Could not open connection.', $status)]);
                 return;
             }
 
             $client->on(['data'], $callback);
         };
 
-        var_dump($client->getResource(), $this->getResource());
         \uv_tcp_connect($client->getResource(), $this->getResource(), $internalCallback);
 
         return $this;

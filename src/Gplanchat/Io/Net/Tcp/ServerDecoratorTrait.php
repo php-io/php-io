@@ -22,7 +22,7 @@
 
 namespace Gplanchat\Io\Net\Tcp;
 
-use Gplanchat\EventManager\CallbackHandler;
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventInterface;
 use Gplanchat\Io\Exception\MissingDependecyException;
@@ -58,7 +58,7 @@ trait ServerDecoratorTrait
      * @param string|array $eventNameList
      * @param callable $listener
      * @param int|null $priority
-     * @return CallbackHandler
+     * @return CallbackHandlerInterface
      */
     public function on($eventNameList, callable $listener, $priority = null)
     {
@@ -71,7 +71,7 @@ trait ServerDecoratorTrait
      * @param string|array $eventNameList
      * @param callable $listener
      * @param int|null $priority
-     * @return CallbackHandler
+     * @return CallbackHandlerInterface
      */
     public function once($eventNameList, callable $listener, $priority = null)
     {
@@ -83,10 +83,10 @@ trait ServerDecoratorTrait
     /**
      * @abstract
      * @param string|array $eventNameList
-     * @param CallbackHandler $callback
+     * @param CallbackHandlerInterface $callback
      * @return EventEmitterInterface
      */
-    public function removeListener($eventNameList, CallbackHandler $callback)
+    public function removeListener($eventNameList, CallbackHandlerInterface $callback)
     {
         $this->getDecoratedServer()->removeListener($eventNameList, $callback);
 
@@ -118,14 +118,26 @@ trait ServerDecoratorTrait
     }
 
     /**
-     * @abstract
+     * @param callable $callback
+     * @param array $options
+     * @return $this
+     */
+    public function newCallbackHandler(callable $callback, array $options = [])
+    {
+        $this->getDecoratedServer()->newCallbackHandler($callback, $options);
+
+        return $this;
+    }
+
+    /**
      * @param EventInterface $event
      * @param array $params
-     * @return EventEmitterInterface
+     * @param callable $cleanupCallback
+     * @return $this
      */
-    public function emit(EventInterface $event, array $params = [])
+    public function emit(EventInterface $event, array $params = [], callable $cleanupCallback = null)
     {
-        $this->getDecoratedServer()->emit($event, $params);
+        $this->getDecoratedServer()->emit($event, $params, $cleanupCallback);
 
         return $this;
     }

@@ -22,16 +22,8 @@
 
 namespace Gplanchat\Io\Net;
 
-use Gplanchat\Io\Net\Tcp\ClientInterface;
-use Gplanchat\Io\Net\Tcp\ServerInterface;
-
 interface SocketInterface
 {
-    const TRANSPORT_TCP = 'tcp';
-    const TRANSPORT_UDP = 'udp';
-    const TRANSPORT_TLS = 'tls';
-    const TRANSPORT_SSl = 'ssl';
-
     /**
      * @return resource
      */
@@ -51,17 +43,4 @@ interface SocketInterface
      * @return int
      */
     public function getPort();
-
-    /**
-     * @param ClientInterface $client
-     * @param $callback
-     * @return SocketInterface
-     */
-    public function connect(ClientInterface $client, callable $callback);
-
-    /**
-     * @param ServerInterface $server
-     * @return SocketInterface
-     */
-    public function bind(ServerInterface $server);
 }

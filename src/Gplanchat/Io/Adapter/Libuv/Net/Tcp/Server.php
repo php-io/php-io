@@ -22,31 +22,33 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
-use Gplanchat\Io\Adapter\Libuv\Loop\Loop;
-use Gplanchat\Io\Loop\LoopInterface;
-use Gplanchat\Io\Net\SocketInterface;
+use Gplanchat\Io\Loop\LoopAwareTrait;
+use Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface as LibuvLoopInterface;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 use Gplanchat\EventManager\Event;
-use Gplanchat\EventManager\EventEmitterTrait;
-use Gplanchat\PluginManager\PluginAwareInterface;
-use Gplanchat\PluginManager\PluginAwareTrait;
+use Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait;
+use Gplanchat\PluginManager\PluginInterface;
+use Gplanchat\PluginManager\PluginManagerInterface;
+use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 class Server
-    implements ServerInterface, ServiceManagerAwareInterface, PluginAwareInterface
+    implements ServerInterface, ServiceManagerAwareInterface, PluginManagerInterface
 {
     use EventEmitterTrait;
     use ServiceManagerAwareTrait;
-    use PluginAwareTrait;
+    use PluginManagerTrait;
+    use LoopAwareTrait;
 
-    private $loop = null;
     private $connection = null;
+    protected $registeredListener = false;
 
-    public function __construct(ServiceManagerInterface $serviceManager, Loop $loop, SocketInterface $socket = null)
+    public function __construct(ServiceManagerInterface $serviceManager, LibuvLoopInterface $loop, SocketInterface $socket = null)
     {
-        $this->loop = $loop;
+        $this->setLoop($loop);
         $this->connection = \uv_tcp_init($this->loop->getResource());
 
         if ($socket !== null) {
@@ -67,16 +69,33 @@ class Server
     {
         $this->on(['connection'], $callback);
 
-        $server = $this;
+        if ($this->registeredListener !== true) {
+            $server = $this;
 
-        \uv_listen($this->connection, $timeout, function() use($server) {
-            $client = new Client($this->getServiceManager(), $this->getLoop());
-            $client->accept($server);
+            \uv_listen($this->connection, $timeout, function() use($server) {
+                $client = new Client($this->getServiceManager(), $this->getLoop());
+                $client->accept($server);
 
-            $server->emit(new Event('connection'), [$client, $server]);
+                $server->emit(new Event('connection'), [$client, $server]);
 
-            $client->poll();
-        });
+                $client->poll();
+            });
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ServerInterface
+     */
+    public function stop()
+    {
+        if ($this->registeredListener === true) {
+            $server = $this;
+            \uv_close($this->getResource(), function() use($server){
+                $server->registeredListener = false;
+            });
+        }
 
         return $this;
     }
@@ -88,23 +107,14 @@ class Server
     {
         return $this->connection;
     }
-
     /**
-     * @param LoopInterface $loop
-     * @return ServerInterface|Server
+     * @param PluginInterface $plugin
+     * @param string $namespace
+     * @param int|null $priority
+     * @return PluginManagerInterface
      */
-    public function setLoop(LoopInterface $loop)
+    public function registerPlugin(PluginInterface $plugin, $namespace, $priority = null)
     {
-        $this->loop = $loop;
 
-        return $this;
-    }
-
-    /**
-     * @return LoopInterface
-     */
-    public function getLoop()
-    {
-        return $this->loop;
     }
 }

@@ -21,8 +21,6 @@
  */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
-use Gplanchat\Io\Loop\LoopInterface;
-
 /**
  * Basic loop class. A loop is designed to run event-driven code, the loop runs
  * until there are registered I/O loops.
