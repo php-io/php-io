@@ -23,14 +23,15 @@
 namespace Gplanchat\Io\Net\Protocol\Http\ResponseFactory;
 
 use Gplanchat\ServiceManager\ServiceManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class Symfony
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])
     {
-        return (new Response())
-            ->setHeader('Connection', 'close')
-            ->setHeader('Server', 'Io/0.1')
-        ;
+        return (new Response('', 200, [
+            'Connection' => 'close',
+            'Server'     => 'Io/0.1 Symfony/2.3'
+        ]));
     }
 }

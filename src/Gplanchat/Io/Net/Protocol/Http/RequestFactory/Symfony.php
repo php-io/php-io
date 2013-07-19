@@ -42,7 +42,6 @@ class Symfony
 
         /** @var Request $request */
         $request = null;
-
         $requestParser->on(['state'], function(Event $event, $method, $path, $version) use (&$request) {
             $request = Request::create($path, $method);
 
@@ -69,10 +68,9 @@ class Symfony
                     $request->setPostParams(new ArrayObject($postData));
                 }
             });
+        });
 
-        }, 1);
-
-        $requestParser->parse($moreParams['buffer'])
+        $requestParser->parse($moreParams['buffer']);
 
         return $request;
     }
