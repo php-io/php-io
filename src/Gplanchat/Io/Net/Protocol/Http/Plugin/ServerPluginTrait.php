@@ -2,17 +2,17 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http\Plugin;
 
-use Gplanchat\Io\Net\Protocol\Http\Server;
+use Gplanchat\Io\Net\Protocol\Http\Server as HttpServer;
 
 trait ServerPluginTrait
 {
     private $server = null;
 
     /**
-     * @param Server $server
+     * @param HttpServer $server
      * @return ServerPluginInterface
      */
-    public function setServer(Server $server)
+    public function setServer(HttpServer $server)
     {
         $this->server = $server;
 
@@ -20,7 +20,7 @@ trait ServerPluginTrait
     }
 
     /**
-     * @return Server
+     * @return HttpServer
      */
     public function getServer()
     {

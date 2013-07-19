@@ -36,7 +36,7 @@ use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 class Client
-    implements ClientInterface, PluginManagerInterface, LoopAwareInterface
+    implements ClientInterface, PluginManagerInterface
 {
     use ServiceManagerAwareTrait;
     use EventEmitterTrait;

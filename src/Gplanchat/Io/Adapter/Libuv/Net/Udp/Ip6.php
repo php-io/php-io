@@ -38,18 +38,18 @@ class Ip6
      * @param callable $callback
      * @return SocketInterface
      */
-    public function connect(ClientInterface $client, callable $callback)
+    public function send(ClientInterface $client, callable $callback)
     {
-        $internalCallback = function($resource, $status) use($callback, $client) {
-            if (!$status) {
-                $client->emit(new Event('error'), [$resource, new ConnectionError('Could not open connection.', $status)]);
-                return;
-            }
-
-            $client->on(['data'], $callback);
-        };
-
-        \uv_tcp_connect6($client->getResource(), $this->getResource(), $internalCallback);
+//        $internalCallback = function($resource, $status) use($callback, $client) {
+//            if (!$status) {
+//                $client->emit(new Event('error'), [$resource, new ConnectionError('Could not open connection.', $status)]);
+//                return;
+//            }
+//
+//            $client->on(['data'], $callback);
+//        };
+//
+//        \uv_tcp_connect6($client->getResource(), $this->getResource(), $internalCallback);
 
         return $this;
     }
@@ -60,7 +60,7 @@ class Ip6
      */
     public function bind(ServerInterface $server)
     {
-        \uv_tcp_bind6($server->getResource(), $this->getResource());
+//        \uv_tcp_bind6($server->getResource(), $this->getResource());
 
         return $this;
     }

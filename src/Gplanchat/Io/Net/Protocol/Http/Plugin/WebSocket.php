@@ -5,7 +5,7 @@ namespace Gplanchat\Io\Net\Protocol\Http\Plugin;
 use Gplanchat\Io\Net\Protocol\Http\Plugin\ServerPluginInterface;
 use Gplanchat\Io\Net\Protocol\Http\Plugin\ServerPluginTrait;
 use Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface;
-use Gplanchat\Io\Net\Protocol\Http\Server;
+use Gplanchat\Io\Net\Protocol\Http\Server as HttpServer;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandlerFactory;
 use Gplanchat\PluginManager\PluginManagerInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
@@ -64,7 +64,7 @@ class WebSocket
     {
         $this->requestHandler = $requestHandler;
 
-        /** @var Server $server */
+        /** @var HttpServer $server */
         $server = $this->getServer();
 
         if ($server !== null) {

@@ -24,7 +24,7 @@ namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 use Gplanchat\Io\Loop\LoopAwareInterface;
 use Gplanchat\Io\Loop\LoopAwareTrait;
-use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
 use Gplanchat\Io\Loop\TimerInterface;
 
 class Timer
@@ -35,9 +35,9 @@ class Timer
     private $timer = null;
 
     /**
-     * @param LoopInterface $loop
+     * @param BaseLoopInterface $loop
      */
-    public function __construct(LoopInterface $loop)
+    public function __construct(BaseLoopInterface $loop)
     {
         $this->setLoop($loop);
         $this->timer = \uv_timer_init($loop->getResource());

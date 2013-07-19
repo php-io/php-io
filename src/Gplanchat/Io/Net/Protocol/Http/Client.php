@@ -22,6 +22,7 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp;
@@ -139,6 +140,18 @@ class Client
     public function getServer()
     {
         return $this->getDecoratedClient()->getServer();
+    }
+
+    /**
+     * @param callable $callback
+     * @param array $options
+     * @return CallbackHandlerInterface
+     */
+    public function newCallbackHandler(callable $callback, array $options = [])
+    {
+        $this->getDecoratedClient()->newCallbackHandler($callback, $options);
+
+        return $this;
     }
 
     /**

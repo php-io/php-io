@@ -3,19 +3,19 @@
 namespace Gplanchat\Io\Net\Protocol\Http\Plugin;
 
 use Gplanchat\PluginManager\PluginInterface;
-use Gplanchat\Io\Net\Protocol\Http\Server;
+use Gplanchat\Io\Net\Protocol\Http\Server as HttpServer;
 
 interface ServerPluginInterface
     extends PluginInterface
 {
     /**
-     * @param Server $server
+     * @param HttpServer $server
      * @return ServerPluginInterface
      */
-    public function setServer(Server $server);
+    public function setServer(HttpServer $server);
 
     /**
-     * @return Server
+     * @return HttpServer
      */
     public function getServer();
 }

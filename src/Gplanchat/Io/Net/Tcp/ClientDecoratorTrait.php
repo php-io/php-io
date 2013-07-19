@@ -82,12 +82,12 @@ trait ClientDecoratorTrait
     /**
      * @abstract
      * @param string|array $eventNameList
-     * @param EventEmitterInterface $callback
+     * @param CallbackHandlerInterface $callbackHandler
      * @return EventEmitterInterface
      */
-    public function removeListener($eventNameList, EventEmitterInterface $callback)
+    public function removeListener($eventNameList, CallbackHandlerInterface $callbackHandler)
     {
-        $this->getDecoratedClient()->removeListener($eventNameList, $callback);
+        $this->getDecoratedClient()->removeListener($eventNameList, $callbackHandler);
 
         return $this;
     }
@@ -122,9 +122,9 @@ trait ClientDecoratorTrait
      * @param array $params
      * @return EventEmitterInterface
      */
-    public function emit(EventInterface $event, array $params = [])
+    public function emit(EventInterface $event, array $params = [], callable $cleanupCallback = null)
     {
-        $this->getDecoratedClient()->emit($event, $params);
+        $this->getDecoratedClient()->emit($event, $params, $cleanupCallback);
 
         return $this;
     }

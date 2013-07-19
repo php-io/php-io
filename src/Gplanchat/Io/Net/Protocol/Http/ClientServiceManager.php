@@ -51,6 +51,8 @@ class ClientServiceManager
      */
     protected $singletons = [
         'ClientConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ClientConnectionHandler',
+        'StandardRequestFactory'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory\\Standard',
+        'StandardResponseFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory\\Standard',
     ];
 
     /**
@@ -59,7 +61,7 @@ class ClientServiceManager
     protected $factories = [
         'Logger' => 'Psr\\Log\\NullLogger',
 
-        'Request'          => 'RequestFactory',
-        'Response'         => 'ResponseFactory'
+        'Request'  => 'StandardRequestFactory',
+        'Response' => 'StandardResponseFactory'
     ];
 }

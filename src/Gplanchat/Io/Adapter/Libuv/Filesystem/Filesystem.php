@@ -21,6 +21,10 @@ class Filesystem
     }
 
     /**
+     * Opens a file for reading/writing. The callback will get $this instance and a new instance of class
+     * Gplanchat\Io\Filesystem\FileInterface on which file-related operations will be possible.
+     * If the file was created, it will be assigned the mode 0644.
+     *
      * @param string $path
      * @param int $flags
      * @param callable $callback
@@ -30,13 +34,17 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, 0644, function($streamId) use($callback, $self) {
-            $callback(new File($self, $streamId));
+            $callback($self, new File($self, $streamId));
         });
 
         return $this;
     }
 
     /**
+     * Opens a file for reading/writing, assigning a mode to the file if was newly created.
+     * The callback will get $this instance and a new instance of class Gplanchat\Io\Filesystem\FileInterface
+     * on which file-related operations will be possible.
+     *
      * @param string $path
      * @param int $flags
      * @param int $chmod
@@ -47,13 +55,16 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
-            $callback(new File($self, $streamId));
+            $callback($self, new File($self, $streamId));
         });
 
         return $this;
     }
 
     /**
+     * Rename or move a file. The callback will get $this instance and an boolean determining if
+     * the operation was successful or not.
+     *
      * @param string $from
      * @param string $to
      * @param callable $callback
@@ -115,7 +126,7 @@ class Filesystem
     public function fchown($fd, $uid, $gid,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_fchown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
+        \uv_fs_fchown($this->getLoop()->getResource(), $fd, $uid, $gid, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -132,7 +143,7 @@ class Filesystem
     public function fchmod($fd, $mode,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_fchmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
+        \uv_fs_fchmod($this->getLoop()->getResource(), $fd, $mode, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -208,14 +219,47 @@ class Filesystem
 
     /**
      * @todo
+     * @param string $sourcePath
+     * @param string $sestinationPath
+     * @param callable $callback
+     * @return $this
+     */
+    public function link($sourcePath, $sestinationPath, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_link($this->getLoop()->getResource(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param string $sourcePath
+     * @param string $sestinationPath
+     * @param callable $callback
+     * @param int $flags
+     * @return $this
+     */
+    public function symlink($sourcePath, $sestinationPath, callable $callback, $flags = null)
+    {
+        $self = $this;
+        \uv_fs_symlink($this->getLoop()->getResource(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        }, $flags);
+
+        return $this;
+    }
+
+    /**
+     * @todo
      *
      * File System
      * fs.lchown(path, uid, gid, callback)
      * fs.lchmod(path, mode, callback)
      * fs.lstat(path, callback)
      *
-     * fs.link(srcpath, dstpath, callback)
-     * fs.symlink(srcpath, dstpath, [type], callback)
      * fs.readlink(path, callback)
      * fs.realpath(path, [cache], callback)
      * fs.unlink(path, callback)
