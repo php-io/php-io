@@ -30,7 +30,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -81,14 +81,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -100,14 +100,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -142,7 +142,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\CallbackHandler
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -190,7 +190,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -204,14 +204,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -223,7 +223,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -237,7 +237,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -249,7 +249,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -263,7 +263,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\EventManager`_ [» Read the d
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -275,14 +275,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -293,7 +293,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -304,7 +304,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -315,7 +315,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\EventManager\EventEmitterTrait
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 

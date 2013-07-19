@@ -37,7 +37,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -60,7 +60,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -71,7 +71,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -85,7 +85,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -97,7 +97,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -111,7 +111,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -123,14 +123,14 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -141,7 +141,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -152,7 +152,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -163,7 +163,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientDecoratorTrait
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -213,7 +213,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -224,7 +224,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
+* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
 * *is nullable* : No
 
 
@@ -242,7 +242,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -312,7 +312,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorInterface
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -335,7 +335,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -346,7 +346,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -360,7 +360,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -372,7 +372,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -386,7 +386,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -398,14 +398,14 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callback`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -416,7 +416,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -427,7 +427,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -458,7 +458,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerDecoratorTrait
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -508,7 +508,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
+* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
 * *is nullable* : No
 
 
@@ -519,7 +519,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -553,7 +553,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\SocketFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -586,7 +586,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -604,7 +604,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 

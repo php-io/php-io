@@ -47,7 +47,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `signal`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -59,7 +59,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `stream`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -77,14 +77,14 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `stream`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `listener`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -95,7 +95,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `stream`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -106,7 +106,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `stream`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -117,7 +117,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `stream`
 
 
-* *type* : Gplanchat\Io\Adapter\Polling\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 
 

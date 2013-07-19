@@ -23,14 +23,14 @@ Interface FileInterface
 ##### Parameter `filesystem`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
 * *is nullable* : No
 
 
 ##### Parameter `streamId`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -41,7 +41,7 @@ Interface FileInterface
 ##### Parameter `filesystem`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
 * *is nullable* : No
 
 
@@ -56,7 +56,7 @@ Interface FileInterface
 ##### Parameter `streamId`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -71,7 +71,7 @@ Interface FileInterface
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -90,7 +90,7 @@ Interface FileInterface
 ##### Parameter `data`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -109,28 +109,28 @@ Interface FileInterface
 ##### Parameter `data`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `offset`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `position`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -162,7 +162,7 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -173,14 +173,14 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `flags`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -199,21 +199,21 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `flags`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `chmod`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -232,14 +232,14 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `from`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `to`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -258,21 +258,21 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `uid`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `gid`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -291,14 +291,14 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `mode`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -317,21 +317,21 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `uid`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `gid`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -350,14 +350,14 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `mode`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -376,14 +376,14 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -402,7 +402,7 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -421,7 +421,7 @@ _Declared in namespace `Gplanchat\Io\Filesystem`_ [» Read the docs](Gplanchat-I
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -453,7 +453,7 @@ Class File
 ##### Parameter `filesystem`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileTrait
+* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
 * *is nullable* : No
 
 
@@ -468,7 +468,7 @@ Class File
 ##### Parameter `streamId`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -487,7 +487,7 @@ Class File
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Filesystem\FileTrait
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 

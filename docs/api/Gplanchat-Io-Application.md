@@ -42,7 +42,7 @@ Class ApplicationLoop
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -50,7 +50,7 @@ Class ApplicationLoop
 ##### Parameter `logger`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Psr\Log\LoggerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -81,7 +81,7 @@ Class ApplicationLoop
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -96,7 +96,7 @@ Class ApplicationLoop
 ##### Parameter `method`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -114,7 +114,7 @@ Class ApplicationLoop
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -125,14 +125,14 @@ Class ApplicationLoop
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -147,7 +147,7 @@ Class ApplicationLoop
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -158,7 +158,7 @@ Sets a logger.
 ##### Parameter `logger`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Psr\Log\LoggerInterface
 * *is nullable* : No
 
 
@@ -169,7 +169,7 @@ Sets a logger.
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -183,7 +183,7 @@ Sets a logger.
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -195,7 +195,7 @@ Sets a logger.
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -209,7 +209,7 @@ Sets a logger.
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -221,14 +221,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -239,7 +239,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -250,7 +250,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -261,7 +261,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -309,21 +309,21 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -335,7 +335,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -355,7 +355,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -366,7 +366,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -377,7 +377,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -391,14 +391,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Application\Application
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 

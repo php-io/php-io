@@ -23,7 +23,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Idle
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -87,7 +87,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `signal`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Loop
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -139,7 +139,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -150,14 +150,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `startTimeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `repeatTimeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -175,7 +175,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -193,7 +193,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -211,14 +211,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `startTimeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `repeatTimeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -240,7 +240,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -259,7 +259,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Loop`_ [» Read the docs](Gpl
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Loop\Timer
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 

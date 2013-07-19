@@ -18,21 +18,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade`_ [» Read the do
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
 ##### Parameter `response`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface
+* *type* : Gplanchat\Io\Net\Protocol\Http\Response
 * *is nullable* : No
 
 

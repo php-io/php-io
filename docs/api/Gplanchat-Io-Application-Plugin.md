@@ -27,7 +27,7 @@ _Declared in namespace `Gplanchat\Io\Application\Plugin`_ [» Read the docs](Gpl
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Application\Plugin\Logger
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -47,7 +47,7 @@ _Declared in namespace `Gplanchat\Io\Application\Plugin`_ [» Read the docs](Gpl
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Application\Plugin\Logger
+* *type* : Gplanchat\PluginManager\PluginManagerInterface
 * *is nullable* : No
 
 
@@ -71,7 +71,7 @@ _Declared in namespace `Gplanchat\Io\Application\Plugin`_ [» Read the docs](Gpl
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Application\Plugin\PluginInterface
+* *type* : Gplanchat\Io\Application\Application
 * *is nullable* : No
 
 
@@ -94,7 +94,7 @@ _Declared in namespace `Gplanchat\Io\Application\Plugin`_ [» Read the docs](Gpl
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Application\Plugin\PluginTrait
+* *type* : Gplanchat\Io\Application\Application
 * *is nullable* : No
 
 

@@ -39,7 +39,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -51,7 +51,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\Server
+* *type* : Gplanchat\PluginManager\PluginManagerInterface
 * *is nullable* : No
 
 
@@ -77,7 +77,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -97,7 +97,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\Server
+* *type* : Gplanchat\Io\Application\Application
 * *is nullable* : No
 
 
@@ -116,7 +116,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -140,7 +140,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\ServerPluginInterface
+* *type* : Gplanchat\Io\Net\Protocol\Http\Server
 * *is nullable* : No
 
 
@@ -163,7 +163,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\ServerPluginTrait
+* *type* : Gplanchat\Io\Net\Protocol\Http\Server
 * *is nullable* : No
 
 
@@ -199,7 +199,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\WebSocket
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -219,7 +219,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\WebSocket
+* *type* : Gplanchat\PluginManager\PluginManagerInterface
 * *is nullable* : No
 
 
@@ -245,7 +245,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\WebSocket
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -265,7 +265,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\WebSocket
+* *type* : Gplanchat\Io\Net\Protocol\Http\Server
 * *is nullable* : No
 
 
@@ -284,7 +284,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Plugin`_ [» Read the doc
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Plugin\WebSocket
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 

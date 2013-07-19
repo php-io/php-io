@@ -29,14 +29,14 @@ Class File
 ##### Parameter `filesystem`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
 * *is nullable* : No
 
 
 ##### Parameter `streamId`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -47,7 +47,7 @@ Class File
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -66,7 +66,7 @@ Class File
 ##### Parameter `data`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -85,28 +85,28 @@ Class File
 ##### Parameter `data`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `offset`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `position`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -125,7 +125,7 @@ Class File
 ##### Parameter `filesystem`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : Gplanchat\Io\Filesystem\FilesystemInterface
 * *is nullable* : No
 
 
@@ -140,7 +140,7 @@ Class File
 ##### Parameter `streamId`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -159,7 +159,7 @@ Class File
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\File
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -189,7 +189,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Filesystem`_ [» Read the doc
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -200,14 +200,14 @@ Opens a file for reading/writing. The callback will get $this instance and a new
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `flags`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -226,21 +226,21 @@ Opens a file for reading/writing, assigning a mode to the file if was newly crea
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `flags`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `chmod`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -259,14 +259,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `from`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `to`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -285,21 +285,21 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `uid`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `gid`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -318,14 +318,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `mode`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -344,21 +344,21 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `uid`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `gid`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -377,14 +377,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `mode`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -403,14 +403,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -429,14 +429,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -455,7 +455,7 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `path`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -474,7 +474,7 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `fd`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -493,14 +493,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `sourcePath`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `sestinationPath`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -518,14 +518,14 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `sourcePath`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `sestinationPath`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -539,7 +539,7 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `flags`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -555,7 +555,7 @@ Rename or move a file. The callback will get $this instance and an boolean deter
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Filesystem\Filesystem
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 

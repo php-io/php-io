@@ -59,7 +59,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -115,7 +115,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -126,35 +126,35 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\EventManager\Event
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `input`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isError`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -165,7 +165,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -180,21 +180,21 @@ Process WebSocket handshake
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
 ##### Parameter `response`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\Io\Net\Protocol\Http\Response
 * *is nullable* : No
 
 
@@ -205,14 +205,14 @@ Process WebSocket handshake
 ##### Parameter `offset`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -223,7 +223,7 @@ Process WebSocket handshake
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -237,7 +237,7 @@ Process WebSocket handshake
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -249,7 +249,7 @@ Process WebSocket handshake
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -263,7 +263,7 @@ Process WebSocket handshake
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -275,14 +275,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -293,7 +293,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -304,7 +304,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -315,7 +315,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -367,7 +367,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -378,7 +378,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -392,14 +392,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -429,7 +429,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandlerFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -448,7 +448,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandlerFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -487,7 +487,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\RequestHandlerFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -553,7 +553,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -564,7 +564,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `message`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -575,7 +575,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -589,7 +589,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -601,7 +601,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -615,7 +615,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -627,14 +627,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -645,7 +645,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -656,7 +656,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -667,7 +667,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -715,7 +715,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -729,14 +729,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -756,7 +756,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ResponseFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -802,7 +802,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `configurator`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : Gplanchat\ServiceManager\Configurator
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -810,7 +810,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket`_ [» R
 ##### Parameter `logger`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : Psr\Log\LoggerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -822,7 +822,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -838,7 +838,7 @@ Get the service instance
 ##### Parameter `ignoreInexistent`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -846,7 +846,7 @@ Get the service instance
 ##### Parameter `ignorePeering`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -858,14 +858,14 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `ignorePeering`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -877,7 +877,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -888,7 +888,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -899,7 +899,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -910,7 +910,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -930,7 +930,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -950,7 +950,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -961,21 +961,21 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `alias`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `allowOverride`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -987,21 +987,21 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `invokable`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `allowOverride`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1013,21 +1013,21 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `singleton`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `allowOverride`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1039,7 +1039,7 @@ Get the service instance
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1053,7 +1053,7 @@ Get the service instance
 ##### Parameter `allowOverride`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1065,7 +1065,7 @@ Register a new service initializer
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1079,7 +1079,7 @@ Register a new service initializer
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1091,14 +1091,14 @@ Register a new service initializer
 ##### Parameter `childManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
 ##### Parameter `peering`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1109,7 +1109,7 @@ Register a new service initializer
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1125,7 +1125,7 @@ Register a new service initializer
 ##### Parameter `ignoreInexistent`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1133,7 +1133,7 @@ Register a new service initializer
 ##### Parameter `ignorePeering`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1145,7 +1145,7 @@ Register a new service initializer
 ##### Parameter `serviceName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Upgrade\WebSocket\ServerServiceManager
+* *type* : 
 * *is nullable* : Yes
 
 

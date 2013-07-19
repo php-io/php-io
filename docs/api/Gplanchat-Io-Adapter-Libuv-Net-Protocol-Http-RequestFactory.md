@@ -18,7 +18,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Protocol\Http\RequestFact
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Protocol\Http\RequestFactory\Standard
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 

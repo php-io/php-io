@@ -42,21 +42,21 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface
 * *is nullable* : No
 
 
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -68,7 +68,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -83,7 +83,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -99,7 +99,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : No
 
 
@@ -114,7 +114,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -128,7 +128,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -140,7 +140,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -154,7 +154,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -166,14 +166,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -184,7 +184,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -195,7 +195,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -206,7 +206,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -258,7 +258,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -269,21 +269,21 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -295,7 +295,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -315,7 +315,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -326,7 +326,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -341,7 +341,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -352,7 +352,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -366,14 +366,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -399,7 +399,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Ip4
+* *type* : Gplanchat\Io\Net\Udp\ClientInterface
 * *is nullable* : No
 
 
@@ -417,7 +417,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Ip4
+* *type* : Gplanchat\Io\Net\Udp\ServerInterface
 * *is nullable* : No
 
 
@@ -442,7 +442,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Ip6
+* *type* : Gplanchat\Io\Net\Udp\ClientInterface
 * *is nullable* : No
 
 
@@ -460,7 +460,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Ip6
+* *type* : Gplanchat\Io\Net\Udp\ServerInterface
 * *is nullable* : No
 
 
@@ -504,21 +504,21 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface
 * *is nullable* : No
 
 
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -534,7 +534,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : No
 
 
@@ -564,7 +564,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -578,7 +578,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -590,7 +590,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -604,7 +604,7 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net\Udp`_ [» Read the docs](
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -616,14 +616,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -634,7 +634,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -645,7 +645,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -656,7 +656,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -708,7 +708,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -723,7 +723,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -734,21 +734,21 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -760,7 +760,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -780,7 +780,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -791,7 +791,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -802,7 +802,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -816,14 +816,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\Udp\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 

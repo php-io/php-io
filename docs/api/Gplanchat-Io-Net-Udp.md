@@ -37,7 +37,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorInterface
+* *type* : Gplanchat\Io\Net\Udp\ClientInterface
 * *is nullable* : No
 
 
@@ -60,7 +60,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : Gplanchat\Io\Net\Udp\ClientInterface
 * *is nullable* : No
 
 
@@ -71,7 +71,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -85,7 +85,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -97,7 +97,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -111,7 +111,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -123,14 +123,14 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callback`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -141,7 +141,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -152,7 +152,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -163,7 +163,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientDecoratorTrait
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -205,7 +205,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ClientInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -255,7 +255,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorInterface
+* *type* : Gplanchat\Io\Net\Udp\ServerInterface
 * *is nullable* : No
 
 
@@ -278,7 +278,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : Gplanchat\Io\Net\Udp\ServerInterface
 * *is nullable* : No
 
 
@@ -289,7 +289,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -303,7 +303,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -315,7 +315,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -329,7 +329,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -341,14 +341,14 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callback`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -359,7 +359,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -370,7 +370,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -381,7 +381,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerDecoratorTrait
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -423,7 +423,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Net\Udp\ServerInterface
+* *type* : Gplanchat\Io\Net\Udp\SocketInterface
 * *is nullable* : No
 
 
@@ -461,7 +461,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Udp\SocketFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -494,7 +494,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Udp\SocketInterface
+* *type* : Gplanchat\Io\Net\Udp\ServerInterface
 * *is nullable* : No
 
 
@@ -505,7 +505,7 @@ _Declared in namespace `Gplanchat\Io\Net\Udp`_ [» Read the docs](Gplanchat-Io-N
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Udp\SocketInterface
+* *type* : Gplanchat\Io\Net\Udp\ClientInterface
 * *is nullable* : No
 
 

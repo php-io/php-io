@@ -39,7 +39,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp\Plugin`_ [» Read the docs](Gplanch
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\Plugin\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -51,7 +51,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp\Plugin`_ [» Read the docs](Gplanch
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\Plugin\Server
+* *type* : Gplanchat\PluginManager\PluginManagerInterface
 * *is nullable* : No
 
 
@@ -77,7 +77,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp\Plugin`_ [» Read the docs](Gplanch
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\Plugin\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -97,7 +97,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp\Plugin`_ [» Read the docs](Gplanch
 ##### Parameter `application`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\Plugin\Server
+* *type* : Gplanchat\Io\Application\Application
 * *is nullable* : No
 
 
@@ -116,7 +116,7 @@ _Declared in namespace `Gplanchat\Io\Net\Tcp\Plugin`_ [» Read the docs](Gplanch
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Tcp\Plugin\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 

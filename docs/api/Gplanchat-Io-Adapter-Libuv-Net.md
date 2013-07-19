@@ -28,14 +28,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net`_ [» Read the docs](Gpla
 ##### Parameter `address`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\AbstractIp4
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `port`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\AbstractIp4
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -80,14 +80,14 @@ _Declared in namespace `Gplanchat\Io\Adapter\Libuv\Net`_ [» Read the docs](Gpla
 ##### Parameter `address`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\AbstractIp6
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `port`
 
 
-* *type* : Gplanchat\Io\Adapter\Libuv\Net\AbstractIp6
+* *type* : 
 * *is nullable* : Yes
 
 

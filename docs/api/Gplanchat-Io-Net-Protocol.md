@@ -18,21 +18,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\ConnectionHandlerInterface
+* *type* : Gplanchat\EventManager\Event
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\ConnectionHandlerInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\ConnectionHandlerInterface
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -64,35 +64,35 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : Gplanchat\EventManager\Event
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isError`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -103,7 +103,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestHandlerInterface
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -126,7 +126,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `params`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestInterface
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -141,14 +141,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestInterface
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -160,14 +160,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\RequestInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -199,7 +199,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol`_ [» Read the docs](Gplanchat
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\ResponseInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 

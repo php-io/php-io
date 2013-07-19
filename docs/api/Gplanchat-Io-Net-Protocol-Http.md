@@ -43,14 +43,14 @@ Class Server
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -61,7 +61,7 @@ Class Server
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -72,7 +72,7 @@ Class Server
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
 * *is nullable* : No
 
 
@@ -90,7 +90,7 @@ Class Server
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -129,7 +129,7 @@ Class Server
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -168,7 +168,7 @@ Class Server
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
@@ -186,7 +186,7 @@ Class Server
 ##### Parameter `uri`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -211,7 +211,7 @@ Class Server
 ##### Parameter `uri`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -247,7 +247,7 @@ Class Server
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -258,7 +258,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -272,7 +272,7 @@ Class Server
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -284,7 +284,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -298,7 +298,7 @@ Class Server
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -310,14 +310,14 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -328,7 +328,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -339,7 +339,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -350,7 +350,7 @@ Class Server
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -382,7 +382,7 @@ Class Server
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -393,21 +393,21 @@ Class Server
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -419,7 +419,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -439,7 +439,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -450,7 +450,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Client
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -525,7 +525,7 @@ Class DefaultRequestHandler
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -536,7 +536,7 @@ Class DefaultRequestHandler
 ##### Parameter `callbackHanlder`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -551,35 +551,35 @@ Class DefaultRequestHandler
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\EventManager\Event
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isError`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -590,21 +590,21 @@ Class DefaultRequestHandler
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `length`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -615,7 +615,7 @@ Class DefaultRequestHandler
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -626,21 +626,21 @@ Class DefaultRequestHandler
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
 ##### Parameter `response`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\Io\Net\Protocol\Http\Response
 * *is nullable* : No
 
 
@@ -655,7 +655,7 @@ Class DefaultRequestHandler
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -666,7 +666,7 @@ Class DefaultRequestHandler
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -680,7 +680,7 @@ Class DefaultRequestHandler
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -692,7 +692,7 @@ Class DefaultRequestHandler
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -706,7 +706,7 @@ Class DefaultRequestHandler
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -718,14 +718,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -736,7 +736,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -747,7 +747,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -758,7 +758,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -806,7 +806,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -820,14 +820,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\DefaultRequestHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -859,7 +859,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serverServiceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -874,7 +874,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `configurator`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\ServiceManager\Configurator
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -886,35 +886,35 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `name`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHanlder`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
 ##### Parameter `response`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\Io\Net\Protocol\Http\Response
 * *is nullable* : No
 
 
@@ -929,7 +929,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgrader
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -948,7 +948,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderFactory
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -968,7 +968,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `protocolUpgrader`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderFactory
+* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
 * *is nullable* : No
 
 
@@ -997,7 +997,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serverServiceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -1012,7 +1012,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `configurator`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\ServiceManager\Configurator
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1024,35 +1024,35 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `name`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHanlder`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `request`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\Io\Net\Protocol\Http\Request
 * *is nullable* : No
 
 
 ##### Parameter `response`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
+* *type* : Gplanchat\Io\Net\Protocol\Http\Response
 * *is nullable* : No
 
 
@@ -1076,21 +1076,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `method`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `uri`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `protocol`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1106,7 +1106,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `useCached`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `true`
 
@@ -1126,7 +1126,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `headers`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1141,7 +1141,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `postParams`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1156,7 +1156,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `queryParams`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1171,7 +1171,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `cookieParams`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1186,7 +1186,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serverParams`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1201,7 +1201,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `params`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : ArrayObject
 * *is nullable* : No
 
 
@@ -1216,14 +1216,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1235,14 +1235,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1253,14 +1253,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1272,14 +1272,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1290,14 +1290,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1309,14 +1309,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1327,14 +1327,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1346,14 +1346,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1364,14 +1364,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1383,14 +1383,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1401,14 +1401,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `default`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1420,14 +1420,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `key`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `value`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Request
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1472,14 +1472,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `requestObject`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1491,14 +1491,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `requestObject`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1509,21 +1509,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `requestObject`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `offset`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `0`
 
@@ -1535,21 +1535,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `requestObject`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `buffer`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `offset`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `0`
 
@@ -1561,7 +1561,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1575,7 +1575,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1587,7 +1587,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1601,7 +1601,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1613,14 +1613,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -1631,7 +1631,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1642,7 +1642,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1653,7 +1653,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -1701,7 +1701,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1715,14 +1715,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\RequestParser
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -1761,7 +1761,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
@@ -1772,14 +1772,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `code`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `message`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1790,7 +1790,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `body`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1801,14 +1801,14 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `headerName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `headerValue`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1819,7 +1819,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `headerName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1830,7 +1830,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `headerName`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1841,7 +1841,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1855,7 +1855,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1867,7 +1867,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1881,7 +1881,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -1893,14 +1893,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callbackHandler`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -1911,7 +1911,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1922,7 +1922,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1933,7 +1933,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -1981,7 +1981,7 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -1995,14 +1995,14 @@ Remove a listener from an event list. This operation consumes lots of resources 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `isCalledOnce`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Response
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `false`
 
@@ -2047,14 +2047,14 @@ Class Server
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -2065,7 +2065,7 @@ Class Server
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2083,7 +2083,7 @@ Class Server
 ##### Parameter `socket`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\Io\Net\Tcp\SocketInterface
 * *is nullable* : No
 
 
@@ -2098,7 +2098,7 @@ Class Server
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -2113,7 +2113,7 @@ Class Server
 ##### Parameter `protocolUpgrader`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface
 * *is nullable* : No
 
 
@@ -2136,7 +2136,7 @@ Class Server
 ##### Parameter `decorated`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -2147,7 +2147,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2161,7 +2161,7 @@ Class Server
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -2173,7 +2173,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2187,7 +2187,7 @@ Class Server
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -2199,14 +2199,14 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `callback`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\EventManager\CallbackHandlerInterface
 * *is nullable* : No
 
 
@@ -2217,7 +2217,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2228,7 +2228,7 @@ Class Server
 ##### Parameter `eventNameList`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2239,7 +2239,7 @@ Class Server
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\EventManager\EventInterface
 * *is nullable* : No
 
 
@@ -2291,7 +2291,7 @@ Class Server
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -2302,21 +2302,21 @@ Class Server
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -2328,7 +2328,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2348,7 +2348,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2359,7 +2359,7 @@ Class Server
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\Server
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2395,7 +2395,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -2413,21 +2413,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `event`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\EventManager\Event
 * *is nullable* : No
 
 
 ##### Parameter `client`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\Io\Net\Tcp\ClientInterface
 * *is nullable* : No
 
 
 ##### Parameter `server`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\Io\Net\Tcp\ServerInterface
 * *is nullable* : No
 
 
@@ -2457,7 +2457,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -2468,21 +2468,21 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `plugin`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : Gplanchat\PluginManager\PluginInterface
 * *is nullable* : No
 
 
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `priority`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -2494,7 +2494,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2514,7 +2514,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -2525,7 +2525,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http`_ [» Read the docs](Gpla
 ##### Parameter `namespace`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ServerConnectionHandler
+* *type* : 
 * *is nullable* : Yes
 
 

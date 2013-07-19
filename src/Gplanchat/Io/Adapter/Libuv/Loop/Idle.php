@@ -22,7 +22,7 @@
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 use Gplanchat\Io\Loop\IdleInterface;
-use Gplanchat\Io\Loop\LoopInterface;
+use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
 
 class Idle
     implements IdleInterface
@@ -33,9 +33,9 @@ class Idle
     private $idler = null;
 
     /**
-     * @param LoopInterface $loop
+     * @param BaseLoopInterface $loop
      */
-    public function __construct(LoopInterface $loop)
+    public function __construct(BaseLoopInterface $loop)
     {
         $this->idler = \uv_idle_init($loop->getResource());
     }

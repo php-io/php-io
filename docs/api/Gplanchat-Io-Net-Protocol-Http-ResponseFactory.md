@@ -18,7 +18,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\ResponseFactory`_ [» Rea
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ResponseFactory\Standard
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 
@@ -46,7 +46,7 @@ _Declared in namespace `Gplanchat\Io\Net\Protocol\Http\ResponseFactory`_ [» Rea
 ##### Parameter `serviceManager`
 
 
-* *type* : Gplanchat\Io\Net\Protocol\Http\ResponseFactory\Symfony
+* *type* : Gplanchat\ServiceManager\ServiceManagerInterface
 * *is nullable* : No
 
 

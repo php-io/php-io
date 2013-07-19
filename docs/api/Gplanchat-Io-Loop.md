@@ -18,7 +18,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Loop\IdleInterface
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -56,7 +56,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Loop\LoopAwareInterface
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -79,7 +79,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Loop\LoopAwareTrait
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -114,7 +114,7 @@ Stops the loop (mainly in case the loop would have been run infinitely)
 ##### Parameter `signal`
 
 
-* *type* : Gplanchat\Io\Loop\LoopInterface
+* *type* : 
 * *is nullable* : Yes
 * *default value* : `NULL`
 
@@ -134,7 +134,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `loop`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : Gplanchat\Io\Loop\LoopInterface
 * *is nullable* : No
 
 
@@ -145,7 +145,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -163,7 +163,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -181,14 +181,14 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `startTimeout`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
 ##### Parameter `repeatTimeout`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
@@ -210,7 +210,7 @@ _Declared in namespace `Gplanchat\Io\Loop`_ [» Read the docs](Gplanchat-Io-Loop
 ##### Parameter `timeout`
 
 
-* *type* : Gplanchat\Io\Loop\TimerInterface
+* *type* : 
 * *is nullable* : Yes
 
 
