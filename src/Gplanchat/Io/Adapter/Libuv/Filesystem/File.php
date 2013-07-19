@@ -4,7 +4,7 @@ namespace Gplanchat\Io\Adapter\Libuv\Filesystem;
 
 use Gplanchat\Io\Filesystem\FileInterface;
 use Gplanchat\Io\Filesystem\FilesystemInterface;
-use Gplanchat\Io\Loop\LoopAwareTrait;
+use Gplanchat\Io\Filesystem\FileTrait;
 
 /**
  * Class File
@@ -13,17 +13,7 @@ use Gplanchat\Io\Loop\LoopAwareTrait;
 class File
     implements FileInterface
 {
-    use LoopAwareTrait;
-
-    /**
-     * @var Filesystem
-     */
-    private $filesystem = null;
-
-    /**
-     * @var int
-     */
-    private $streamId = null;
+    use FileTrait;
 
     /**
      * @param FilesystemInterface $filesystem
@@ -34,44 +24,6 @@ class File
         $this->setFilesystem($filesystem);
         $this->setStreamId($streamId);
         $this->setLoop($filesystem->getLoop());
-    }
-
-    /**
-     * @param FilesystemInterface $filesystem
-     * @return $this
-     */
-    public function setFilesystem(FilesystemInterface $filesystem)
-    {
-        $this->filesystem = $filesystem;
-
-        return $this;
-    }
-
-    /**
-     * @return Filesystem
-     */
-    public function getFilesystem()
-    {
-        return $this->filesystem;
-    }
-
-    /**
-     * @param int $streamId
-     * @return $this
-     */
-    public function setStreamId($streamId)
-    {
-        $this->streamId = $streamId;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStreamId()
-    {
-        return $this->streamId;
     }
 
     /**
@@ -92,11 +44,10 @@ class File
 
     /**
      * @param string $data
-     * @param int $position
      * @param callable $callback
      * @return $this
      */
-    public function write($data, $position, callable $callback = null)
+    public function write($data, callable $callback = null)
     {
         return $this;
     }
