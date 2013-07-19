@@ -19,7 +19,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function open($path, $flags, callable $callback);
+    public function open($path, $flags, callable $callback = null);
 
     /**
      * @param string $path
@@ -28,7 +28,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function openMode($path, $flags, $chmod, callable $callback);
+    public function openMode($path, $flags, $chmod, callable $callback = null);
 
     /**
      * @param string $from
@@ -36,7 +36,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function rename($from, $to, callable $callback);
+    public function rename($from, $to, callable $callback = null);
 
     /**
      * @param string $path
@@ -45,7 +45,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function chown($path, $uid, $gid, callable $callback);
+    public function chown($path, $uid, $gid, callable $callback = null);
 
     /**
      * @param string $path
@@ -53,7 +53,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function chmod($path, $mode, callable $callback);
+    public function chmod($path, $mode, callable $callback = null);
 
     /**
      * @param resource $fd
@@ -62,7 +62,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function fchown($fd, $uid, $gid, callable $callback);
+    public function fchown($fd, $uid, $gid, callable $callback = null);
 
     /**
      * @param resource $fd
@@ -70,7 +70,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function fchmod($fd, $mode, callable $callback);
+    public function fchmod($fd, $mode, callable $callback = null);
 
     /**
      * @param resource $fd
@@ -78,7 +78,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function ftruncate($fd, $length, callable $callback);
+    public function ftruncate($fd, $length, callable $callback = null);
 
     /**
      * @todo
@@ -86,7 +86,7 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function stat($path, callable $callback);
+    public function stat($path, callable $callback = null);
 
     /**
      * @todo
@@ -94,5 +94,5 @@ interface FilesystemInterface
      * @param callable $callback
      * @return $this
      */
-    public function fstat($fd, callable $callback);
+    public function fstat($fd, callable $callback = null);
 }

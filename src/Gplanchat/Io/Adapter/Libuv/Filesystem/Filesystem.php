@@ -26,7 +26,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function open($path, $flags, callable $callback)
+    public function open($path, $flags,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, 0644, function($streamId) use($callback, $self) {
@@ -43,7 +43,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function openMode($path, $flags, $chmod, callable $callback)
+    public function openMode($path, $flags, $chmod,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
@@ -59,7 +59,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function rename($from, $to, callable $callback)
+    public function rename($from, $to,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_rename($this->getLoop()->getResource(), $from, $to, function($success) use($callback, $self) {
@@ -77,7 +77,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function chown($path, $uid, $gid, callable $callback)
+    public function chown($path, $uid, $gid,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_chown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
@@ -94,7 +94,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function chmod($path, $mode, callable $callback)
+    public function chmod($path, $mode,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_chmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
@@ -112,7 +112,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function fchown($fd, $uid, $gid, callable $callback)
+    public function fchown($fd, $uid, $gid,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_fchown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
@@ -129,7 +129,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function fchmod($fd, $mode, callable $callback)
+    public function fchmod($fd, $mode,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_fchmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
@@ -146,7 +146,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function truncate($path, $length, callable $callback)
+    public function truncate($path, $length,  callable $callback = null)
     {
 //        $self = $this;
 //        \uv_fs_truncate($this->getLoop()->getResource(), $path, $length, function($fd) use($callback, $self) {
@@ -164,7 +164,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function ftruncate($fd, $length, callable $callback)
+    public function ftruncate($fd, $length,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_ftruncate($this->getLoop()->getResource(), $fd, $length, function($fd) use($callback, $self) {
@@ -180,7 +180,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function stat($path, callable $callback)
+    public function stat($path,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_stat($this->getLoop()->getResource(), $path, function($fd) use($callback, $self) {
@@ -196,7 +196,7 @@ class Filesystem
      * @param callable $callback
      * @return $this
      */
-    public function fstat($fd, callable $callback)
+    public function fstat($fd,  callable $callback = null)
     {
         $self = $this;
         \uv_fs_fstat($this->getLoop()->getResource(), $fd, function($fd) use($callback, $self) {

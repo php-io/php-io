@@ -79,7 +79,7 @@ class File
      * @param callable $callback
      * @return $this
      */
-    public function truncate($length, callable $callback)
+    public function truncate($length, callable $callback = null)
     {
 //        $self = $this;
 //        \uv_fs_truncate($this->getLoop()->getResource(), $path, $length, function($fd) use($callback, $self) {
@@ -96,7 +96,7 @@ class File
      * @param callable $callback
      * @return $this
      */
-    public function write($data, $position, callable $callback)
+    public function write($data, $position, callable $callback = null)
     {
         return $this;
     }
@@ -109,7 +109,7 @@ class File
      * @param callable $callback
      * @return $this
      */
-    public function writeBuffer($data, $offset, $length, $position, callable $callback)
+    public function writeBuffer($data, $offset, $length, $position, callable $callback = null)
     {
         return $this;
     }

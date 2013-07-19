@@ -45,15 +45,14 @@ interface FileInterface
      * @param callable $callback
      * @return $this
      */
-    public function truncate($length, callable $callback);
+    public function truncate($length, callable $callback = null);
 
     /**
      * @param string $data
-     * @param int $position
      * @param callable $callback
      * @return $this
      */
-    public function write($data, $position, callable $callback);
+    public function write($data, callable $callback = null);
 
     /**
      * @param string $data
@@ -63,5 +62,5 @@ interface FileInterface
      * @param callable $callback
      * @return $this
      */
-    public function writeBuffer($data, $offset, $length, $position, callable $callback);
+    public function writeBuffer($data, $offset, $length, $position, callable $callback = null);
 }
