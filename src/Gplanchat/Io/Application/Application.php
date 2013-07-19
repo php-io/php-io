@@ -126,6 +126,8 @@ class Application
 
         $this->getCurrentLoop()->run();
 
+        $this->emit(new Event('stop'), [$this]);
+
         return $this;
     }
 

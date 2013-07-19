@@ -2,14 +2,13 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Filesystem;
 
-use Gplanchat\Io\Adapter\Libuv\Loop\LoopAwareTrait;
-use Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface;
-use Gplanchat\Io\Loop\Loop;
-use Gplanchat\Io\Loop\LoopAwareInterface;
-use SplFileInfo;
+use Gplanchat\Io\Adapter\Libuv\Loop;
+use Gplanchat\Io\Filesystem\FilesystemInterface;
+use Gplanchat\Io\Loop\LoopAwareTrait;
+use Gplanchat\Io\Loop\LoopInterface;
 
 class Filesystem
-    implements LoopAwareInterface
+    implements FilesystemInterface
 {
     use LoopAwareTrait;
 
@@ -21,39 +20,221 @@ class Filesystem
         $this->setLoop($loop);
     }
 
-    public function open($fileInfo, $flags, $chmod, callable $callback)
+    /**
+     * @param string $path
+     * @param int $flags
+     * @param callable $callback
+     * @return $this
+     */
+    public function open($path, $flags, callable $callback)
     {
-        \uv_fs_open($this->getLoop());
+        $self = $this;
+        \uv_fs_open($this->getLoop()->getResource(), $path, $flags, 0644, function($streamId) use($callback, $self) {
+            $callback(new File($self, $streamId));
+        });
+
+        return $this;
     }
+
+    /**
+     * @param string $path
+     * @param int $flags
+     * @param int $chmod
+     * @param callable $callback
+     * @return $this
+     */
+    public function openMode($path, $flags, $chmod, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_open($this->getLoop()->getResource(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
+            $callback(new File($self, $streamId));
+        });
+
+        return $this;
+    }
+
+    /**
+     * @param string $from
+     * @param string $to
+     * @param callable $callback
+     * @return $this
+     */
+    public function rename($from, $to, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_rename($this->getLoop()->getResource(), $from, $to, function($success) use($callback, $self) {
+            $callback($self, $success);
+            });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param string $path
+     * @param int|string $uid
+     * @param int|string $gid
+     * @param callable $callback
+     * @return $this
+     */
+    public function chown($path, $uid, $gid, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_chown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param string $path
+     * @param int $mode
+     * @param callable $callback
+     * @return $this
+     */
+    public function chmod($path, $mode, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_chmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param resource $fd
+     * @param int|string $uid
+     * @param int|string $gid
+     * @param callable $callback
+     * @return $this
+     */
+    public function fchown($fd, $uid, $gid, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_fchown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param resource $fd
+     * @param int $mode
+     * @param callable $callback
+     * @return $this
+     */
+    public function fchmod($fd, $mode, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_fchmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param string $path
+     * @param int $length
+     * @param callable $callback
+     * @return $this
+     */
+    public function truncate($path, $length, callable $callback)
+    {
+//        $self = $this;
+//        \uv_fs_truncate($this->getLoop()->getResource(), $path, $length, function($fd) use($callback, $self) {
+//            var_dump(func_get_args());
+//            $callback($self, $fd);
+//        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param resource $fd
+     * @param int $length
+     * @param callable $callback
+     * @return $this
+     */
+    public function ftruncate($fd, $length, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_ftruncate($this->getLoop()->getResource(), $fd, $length, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param string $path
+     * @param callable $callback
+     * @return $this
+     */
+    public function stat($path, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_stat($this->getLoop()->getResource(), $path, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     * @param resource $fd
+     * @param callable $callback
+     * @return $this
+     */
+    public function fstat($fd, callable $callback)
+    {
+        $self = $this;
+        \uv_fs_fstat($this->getLoop()->getResource(), $fd, function($fd) use($callback, $self) {
+            $callback($self, $fd);
+        });
+
+        return $this;
+    }
+
+    /**
+     * @todo
+     *
+     * File System
+     * fs.lchown(path, uid, gid, callback)
+     * fs.lchmod(path, mode, callback)
+     * fs.lstat(path, callback)
+     *
+     * fs.link(srcpath, dstpath, callback)
+     * fs.symlink(srcpath, dstpath, [type], callback)
+     * fs.readlink(path, callback)
+     * fs.realpath(path, [cache], callback)
+     * fs.unlink(path, callback)
+     * fs.rmdir(path, callback)
+     * fs.mkdir(path, [mode], callback)
+     * fs.readdir(path, callback)
+     * fs.utimes(path, atime, mtime, callback)
+     * fs.futimes(fd, atime, mtime, callback)
+     * fs.fsync(fd, callback)
+     * fs.watchFile(filename, [options], listener)
+     * fs.unwatchFile(filename, [listener])
+     * fs.watch(filename, [options], [listener])
+     * fs.exists(path, callback)
+     *
+     * fs.close(fd, callback)
+     * fs.write(fd, buffer, offset, length, position, callback)
+     * fs.read(fd, buffer, offset, length, position, callback)
+     * fs.readFile(filename, [options], callback)
+     * fs.writeFile(filename, data, [options], callback)
+     * fs.appendFile(filename, data, [options], callback)
+     */
 }
-
-/*
-PHP_FE(uv_fs_open, arginfo_uv_fs_open)
-PHP_FE(uv_fs_close, arginfo_uv_fs_close)
-
-PHP_FE(uv_fs_read, arginfo_uv_fs_read)
-PHP_FE(uv_fs_write, arginfo_uv_fs_write)
-
-PHP_FE(uv_fs_fsync, arginfo_uv_fs_fsync)
-PHP_FE(uv_fs_fdatasync, arginfo_uv_fs_ftruncate)
-PHP_FE(uv_fs_ftruncate, arginfo_uv_fs_ftruncate)
-PHP_FE(uv_fs_mkdir, arginfo_uv_fs_mkdir)
-PHP_FE(uv_fs_rmdir, arginfo_uv_fs_rmdir)
-PHP_FE(uv_fs_unlink, arginfo_uv_fs_unlink)
-PHP_FE(uv_fs_rename, arginfo_uv_fs_rename)
-PHP_FE(uv_fs_utime, arginfo_uv_fs_utime)
-PHP_FE(uv_fs_futime, arginfo_uv_fs_futime)
-PHP_FE(uv_fs_chmod, arginfo_uv_fs_chmod)
-PHP_FE(uv_fs_fchmod, arginfo_uv_fs_fchmod)
-PHP_FE(uv_fs_chown, arginfo_uv_fs_chown)
-PHP_FE(uv_fs_fchown, arginfo_uv_fs_fchown)
-PHP_FE(uv_fs_link, arginfo_uv_fs_link)
-PHP_FE(uv_fs_symlink, arginfo_uv_fs_symlink)
-PHP_FE(uv_fs_readlink, arginfo_uv_fs_readlink)
-PHP_FE(uv_fs_stat, arginfo_uv_fs_stat)
-PHP_FE(uv_fs_lstat, arginfo_uv_fs_lstat)
-PHP_FE(uv_fs_fstat, arginfo_uv_fs_fstat)
-PHP_FE(uv_fs_readdir, arginfo_uv_fs_readdir)
-PHP_FE(uv_fs_sendfile, arginfo_uv_fs_sendfile)
-PHP_FE(uv_fs_event_init, arginfo_uv_fs_event_init)
- */

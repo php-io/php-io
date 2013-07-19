@@ -49,7 +49,7 @@ class Server
     public function __construct(ServiceManagerInterface $serviceManager, LibuvLoopInterface $loop, SocketInterface $socket = null)
     {
         $this->setLoop($loop);
-        $this->connection = \uv_tcp_init($this->loop->getResource());
+        $this->connection = \uv_tcp_init($this->getLoop()->getResource());
 
         if ($socket !== null) {
             $this->registerSocket($socket);

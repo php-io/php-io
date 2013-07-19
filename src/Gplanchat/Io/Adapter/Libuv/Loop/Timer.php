@@ -22,12 +22,16 @@
 
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
+use Gplanchat\Io\Loop\LoopAwareInterface;
+use Gplanchat\Io\Loop\LoopAwareTrait;
 use Gplanchat\Io\Loop\LoopInterface;
 use Gplanchat\Io\Loop\TimerInterface;
 
 class Timer
-    implements TimerInterface
+    implements TimerInterface, LoopAwareInterface
 {
+    use LoopAwareTrait;
+
     private $timer = null;
 
     /**
@@ -35,7 +39,16 @@ class Timer
      */
     public function __construct(LoopInterface $loop)
     {
+        $this->setLoop($loop);
         $this->timer = \uv_timer_init($loop->getResource());
+    }
+
+    protected function _registerTimer($startTimeout, $repeatTimeout, callable $callback)
+    {
+        $self = $this;
+        \uv_timer_start($this->timer, $startTimeout, $repeatTimeout, function($uv, $status) use($self, $callback) {
+            $callback($self, $status);
+        });
     }
 
     /**
@@ -45,7 +58,7 @@ class Timer
      */
     public function timeout($timeout, callable $callback)
     {
-        \uv_timer_start($this->timer, $timeout, 0, $callback);
+        $this->_registerTimer($timeout, 0, $callback);
 
         return $this;
     }
@@ -57,7 +70,7 @@ class Timer
      */
     public function interval($timeout, callable $callback)
     {
-        \uv_timer_start($this->timer, $timeout, $timeout, $callback);
+        $this->_registerTimer($timeout, $timeout, $callback);
 
         return $this;
     }
@@ -70,7 +83,7 @@ class Timer
      */
     public function repeater($startTimeout, $repeatTimeout, callable $callback)
     {
-        \uv_timer_start($this->timer, $startTimeout, $repeatTimeout, $callback);
+        $this->_registerTimer($startTimeout, $repeatTimeout, $callback);
 
         return $this;
     }

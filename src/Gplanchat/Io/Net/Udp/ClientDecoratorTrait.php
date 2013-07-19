@@ -22,7 +22,7 @@
 
 namespace Gplanchat\Io\Net\Udp;
 
-use Gplanchat\EventManager\CallbackHandler;
+use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\EventManager\EventEmitterInterface;
 use Gplanchat\EventManager\EventInterface;
 use Gplanchat\Io\Exception\MissingDependecyException;
@@ -57,7 +57,7 @@ trait ClientDecoratorTrait
      * @param string|array $eventNameList
      * @param callable $listener
      * @param int|null $priority
-     * @return CallbackHandler
+     * @return CallbackHandlerInterface
      */
     public function on($eventNameList, callable $listener, $priority = null)
     {
@@ -70,7 +70,7 @@ trait ClientDecoratorTrait
      * @param string|array $eventNameList
      * @param callable $listener
      * @param int|null $priority
-     * @return CallbackHandler
+     * @return CallbackHandlerInterface
      */
     public function once($eventNameList, callable $listener, $priority = null)
     {
@@ -82,10 +82,10 @@ trait ClientDecoratorTrait
     /**
      * @abstract
      * @param string|array $eventNameList
-     * @param CallbackHandler $callback
+     * @param CallbackHandlerInterface $callback
      * @return EventEmitterInterface
      */
-    public function removeListener($eventNameList, CallbackHandler $callback)
+    public function removeListener($eventNameList, CallbackHandlerInterface $callback)
     {
         $this->getDecoratedClient()->removeListener($eventNameList, $callback);
 

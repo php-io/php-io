@@ -24,7 +24,7 @@ class Server
      * @param ServiceManagerInterface $serviceManager
      * @param callable $requestHandler
      */
-    public function __construct(ServiceManagerInterface $serviceManager = null, callable $requestHandler = null)
+    public function __construct(callable $requestHandler = null, ServiceManagerInterface $serviceManager = null)
     {
         if ($serviceManager !== null) {
             $this->setServiceManager($serviceManager);

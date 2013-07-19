@@ -26,6 +26,7 @@ use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Protocol\Http\Upgrade\ProtocolUpgradeAwareInterface;
 use Gplanchat\Io\Net\Protocol\RequestHandlerInterface;
+use Gplanchat\ServiceManager\AbstractServiceManager;
 use Gplanchat\ServiceManager\Configurator;
 use Gplanchat\ServiceManager\Exception as ServiceManagerException;
 use Gplanchat\ServiceManager\ServiceManager;
@@ -34,7 +35,7 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\ServiceManager\ServiceManagerTrait;
 
 class ProtocolUpgrader
-    extends ServiceManager
+    extends AbstractServiceManager
     implements ProtocolUpgraderInterface
 {
     use ServiceManagerAwareTrait;

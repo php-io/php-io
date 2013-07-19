@@ -46,7 +46,10 @@ class Idle
      */
     public function start(callable $callback)
     {
-        \uv_idle_start($this->idler, $callback);
+        $self = $this;
+        \uv_idle_start($this->idler, function($uv, $status) use($self, $callback) {
+            $callback($self, $status);
+        });
 
         return $this;
     }
