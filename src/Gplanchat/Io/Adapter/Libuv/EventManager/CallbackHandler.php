@@ -17,12 +17,14 @@
  *
  * @author  Grégory PLANCHAT<g.planchat@gmail.com>
  * @licence GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
 /**
  * @namespace
  */
 namespace Gplanchat\Io\Adapter\Libuv\EventManager;
+
 use Gplanchat\EventManager\CallbackHandlerInterface;
 use Gplanchat\EventManager\CallbackHandlerTrait;
 use Gplanchat\Io\Loop\LoopAwareTrait;
@@ -30,7 +32,14 @@ use Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface;
 use Gplanchat\Io\Loop\LoopAwareInterface;
 
 /**
+ * Libuv callback handler. Used as a callback storage, which has the ability to store data
+ * associated with the callback and to be called asynchronously, depending on libuv's loop
+ * availability.
  *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
 class CallbackHandler
     implements CallbackHandlerInterface, LoopAwareInterface
@@ -39,6 +48,8 @@ class CallbackHandler
     use LoopAwareTrait;
 
     /**
+     * Constructor. Accepts an array of associated data as 3rd parameter.
+     *
      * @param LoopInterface $loop
      * @param callable $callback
      * @param array $data
@@ -51,6 +62,8 @@ class CallbackHandler
     }
 
     /**
+     * Register the callback call into the event loop.
+     *
      * @param array $parameters
      * @return void
      */

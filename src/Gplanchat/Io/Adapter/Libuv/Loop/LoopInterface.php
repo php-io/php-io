@@ -20,10 +20,20 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
-
+/**
+ * Loop interface specific to libuv.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 interface LoopInterface
     extends BaseLoopInterface
 {

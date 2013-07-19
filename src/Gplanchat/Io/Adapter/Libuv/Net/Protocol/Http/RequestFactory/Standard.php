@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Protocol\Http\RequestFactory;
 
 use Gplanchat\Io\Net\Protocol\Http\Request;
@@ -27,6 +30,14 @@ use Gplanchat\ServiceManager\ServiceManagerInterface;
 use Gplanchat\Io\Net\Protocol\Http\Exception;
 use ArrayObject;
 
+/**
+ * libhttpparser-based HTTP parser used to create standard request objects (as of php-io point of view).
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Standard
 {
     public function __invoke(ServiceManagerInterface $serviceManager, array $moreParams = [])

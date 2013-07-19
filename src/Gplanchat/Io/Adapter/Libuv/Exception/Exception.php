@@ -23,64 +23,20 @@
 /**
  * @namespace
  */
-namespace Gplanchat\Io\Adapter\Libuv\Loop;
+namespace Gplanchat\Io\Adapter\Libuv\Exception;
 
-use Gplanchat\Io\Loop\IdleInterface;
-use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
+use Gplanchat\Io;
 
 /**
- * Libuv specific idling caller. Used to call routines when the loop is inactive.
+ * Class Exception. Base Libuv exception.
  *
  * @package    Gplanchat\Io
  * @subpackage Libuv
  * @author     Grégory PLANCHAT<g.planchat@gmail.com>
  * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
-class Idle
-    implements IdleInterface
+interface Exception
+    extends Io\Exception
 {
-    /**
-     * The internal php-uv resource
-     *
-     * @var resource
-     */
-    private $idler = null;
 
-    /**
-     * Constructor. Accepts as an argument the loop on which the idler will run.
-     *
-     * @param BaseLoopInterface $loop
-     */
-    public function __construct(BaseLoopInterface $loop)
-    {
-        $this->idler = \uv_idle_init($loop->getResource());
-    }
-
-    /**
-     * Starts the idler.
-     *
-     * @param callable $callback
-     * @return Idle
-     */
-    public function start(callable $callback)
-    {
-        $self = $this;
-        \uv_idle_start($this->idler, function($uv, $status) use($self, $callback) {
-            $callback($self, $status);
-        });
-
-        return $this;
-    }
-
-    /**
-     * Stops the idler.
-     *
-     * @return Idle
-     */
-    public function stop()
-    {
-        \uv_timer_stop($this->idler);
-
-        return $this;
-    }
 }

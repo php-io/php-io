@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 use Gplanchat\Io\Loop\LoopAwareInterface;
@@ -27,14 +30,31 @@ use Gplanchat\Io\Loop\LoopAwareTrait;
 use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
 use Gplanchat\Io\Loop\TimerInterface;
 
+/**
+ * Timer class, used to run callbacks at a desired timeout or at desired
+ * intervals. A timer is a tool to run callbacks at a desired time, the
+ * callback will run *after* the timeout has expired.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Timer
     implements TimerInterface, LoopAwareInterface
 {
     use LoopAwareTrait;
 
+    /**
+     * The internal php-uv resource
+     *
+     * @var resource
+     */
     private $timer = null;
 
     /**
+     * Constructor. Accepts as an argument the loop on which the timer will run.
+     *
      * @param BaseLoopInterface $loop
      */
     public function __construct(BaseLoopInterface $loop)
@@ -43,6 +63,13 @@ class Timer
         $this->timer = \uv_timer_init($loop->getResource());
     }
 
+    /**
+     * Internal centralized method used to regitser timers.
+     *
+     * @param $startTimeout
+     * @param $repeatTimeout
+     * @param callable $callback
+     */
     protected function _registerTimer($startTimeout, $repeatTimeout, callable $callback)
     {
         $self = $this;
@@ -52,6 +79,8 @@ class Timer
     }
 
     /**
+     * Execute the callback at a specific timeout.
+     *
      * @param int $timeout
      * @param callable $callback
      * @return Timer
@@ -64,6 +93,8 @@ class Timer
     }
 
     /**
+     * Execute the callback at a specific interval.
+     *
      * @param int $timeout
      * @param callable $callback
      * @return Timer
@@ -76,6 +107,8 @@ class Timer
     }
 
     /**
+     * Execute the callback at a specific interval after a specific timeout.
+     *
      * @param int $startTimeout
      * @param int $repeatTimeout
      * @param callable $callback
@@ -89,6 +122,8 @@ class Timer
     }
 
     /**
+     * Restart the timer call if it was stopped.
+     *
      * @return Timer
      */
     public function repeat()
@@ -99,6 +134,8 @@ class Timer
     }
 
     /**
+     * Define a new repeating timeout.
+     *
      * @param int $timeout
      * @return Timer
      */
@@ -110,6 +147,8 @@ class Timer
     }
 
     /**
+     * Stops the timer
+     *
      * @return Timer
      */
     public function stop()

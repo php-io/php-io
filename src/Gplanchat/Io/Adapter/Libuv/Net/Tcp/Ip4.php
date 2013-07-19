@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
 use Gplanchat\EventManager\Event;
@@ -29,11 +32,21 @@ use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
 
+/**
+ * TCP/IP socket class handler for IP v4.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Ip4
     extends AbstractIp4
     implements SocketInterface
 {
     /**
+     * Connects a client to the socket
+     *
      * @param ClientInterface $client
      * @param callable $callback
      * @return SocketInterface
@@ -55,6 +68,8 @@ class Ip4
     }
 
     /**
+     * Binds a server on the current socket
+     *
      * @param ServerInterface $server
      * @return SocketInterface
      */

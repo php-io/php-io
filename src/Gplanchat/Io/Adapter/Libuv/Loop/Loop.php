@@ -19,14 +19,20 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
 /**
- * Basic loop class. A loop is designed to run event-driven code, the loop runs
- * until there are registered I/O loops.
+ * Basic libuv loop class. A loop is designed to run event-driven code, the loop runs
+ * until there are registered I/O handles.
  *
  * @package    Gplanchat\Io
- * @subpackage Gplanchat\Io\Loop
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
 class Loop
     implements LoopInterface

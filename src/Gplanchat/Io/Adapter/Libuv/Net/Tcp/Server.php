@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
 use Gplanchat\Io\Loop\LoopAwareTrait;
@@ -35,6 +38,14 @@ use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
+/**
+ * TCP server class.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Server
     implements ServerInterface, ServiceManagerAwareInterface, PluginManagerInterface
 {
@@ -43,9 +54,21 @@ class Server
     use PluginManagerTrait;
     use LoopAwareTrait;
 
+    /**
+     * @var null|resource
+     */
     private $connection = null;
+
+    /**
+     * @var bool
+     */
     protected $registeredListener = false;
 
+    /**
+     * @param ServiceManagerInterface $serviceManager
+     * @param LibuvLoopInterface $loop
+     * @param SocketInterface $socket
+     */
     public function __construct(ServiceManagerInterface $serviceManager, LibuvLoopInterface $loop, SocketInterface $socket = null)
     {
         $this->setLoop($loop);
@@ -58,6 +81,10 @@ class Server
         $this->setServiceManager($serviceManager);
     }
 
+    /**
+     * @param SocketInterface $socket
+     * @return $this|ServerInterface
+     */
     public function registerSocket(SocketInterface $socket)
     {
         $socket->bind($this);
@@ -65,6 +92,11 @@ class Server
         return $this;
     }
 
+    /**
+     * @param int $timeout
+     * @param callable $callback
+     * @return $this|ServerInterface
+     */
     public function listen($timeout, callable $callback)
     {
         $this->on(['connection'], $callback);

@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Tcp;
 
 use Gplanchat\Io\Loop\LoopAwareTrait;
@@ -34,6 +37,14 @@ use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
+/**
+ * TCP client class.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Client
     implements ClientInterface, PluginManagerInterface
 {
@@ -42,10 +53,21 @@ class Client
     use PluginManagerTrait;
     use LoopAwareTrait;
 
+    /**
+     * @var ServerInterface
+     */
     private $server = null;
+
+    /**
+     * Libuv internal resource
+     *
+     * @var resource
+     */
     private $connection = null;
 
     /**
+     * Class constructor.
+     *
      * @param ServiceManagerInterface $serviceManager
      * @param LoopInterface $loop
      * @param SocketInterface $socket
@@ -62,6 +84,8 @@ class Client
     }
 
     /**
+     * Accepts a client connection from the server instance.
+     *
      * @param ServerInterface $server
      * @return ClientInterface
      */
@@ -74,6 +98,8 @@ class Client
     }
 
     /**
+     * Connects a new socket.
+     *
      * @param SocketInterface $socket
      * @param callable $callback
      * @return ClientInterface
@@ -86,6 +112,8 @@ class Client
     }
 
     /**
+     * Starts the socket polling for incoming data
+     *
      * @return ClientInterface
      */
     public function poll()
@@ -100,6 +128,8 @@ class Client
     }
 
     /**
+     * Writes data through the socket
+     *
      * @param $buffer
      * @param callable $callback
      * @return ClientInterface
@@ -123,6 +153,8 @@ class Client
     }
 
     /**
+     * Closes the socket connection.
+     *
      * @param callable $callback
      * @return ClientInterface
      */
@@ -142,6 +174,8 @@ class Client
     }
 
     /**
+     * Returns the internal libuv resource
+     *
      * @return resource
      */
     public function getResource()
@@ -150,6 +184,8 @@ class Client
     }
 
     /**
+     * Returns the server instance if the client vas created by a server instance
+     *
      * @return ServerInterface|null
      */
     public function getServer()

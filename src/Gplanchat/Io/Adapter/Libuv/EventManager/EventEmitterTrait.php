@@ -17,6 +17,7 @@
  *
  * @author  Grégory PLANCHAT<g.planchat@gmail.com>
  * @licence GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
 /**
@@ -29,18 +30,29 @@ use Gplanchat\Io\Adapter\Libuv\Loop\LoopInterface;
 use Gplanchat\Io\Loop\LoopAwareTrait;
 
 /**
+ * Libuv specific event emitter trait. Used by libuv-related classes implementing
+ * the event-emitter pattern.
  *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
 trait EventEmitterTrait
 {
     use BaseEventEmitterTrait;
 
     /**
+     * Returns the loop instance.
+     *
      * @return LoopInterface
      */
     abstract function getLoop();
 
     /**
+     * Instanciate a new object of type CallbackHandlerInterface. The created object
+     * instance is libuv-specific.
+     *
      * @param callable $callback
      * @param array $options
      * @return CallbackHandler
