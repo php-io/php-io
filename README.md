@@ -63,12 +63,15 @@ Adding WebSocket support can be made this way by calling the `init()` method :
         $webSocketServiceManager = new WebSocket\ServerServiceManager();
         $httpServiceManager->attachChild($webSocketServiceManager, 100);
 
-        $httpServer->registerPlugin('WebSocket', new Http\Plugin\WebSocket($webSocketServiceManager, function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
+        $webSocketListener = function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
             $response
                 ->addMessage(['Date' => date('c'), 'Hello' => 'World'])
                 ->emit(new Event('ready'))
             ;
-        }));
+        };
+
+        $httpServer = $application->getStorage('HttpServer');
+        $httpServer->registerPlugin('WebSocket', new Http\Plugin\WebSocket($webSocketServiceManager, $webSocketListener));
     })
 ```
 
