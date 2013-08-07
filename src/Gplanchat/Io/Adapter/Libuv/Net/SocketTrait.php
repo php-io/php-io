@@ -20,11 +20,19 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net;
 
 /**
- * Class SocketTrait
- * @package Gplanchat\Io\Adapter\Libuv\Net
+ * Base socket functionalities to be implemented.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @category   Net
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
 trait SocketTrait
 {
@@ -32,6 +40,8 @@ trait SocketTrait
     private $port = 0;
 
     /**
+     * Returns the internal uv resource
+     *
      * @return resource
      */
     public function getResource()
@@ -40,6 +50,8 @@ trait SocketTrait
     }
 
     /**
+     * Describes the socket as a string in the form of <ip>:<port>
+     *
      * @return string
      */
     public function __toString()
@@ -48,6 +60,8 @@ trait SocketTrait
     }
 
     /**
+     * Returns the port used
+     *
      * @return int
      */
     public function getPort()
@@ -56,6 +70,8 @@ trait SocketTrait
     }
 
     /**
+     * Get the address of the socket
+     *
      * @return string
      */
     abstract public function getAddress();

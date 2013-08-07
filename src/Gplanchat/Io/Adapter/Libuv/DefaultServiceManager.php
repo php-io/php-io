@@ -19,14 +19,17 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
+
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv;
 
 use Gplanchat\ServiceManager\AbstractServiceManager;
 use Psr\Log\NullLogger;
 
 /**
- * Basic loop class. A loop is designed to run event-driven code, the loop runs
- * until there are registered I/O loops.
+ * Default service manager for the libuv adapter.
  *
  * @package    Gplanchat\Io
  * @subpackage Gplanchat\Io\Loop
@@ -49,10 +52,6 @@ class DefaultServiceManager
         'UdpIp4Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip4',
         'UdpIp6Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip6',
         'UdpServer'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Server'
-    ];
-
-    protected $singletons = [
-        'Logger' => 'Psr\\Log\\NullLogger'
     ];
 
     protected $factories = [

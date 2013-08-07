@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Udp;
 
 use Gplanchat\EventManager\Event;
@@ -29,11 +32,22 @@ use Gplanchat\Io\Net\Udp\SocketInterface;
 use Gplanchat\Io\Net\Udp\ClientInterface;
 use Gplanchat\Io\Net\Udp\ServerInterface;
 
+/**
+ * UDP/IP socket class handler for IP v6.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @category   Net\Udp
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Ip6
     extends AbstractIp6
     implements SocketInterface
 {
     /**
+     * Sends data through the socket
+     *
      * @param ClientInterface $client
      * @param callable $callback
      * @return SocketInterface
@@ -55,6 +69,8 @@ class Ip6
     }
 
     /**
+     * Binds the client to a local port and listens to messages
+     *
      * @param ServerInterface $server
      * @return SocketInterface
      */

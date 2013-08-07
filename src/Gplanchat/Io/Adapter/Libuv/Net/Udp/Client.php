@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Udp;
 
 use Gplanchat\Io\Loop\LoopAwareTrait;
@@ -35,6 +38,15 @@ use Gplanchat\PluginManager\PluginManagerTrait;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
+/**
+ * UDP client class.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @category   Net\Udp
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Client
     implements ClientInterface, PluginManagerInterface
 {
@@ -43,10 +55,19 @@ class Client
     use PluginManagerTrait;
     use LoopAwareTrait;
 
+    /**
+     * @var SocketInterface
+     */
     private $socket = null;
+
+    /**
+     * @var resource
+     */
     private $connection = null;
 
     /**
+     * Class constructor.
+     *
      * @param ServiceManagerInterface $serviceManager
      * @param LoopInterface $loop
      * @param SocketInterface $socket
@@ -63,6 +84,8 @@ class Client
     }
 
     /**
+     * Sends data to the socket.
+     *
      * @param $buffer
      * @param callable|null $callback
      * @param SocketInterface|null $socket
@@ -80,6 +103,8 @@ class Client
     }
 
     /**
+     * Returns the internal libuv resource
+     *
      * @return resource
      */
     public function getResource()

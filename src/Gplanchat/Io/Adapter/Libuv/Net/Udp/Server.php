@@ -20,6 +20,9 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net\Udp;
 
 use Gplanchat\Io\Loop\LoopAwareTrait;
@@ -34,6 +37,15 @@ use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
 use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
 
+/**
+ * UDP server class.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @category   Net\Udp
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 class Server
     implements ServerInterface, ServiceManagerAwareInterface, PluginManagerInterface
 {

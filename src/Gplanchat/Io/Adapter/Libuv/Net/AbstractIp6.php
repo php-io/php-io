@@ -20,16 +20,30 @@
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
 
+/**
+ * @namespace
+ */
 namespace Gplanchat\Io\Adapter\Libuv\Net;
 
 use Gplanchat\Io\Net\SocketInterface;
 
+/**
+ * Abstract socket class handler for IP v6.
+ *
+ * @package    Gplanchat\Io
+ * @subpackage Libuv
+ * @category   Net
+ * @author     Grégory PLANCHAT<g.planchat@gmail.com>
+ * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
+ */
 abstract class AbstractIp6
     implements SocketInterface
 {
     use SocketTrait;
 
     /**
+     * Constructs the socket, based on its IP and its port
+     *
      * @param string $address
      * @param int $port
      */
@@ -40,6 +54,8 @@ abstract class AbstractIp6
     }
 
     /**
+     * Get the address of the socket
+     *
      * @return string
      */
     public function getAddress()

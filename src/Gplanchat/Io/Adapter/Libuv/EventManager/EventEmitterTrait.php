@@ -35,6 +35,7 @@ use Gplanchat\Io\Loop\LoopAwareTrait;
  *
  * @package    Gplanchat\Io
  * @subpackage Libuv
+ * @category   EventManager
  * @author     Grégory PLANCHAT<g.planchat@gmail.com>
  * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
