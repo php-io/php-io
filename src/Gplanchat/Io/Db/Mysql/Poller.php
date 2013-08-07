@@ -27,6 +27,9 @@ namespace Gplanchat\Io\Db\Mysql;
 
 use Gplanchat\Io\Db\ConnectionInterface;
 use Gplanchat\Io\Loop\TimerInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareInterface;
+use Gplanchat\ServiceManager\ServiceManagerAwareTrait;
+use Gplanchat\ServiceManager\ServiceManagerInterface;
 
 /**
  * MySQL asynchronous polling manager.
@@ -35,7 +38,10 @@ use Gplanchat\Io\Loop\TimerInterface;
  * @subpackage Gplanchat\Io\Loop
  */
 class Poller
+    implements ServiceManagerAwareInterface
 {
+    use ServiceManagerAwareTrait;
+
     /**
      * @var \SplObjectStorage
      */
@@ -47,15 +53,13 @@ class Poller
     private $timeout = 1;
 
     /**
-     * @param ConnectionInterface $connection
+     * @param ServiceManagerInterface $serviceManager
      */
-    public function __construct(ConnectionInterface $connection = null)
+    public function __construct(ServiceManagerInterface $serviceManager)
     {
-        $this->connectionList = new \SplObjectStorage();
+        $this->setServiceManager($serviceManager);
 
-        if ($connection !== null) {
-            $this->addConnection($connection);
-        }
+        $this->connectionList = new \SplObjectStorage();
     }
 
     /**
@@ -113,7 +117,11 @@ class Poller
             $links[] = $errors[] = $reject[] = $resource;
         }
 
-        if (\mysqli::poll($links, $errors, $reject, 0, $this->getTimeout())) {
+        if (!count($links)) {
+            return $this;
+        }
+
+        if (\mysqli_poll($links, $errors, $reject, 0, $this->getTimeout())) {
             foreach ($links as $resource) {
                 if (($result = $resource->reap_async_query()) === null) {
                     continue;

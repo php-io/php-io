@@ -67,6 +67,10 @@ class Connection
         $this->queryQueue = new QueryQueue();
     }
 
+    private function __clone()
+    {
+    }
+
     public function query($request, callable $callback, $prioity = null)
     {
         $this->queryQueue->enqueue($request, $callback, $prioity);
