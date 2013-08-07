@@ -61,7 +61,6 @@ Adding WebSocket support can be made this way by calling the `init()` method :
          * Adding WebSocket (RFC 6455) support
          */
         $webSocketServiceManager = new WebSocket\ServerServiceManager();
-        $httpServiceManager->attachChild($webSocketServiceManager, 100);
 
         $webSocketListener = function(Event $event, ClientInterface $client, WebSocket\Request $request, WebSocket\Response $response) {
             $response
@@ -75,6 +74,48 @@ Adding WebSocket support can be made this way by calling the `init()` method :
     })
 ```
 
+## Using a database connection
+
+For now, only MySQL using mysqli and mysqlnd is supported as a basic feature.
+
+This is how you can implement a MySQL connection handler :
+
+```php
+use Gplanchat\Io\Application\Application;
+use Gplanchat\EventManager\Event;
+use Gplanchat\Io\Adapter\Libuv\DefaultServiceManager as LibuvServiceManager;
+use Gplanchat\Io\Db\Mysql\DefaultServiceManager as MysqlServiceManager;
+
+(new Application(new LibuvServiceManager()))
+    ->init(function(Event $event, Application $application) {
+        // Initiating the poller and assigning it to the main loop through a timer
+        /** @var \Gplanchat\Io\Loop\TimerInterface $timer */
+        $timer = $application->getServiceManager()->get('Timer', [$application->getCurrentLoop()]);
+
+        $serviceManager = new MysqlServiceManager();
+        $poller = $serviceManager->get('Poller');
+
+        $link = $serviceManager->get('Connection', ['localhost', 'root', '', 'foo_database']);
+        $poller->addConnection($link);
+
+        $timer->interval(1, $poller);
+        $application->setStorage('Db', $link);
+    })
+    ->init(function(Event $event, Application $application) {
+        // Sending requests to the RDBMS
+        $worker = $application->getServiceManager()->get('Timer', [$application->getCurrentLoop()]);
+        $worker->interval(20, function() use($application) {
+            $link = $application->getStorage('Db');
+
+            $link->query('SELECT * FROM foo_table ORDER BY RAND() LIMIT 1', function($result) {
+                var_dump($result);
+            });
+        });
+    })
+    ->bootstrap()
+    ->run()
+;
+```
 ## Documentation
 
 The API documentation Was built using php-docgen. [» Read the docs](docs/api/README.md)
