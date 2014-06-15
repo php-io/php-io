@@ -22,23 +22,23 @@
 
 namespace Gplanchat\Io\Net\Protocol\Http;
 
+use Gplanchat\Io\Net\Protocol\Http;
 use Gplanchat\Io\Net\Tcp\ClientInterface;
 use Gplanchat\Io\Net\Tcp\ServerInterface;
+use Gplanchat\Io\Net\Tcp\SocketInterface;
 use Gplanchat\ServiceManager\AbstractServiceManager;
-use Gplanchat\ServiceManager\ServiceManager;
 use Gplanchat\ServiceManager\Configurator;
 use Gplanchat\ServiceManager\ServiceManagerInterface;
-use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
  * Class ServerServiceManager
  * @package Gplanchat\Io\Net\Protocol\Http
- * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServer(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ServerInterface $server)
- * @method \Gplanchat\Io\Net\Protocol\Http\Client getHttpClient(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\ClientInterface $client, callable $callback = null)
- * @method DefaultRequestHandler getRequestHandler(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager)
- * @method \Gplanchat\Io\Net\Protocol\Http\Server getHttpServerBuilder(\Gplanchat\ServiceManager\ServiceManagerInterface $serviceManager, \Gplanchat\Io\Net\Tcp\SocketInterface $socket)
- * @method \Gplanchat\Io\Net\Protocol\Http\ProtocolUpgraderInterface getDefaultProtocolUpgrader(\Gplanchat\ServiceManager\ServiceManagerInterface $serverServiceManager, array $config = null, \Gplanchat\ServiceManager\Configurator $configurator = null)
+ * @method Http\Server getHttpServer(ServiceManagerInterface $serviceManager, ServerInterface $server)
+ * @method Client getHttpClient(ServiceManagerInterface $serviceManager, ClientInterface $client, callable $callback = null)
+ * @method DefaultRequestHandler getRequestHandler(ServiceManagerInterface $serviceManager)
+ * @method Http\Server getHttpServerBuilder(ServiceManagerInterface $serviceManager, SocketInterface $socket)
+ * @method ProtocolUpgraderInterface getDefaultProtocolUpgrader(ServiceManagerInterface $serverServiceManager, array $config = null, Configurator $configurator = null)
  */
 class ServerServiceManager
     extends AbstractServiceManager
@@ -47,20 +47,20 @@ class ServerServiceManager
      * @var array
      */
     protected $invokables = [
-        'HttpServer'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Server',
-        'HttpClient'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Client',
-        'RequestHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\DefaultRequestHandler',
-        'RequestParser'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestParser',
+        'HttpServer'     => Server::class,
+        'HttpClient'     => Client::class,
+        'RequestHandler' => DefaultRequestHandler::class,
+        'RequestParser'  => RequestParser::class,
     ];
 
     /**
      * @var array
      */
     protected $singletons = [
-        'ServerConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ServerConnectionHandler',
-        'StandardRequestFactory'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory\\Standard',
-        'StandardResponseFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory\\Standard',
-        'ProtocolUpgraderFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ProtocolUpgraderFactory',
+        'ServerConnectionHandler' => ServerConnectionHandler::class,
+        'StandardRequestFactory'  => RequestFactory\Standard::class,
+        'StandardResponseFactory' => ResponseFactory\Standard::class,
+        'ProtocolUpgraderFactory' => ProtocolUpgraderFactory::class,
         'DefaultProtocolUpgrader' => 'ProtocolUpgrader'
     ];
 
@@ -68,7 +68,7 @@ class ServerServiceManager
      * @var array
      */
     protected $factories = [
-        'Logger' => 'Psr\\Log\\NullLogger',
+        'Logger' => NullLogger::class,
 
         'Request'          => 'StandardRequestFactory',
         'Response'         => 'StandardResponseFactory',

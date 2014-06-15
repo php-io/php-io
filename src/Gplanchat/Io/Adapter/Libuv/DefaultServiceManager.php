@@ -26,6 +26,11 @@
 namespace Gplanchat\Io\Adapter\Libuv;
 
 use Gplanchat\ServiceManager\AbstractServiceManager;
+use Gplanchat\Io\Adapter\Libuv\Loop;
+use Gplanchat\Io\Adapter\Libuv\Net\Tcp;
+use Gplanchat\Io\Adapter\Libuv\Net\Udp;
+use Gplanchat\Io\Net\Tcp\SocketFactory as TcpSocketFactory;
+use Gplanchat\Io\Net\Udp\SocketFactory as UdpSocketFactory;
 
 /**
  * Default service manager for the libuv adapter.
@@ -40,21 +45,21 @@ class DefaultServiceManager
      * @var array
      */
     protected $invokables = [
-        'Idle'         => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Idle',
-        'Loop'         => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Loop',
-        'Timer'        => 'Gplanchat\\Io\\Adapter\\Libuv\\Loop\\Timer',
-        'TcpClient'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Client',
-        'TcpIp4Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip4',
-        'TcpIp6Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Ip6',
-        'TcpServer'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Tcp\\Server',
-        'UdpClient'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Client',
-        'UdpIp4Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip4',
-        'UdpIp6Socket' => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Ip6',
-        'UdpServer'    => 'Gplanchat\\Io\\Adapter\\Libuv\\Net\\Udp\\Server'
+        'Idle'         => Loop\Idle::class,
+        'Loop'         => Loop\Loop::class,
+        'Timer'        => Loop\Timer::class,
+        'TcpClient'    => Tcp\Client::class,
+        'TcpIp4Socket' => Tcp\Ip4::class,
+        'TcpIp6Socket' => Tcp\Ip6::class,
+        'TcpServer'    => Tcp\Server::class,
+        'UdpClient'    => Udp\Client::class,
+        'UdpIp4Socket' => Udp\Ip4::class,
+        'UdpIp6Socket' => Udp\Ip6::class,
+        'UdpServer'    => Udp\Server::class
     ];
 
     protected $factories = [
-        'TcpSocket' => 'Gplanchat\\Io\\Net\\Tcp\\SocketFactory',
-        'UdpSocket' => 'Gplanchat\\Io\\Net\\Udp\\SocketFactory'
+        'TcpSocket' => TcpSocketFactory::class,
+        'UdpSocket' => UdpSocketFactory::class
     ];
 }

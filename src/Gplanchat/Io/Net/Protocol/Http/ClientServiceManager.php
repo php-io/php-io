@@ -43,23 +43,23 @@ class ClientServiceManager
      * @var array
      */
     protected $invokables = [
-        'HttpClient'     => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Client',
+        'HttpClient'     => Client::class,
     ];
 
     /**
      * @var array
      */
     protected $singletons = [
-        'ClientConnectionHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ClientConnectionHandler',
-        'StandardRequestFactory'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\RequestFactory\\Standard',
-        'StandardResponseFactory' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\ResponseFactory\\Standard',
+        'ClientConnectionHandler' => ClientConnectionHandler::class,
+        'StandardRequestFactory'  => RequestFactory\Standard::class,
+        'StandardResponseFactory' => ResponseFactory\Standard::class,
     ];
 
     /**
      * @var array
      */
     protected $factories = [
-        'Logger' => 'Psr\\Log\\NullLogger',
+        'Logger' => NullLogger::class,
 
         'Request'  => 'StandardRequestFactory',
         'Response' => 'StandardResponseFactory'

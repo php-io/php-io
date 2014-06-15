@@ -26,6 +26,8 @@
 namespace Gplanchat\Io\Db\Mysql;
 
 use Gplanchat\ServiceManager\AbstractServiceManager;
+use Gplanchat\Io\Db\Mysql\Connection;
+use Gplanchat\Io\Db\Mysql\PollerFactory;
 
 /**
  * Default service manager for the libuv adapter.
@@ -40,10 +42,10 @@ class DefaultServiceManager
      * @var array
      */
     protected $invokables = [
-        'Connection' => 'Gplanchat\\Io\\Db\\Mysql\\Connection',
+        'Connection' => Connection::class,
     ];
 
     protected $factories = [
-        'Poller' => 'Gplanchat\\Io\\Db\\Mysql\\PollerFactory'
+        'Poller' => PollerFactory::class
     ];
 }
