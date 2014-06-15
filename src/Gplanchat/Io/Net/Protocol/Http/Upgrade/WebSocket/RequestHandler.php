@@ -54,7 +54,7 @@ class RequestHandler
 
         $response->on(['ready'], function(Event $event) use($client, $request) {
             /** @var Response $response */
-            $response = $event->getData('eventEmitter');
+            $response = $event->getEventEmitter();
 
             $response->send($client);
         });

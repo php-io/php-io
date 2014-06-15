@@ -106,7 +106,7 @@ class DefaultRequestHandler
         }
 
         $response->on(['ready'], function(Event $event) use($client, $request) {
-            $response = $event->getData('eventEmitter');
+            $response = $event->getEventEmitter();
 
             $response->send($client);
         });
