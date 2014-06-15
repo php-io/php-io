@@ -43,7 +43,7 @@ HTML_EOF;
 
 (new Application(new LibuvServiceManager()))
     ->registerPlugin(new TcpServerPlugin(), 'TcpServer', 0)
-    ->registerPlugin(new HttpServerPlugin(), 'HttpServer', 0)
+    ->registerPlugin(new HttpServerPlugin($httpListener), 'HttpServer', 0)
     ->init(function(Event $event, Application $application) {
         $application->callPlugin('TcpServer', ['0.0.0.0', 8081]);
         $application->callPlugin('HttpServer', ['TcpServer', 200]);
