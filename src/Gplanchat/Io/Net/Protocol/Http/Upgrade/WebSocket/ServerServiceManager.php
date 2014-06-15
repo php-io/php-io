@@ -43,13 +43,13 @@ class ServerServiceManager
         if ($config === null) {
             $config = [
                 'invokables' => [
-                    'RequestHandler' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\RequestHandler'
+                    'RequestHandler' => RequestHandler::class
                 ],
                 'singletons' => [],
                 'alias'      => [],
                 'factories'  => [
-                    'Request'  => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\RequestFactory',
-                    'Response' => 'Gplanchat\\Io\\Net\\Protocol\\Http\\Upgrade\\WebSocket\\ResponseFactory'
+                    'Request'  => RequestFactory::class,
+                    'Response' => ResponseFactory::class
                     ]
                 ];
         }
