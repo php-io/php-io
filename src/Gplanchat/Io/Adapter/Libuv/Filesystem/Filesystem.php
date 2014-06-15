@@ -66,6 +66,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, 0644, function($streamId) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, new File($self, $streamId));
         });
 
@@ -87,6 +91,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_open($this->getLoop()->getResource(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, new File($self, $streamId));
         });
 
@@ -106,6 +114,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_rename($this->getLoop()->getResource(), $from, $to, function($success) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, $success);
             });
 
@@ -113,7 +125,8 @@ class Filesystem
     }
 
     /**
-     * @todo
+     * Change the ownership of a file/directory by path
+     *
      * @param string $path
      * @param int|string $uid
      * @param int|string $gid
@@ -124,6 +137,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_chown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, $fd);
         });
 
@@ -131,7 +148,8 @@ class Filesystem
     }
 
     /**
-     * @todo
+     * Change the mode of a file/directory by path
+     *
      * @param string $path
      * @param int $mode
      * @param callable $callback
@@ -141,6 +159,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_chmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, $fd);
         });
 
@@ -148,7 +170,8 @@ class Filesystem
     }
 
     /**
-     * @todo
+     * Change the ownership of a stream descriptor
+     *
      * @param resource $fd
      * @param int|string $uid
      * @param int|string $gid
@@ -159,6 +182,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_fchown($this->getLoop()->getResource(), $fd, $uid, $gid, function($fd) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, $fd);
         });
 
@@ -166,7 +193,8 @@ class Filesystem
     }
 
     /**
-     * @todo
+     * Change the mode of a stream descriptor
+     *
      * @param resource $fd
      * @param int $mode
      * @param callable $callback
@@ -176,6 +204,10 @@ class Filesystem
     {
         $self = $this;
         \uv_fs_fchmod($this->getLoop()->getResource(), $fd, $mode, function($fd) use($callback, $self) {
+            if ($callback === null) {
+                return;
+            }
+
             $callback($self, $fd);
         });
 

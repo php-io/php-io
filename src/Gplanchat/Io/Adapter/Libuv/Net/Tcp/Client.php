@@ -146,7 +146,7 @@ class Client
             }
 
             if ($callback !== null) {
-                call_user_func_array($callback, [$client]);
+                $callback($client);
             }
         });
 
@@ -167,7 +167,7 @@ class Client
             $client->emit(new Event('close'));
 
             if ($callback !== null) {
-                call_user_func_array($callback, [$client]);
+                $callback($client);
             }
         });
 
