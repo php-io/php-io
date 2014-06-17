@@ -67,6 +67,13 @@ class Client
     private $connection = null;
 
     /**
+     * Running state flag
+     * 
+     * @var boolean
+     */
+    private $running = false;
+
+    /**
      * Class constructor.
      *
      * @param ServiceManagerInterface $serviceManager
@@ -94,6 +101,8 @@ class Client
     {
         $this->server = $server;
         \uv_accept($server->getResource(), $this->connection);
+        
+        $this->running = true;
 
         return $this;
     }
@@ -122,6 +131,9 @@ class Client
         $client = $this;
 
         \uv_read_start($this->getResource(), function($resource, $length, $buffer) use($client) {
+            if($length < 0) {
+                $client->close();
+            }
             $client->emit(new Event('data'), [$client, $buffer, $length, false]);
         });
 
@@ -138,6 +150,11 @@ class Client
     public function write($buffer, callable $callback = null)
     {
         $client = $this;
+
+        // ignore any queued writes if no longer running
+        if(false === $this->running) {
+            return $this;
+        }
 
         \uv_write($this->connection, $buffer, function($resource, $error) use($client, $buffer, $callback){
             if ($error) {
@@ -163,9 +180,10 @@ class Client
     {
         $client = $this;
 
+        $this->running = false;
+
         \uv_close($this->connection, function($resource) use($client, $callback){
             $client->emit(new Event('close'));
-
             if ($callback !== null) {
                 call_user_func_array($callback, [$client]);
             }
