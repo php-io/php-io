@@ -110,9 +110,9 @@ class Client
     /**
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
-        return $this->getDecoratedClient()->getResource();
+        return $this->getDecoratedClient()->getBackend();
     }
 
     /**

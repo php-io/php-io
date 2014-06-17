@@ -77,7 +77,7 @@ class Client
     public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null, callable $callback = null)
     {
         $this->setLoop($loop);
-        $this->connection = \uv_tcp_init($this->loop->getResource());
+        $this->connection = \uv_tcp_init($this->loop->getBackend());
 
         if ($socket !== null) {
             $this->connect($socket, $callback);
@@ -93,7 +93,7 @@ class Client
     public function accept(ServerInterface $server)
     {
         $this->server = $server;
-        \uv_accept($server->getResource(), $this->connection);
+        \uv_accept($server->getBackend(), $this->connection);
 
         return $this;
     }
@@ -121,7 +121,7 @@ class Client
     {
         $client = $this;
 
-        \uv_read_start($this->getResource(), function($resource, $length, $buffer) use($client) {
+        \uv_read_start($this->getBackend(), function($resource, $length, $buffer) use($client) {
             $client->emit(new Event('data'), [$client, $buffer, $length, false]);
         });
 
@@ -179,7 +179,7 @@ class Client
      *
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->connection;
     }

@@ -74,7 +74,7 @@ class CallbackHandler
         $realCallback = function() use($callback, $parameters) {
             call_user_func_array($callback, $parameters); //  todo : fix with PHP 5.6 argument unpacking
         };
-        $resource = \uv_async_init($this->getLoop()->getResource(), $realCallback);
+        $resource = \uv_async_init($this->getLoop()->getBackend(), $realCallback);
         \uv_async_send($resource);
     }
 }

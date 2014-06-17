@@ -62,7 +62,7 @@ class File
     public function truncate($length, callable $callback = null)
     {
 //        $self = $this;
-//        \uv_fs_truncate($this->getLoop()->getResource(), $path, $length, function($fd) use($callback, $self) {
+//        \uv_fs_truncate($this->getLoop()->getBackend(), $path, $length, function($fd) use($callback, $self) {
 //            var_dump(func_get_args());
 //            $callback($self, $fd);
 //        });

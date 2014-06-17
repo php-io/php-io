@@ -19,23 +19,14 @@
  * @license Lesser General Public License v3 (http://www.gnu.org/licenses/lgpl-3.0.txt)
  * @copyright Copyright (c) 2013 Grégory PLANCHAT (http://planchat.fr/)
  */
-namespace Gplanchat\Io\Net\Udp;
 
-use Gplanchat\Io\Loop\LoopAwareInterface;
-use Gplanchat\EventManager\EventEmitterInterface;
+/**
+ * @namespace
+ */
+namespace Gplanchat\Io\Adapter\Libuv\Exception;
 
-interface ClientInterface
-    extends EventEmitterInterface, LoopAwareInterface
+class InvalidLoopInstance
+    extends \InvalidArgumentException
+    implements Exception
 {
-    /**
-     * @param $buffer
-     * @param callable|null $callback
-     * @return ClientInterface
-     */
-    public function send($buffer, callable $callback = null);
-
-    /**
-     * @return resource
-     */
-    public function getBackend();
-}
+} 

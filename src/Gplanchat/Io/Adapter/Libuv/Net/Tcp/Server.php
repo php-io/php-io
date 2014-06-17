@@ -73,7 +73,7 @@ class Server
     public function __construct(ServiceManagerInterface $serviceManager, LibuvLoopInterface $loop, SocketInterface $socket = null)
     {
         $this->setLoop($loop);
-        $this->connection = \uv_tcp_init($this->getLoop()->getResource());
+        $this->connection = \uv_tcp_init($this->getLoop()->getBackend());
 
         if ($socket !== null) {
             $this->registerSocket($socket);
@@ -125,7 +125,7 @@ class Server
     {
         if ($this->registeredListener === true) {
             $server = $this;
-            \uv_close($this->getResource(), function() use($server){
+            \uv_close($this->getBackend(), function() use($server){
                 $server->registeredListener = false;
             });
         }
@@ -136,7 +136,7 @@ class Server
     /**
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->connection;
     }

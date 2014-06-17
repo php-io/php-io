@@ -76,9 +76,9 @@ class Server
     /**
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
-        return $this->getDecoratedServer()->getResource();
+        return $this->getDecoratedServer()->getBackend();
     }
 
     /**

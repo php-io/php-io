@@ -142,7 +142,7 @@ class Loop
      *
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->loop;
     }

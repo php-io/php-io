@@ -63,7 +63,7 @@ class Ip4
             $client->on(['data'], $callback);
         };
 
-        \uv_tcp_connect($client->getResource(), $this->getResource(), $internalCallback);
+        \uv_tcp_connect($client->getBackend(), $this->getBackend(), $internalCallback);
 
         return $this;
     }
@@ -76,7 +76,7 @@ class Ip4
      */
     public function bind(ServerInterface $server)
     {
-        \uv_tcp_bind($server->getResource(), $this->getResource());
+        \uv_tcp_bind($server->getBackend(), $this->getBackend());
 
         return $this;
     }

@@ -25,7 +25,10 @@
  */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
+use Gplanchat\Io\Adapter\Libuv\Exception\InvalidLoopInstance;
 use Gplanchat\Io\Loop\IdleInterface;
+use Gplanchat\Io\Loop\LoopAwareInterface;
+use Gplanchat\Io\Loop\LoopAwareTrait;
 use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
 
 /**
@@ -38,8 +41,10 @@ use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
  * @licence    GNU Lesser General Public Licence (http://www.gnu.org/licenses/lgpl-3.0.txt)
  */
 class Idle
-    implements IdleInterface
+    implements IdleInterface, LoopAwareInterface
 {
+    use LoopAwareTrait;
+
     /**
      * The internal php-uv resource
      *
@@ -51,10 +56,17 @@ class Idle
      * Constructor. Accepts as an argument the loop on which the idler will run.
      *
      * @param BaseLoopInterface $loop
+     * @throws InvalidLoopInstance
      */
     public function __construct(BaseLoopInterface $loop)
     {
-        $this->idler = \uv_idle_init($loop->getResource());
+        if (!$loop instanceof LoopInterface) {
+            throw new InvalidLoopInstance('Loop instance does not use the Libuv adapter.');
+        }
+
+        $this->setLoop($loop);
+
+        $this->idler = \uv_idle_init($this->getLoop()->getBackend());
     }
 
     /**

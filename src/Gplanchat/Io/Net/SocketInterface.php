@@ -27,7 +27,7 @@ interface SocketInterface
     /**
      * @return resource
      */
-    public function getResource();
+    public function getBackend();
 
     /**
      * @return string

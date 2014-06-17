@@ -44,7 +44,7 @@ trait SocketTrait
      *
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->socket;
     }

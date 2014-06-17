@@ -43,5 +43,5 @@ interface LoopInterface
      *
      * @return resource
      */
-    public function getResource();
+    public function getBackend();
 }

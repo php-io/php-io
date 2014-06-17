@@ -87,13 +87,13 @@ class Connection
                 return null;
             }
 
-            $this->getResource()
+            $this->getBackend()
                 ->query($this->queryQueue->dequeue(), MYSQLI_STORE_RESULT | MYSQLI_ASYNC);
 
             $this->idle = false;
         }
 
-        return $this->getResource();
+        return $this->getBackend();
     }
 
     public function run($result)
@@ -107,7 +107,7 @@ class Connection
     /**
      * @return \mysqli
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->resource;
     }
