@@ -38,7 +38,7 @@ interface ConnectionInterface
     /**
      * @return mixed
      */
-    public function getResource();
+    public function getBackend();
 
     /**
      * @return mixed

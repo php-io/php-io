@@ -62,7 +62,7 @@ interface ClientInterface
     /**
      * @return resource
      */
-    public function getResource();
+    public function getBackend();
 
     /**
      * @return ServerInterface|null

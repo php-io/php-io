@@ -68,7 +68,7 @@ class Poller
      */
     public function addConnection(ConnectionInterface $connection)
     {
-        $this->connectionList->attach($connection->getResource(), $connection);
+        $this->connectionList->attach($connection->getBackend(), $connection);
 
         return $this;
     }

@@ -49,5 +49,5 @@ interface ServerInterface
     /**
      * @return resource
      */
-    public function getResource();
+    public function getBackend();
 }

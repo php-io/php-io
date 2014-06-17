@@ -76,7 +76,7 @@ class Client
     public function __construct(ServiceManagerInterface $serviceManager, LoopInterface $loop, SocketInterface $socket = null)
     {
         $this->setLoop($loop);
-        $this->connection = \uv_udp_init($this->loop->getResource());
+        $this->connection = \uv_udp_init($this->loop->getBackend());
 
         if ($socket !== null) {
             $this->setSocket($socket);
@@ -107,7 +107,7 @@ class Client
      *
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->connection;
     }

@@ -60,7 +60,7 @@ class Server
     public function __construct(ServiceManagerInterface $serviceManager, LibuvLoopInterface $loop, SocketInterface $socket = null)
     {
         $this->setLoop($loop);
-        $this->connection = \uv_tcp_init($this->loop->getResource());
+        $this->connection = \uv_tcp_init($this->loop->getBackend());
 
         if ($socket !== null) {
             $this->registerSocket($socket);
@@ -92,7 +92,7 @@ class Server
         if ($this->registeredListener !== true) {
             $server = $this;
 
-            \uv_udp_recv_start($this->getResource(), function($stream, $nread, $buffer) use($server) {
+            \uv_udp_recv_start($this->getBackend(), function($stream, $nread, $buffer) use($server) {
                 $server->emit(new Event('data'), [$server]);
             });
         }
@@ -106,7 +106,7 @@ class Server
     public function stop()
     {
         if ($this->registeredListener === true) {
-            \uv_udp_recv_stop($this->getResource());
+            \uv_udp_recv_stop($this->getBackend());
             $this->registeredListener = false;
         }
 
@@ -116,7 +116,7 @@ class Server
     /**
      * @return resource
      */
-    public function getResource()
+    public function getBackend()
     {
         return $this->connection;
     }

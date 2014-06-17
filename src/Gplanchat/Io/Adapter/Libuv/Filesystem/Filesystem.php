@@ -65,7 +65,7 @@ class Filesystem
     public function open($path, $flags,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_open($this->getLoop()->getResource(), $path, $flags, 0644, function($streamId) use($callback, $self) {
+        \uv_fs_open($this->getLoop()->getBackend(), $path, $flags, 0644, function($streamId) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -90,7 +90,7 @@ class Filesystem
     public function openMode($path, $flags, $chmod,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_open($this->getLoop()->getResource(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
+        \uv_fs_open($this->getLoop()->getBackend(), $path, $flags, $chmod, function($streamId) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -113,7 +113,7 @@ class Filesystem
     public function rename($from, $to,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_rename($this->getLoop()->getResource(), $from, $to, function($success) use($callback, $self) {
+        \uv_fs_rename($this->getLoop()->getBackend(), $from, $to, function($success) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -136,7 +136,7 @@ class Filesystem
     public function chown($path, $uid, $gid,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_chown($this->getLoop()->getResource(), $path, $uid, $gid, function($fd) use($callback, $self) {
+        \uv_fs_chown($this->getLoop()->getBackend(), $path, $uid, $gid, function($fd) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -158,7 +158,7 @@ class Filesystem
     public function chmod($path, $mode,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_chmod($this->getLoop()->getResource(), $path, $mode, function($fd) use($callback, $self) {
+        \uv_fs_chmod($this->getLoop()->getBackend(), $path, $mode, function($fd) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -181,7 +181,7 @@ class Filesystem
     public function fchown($fd, $uid, $gid,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_fchown($this->getLoop()->getResource(), $fd, $uid, $gid, function($fd) use($callback, $self) {
+        \uv_fs_fchown($this->getLoop()->getBackend(), $fd, $uid, $gid, function($fd) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -203,7 +203,7 @@ class Filesystem
     public function fchmod($fd, $mode,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_fchmod($this->getLoop()->getResource(), $fd, $mode, function($fd) use($callback, $self) {
+        \uv_fs_fchmod($this->getLoop()->getBackend(), $fd, $mode, function($fd) use($callback, $self) {
             if ($callback === null) {
                 return;
             }
@@ -224,7 +224,7 @@ class Filesystem
     public function truncate($path, $length,  callable $callback = null)
     {
 //        $self = $this;
-//        \uv_fs_truncate($this->getLoop()->getResource(), $path, $length, function($fd) use($callback, $self) {
+//        \uv_fs_truncate($this->getLoop()->getBackend(), $path, $length, function($fd) use($callback, $self) {
 //            var_dump(func_get_args());
 //            $callback($self, $fd);
 //        });
@@ -242,7 +242,7 @@ class Filesystem
     public function ftruncate($fd, $length,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_ftruncate($this->getLoop()->getResource(), $fd, $length, function($fd) use($callback, $self) {
+        \uv_fs_ftruncate($this->getLoop()->getBackend(), $fd, $length, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -258,7 +258,7 @@ class Filesystem
     public function stat($path,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_stat($this->getLoop()->getResource(), $path, function($fd) use($callback, $self) {
+        \uv_fs_stat($this->getLoop()->getBackend(), $path, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -274,7 +274,7 @@ class Filesystem
     public function fstat($fd,  callable $callback = null)
     {
         $self = $this;
-        \uv_fs_fstat($this->getLoop()->getResource(), $fd, function($fd) use($callback, $self) {
+        \uv_fs_fstat($this->getLoop()->getBackend(), $fd, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -291,7 +291,7 @@ class Filesystem
     public function link($sourcePath, $sestinationPath, callable $callback)
     {
         $self = $this;
-        \uv_fs_link($this->getLoop()->getResource(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
+        \uv_fs_link($this->getLoop()->getBackend(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
             $callback($self, $fd);
         });
 
@@ -309,7 +309,7 @@ class Filesystem
     public function symlink($sourcePath, $sestinationPath, callable $callback, $flags = null)
     {
         $self = $this;
-        \uv_fs_symlink($this->getLoop()->getResource(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
+        \uv_fs_symlink($this->getLoop()->getBackend(), $sourcePath, $sestinationPath, function($fd) use($callback, $self) {
             $callback($self, $fd);
         }, $flags);
 

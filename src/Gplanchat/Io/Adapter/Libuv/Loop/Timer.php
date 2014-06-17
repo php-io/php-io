@@ -25,6 +25,7 @@
  */
 namespace Gplanchat\Io\Adapter\Libuv\Loop;
 
+use Gplanchat\Io\Adapter\Libuv\Exception\InvalidLoopInstance;
 use Gplanchat\Io\Loop\LoopAwareInterface;
 use Gplanchat\Io\Loop\LoopAwareTrait;
 use Gplanchat\Io\Loop\LoopInterface as BaseLoopInterface;
@@ -57,11 +58,16 @@ class Timer
      * Constructor. Accepts as an argument the loop on which the timer will run.
      *
      * @param BaseLoopInterface $loop
+     * @throws InvalidLoopInstance
      */
     public function __construct(BaseLoopInterface $loop)
     {
+        if (!$loop instanceof LoopInterface) {
+            throw new InvalidLoopInstance('Loop instance does not use the Libuv adapter.');
+        }
+
         $this->setLoop($loop);
-        $this->timer = \uv_timer_init($loop->getResource());
+        $this->timer = \uv_timer_init($this->getLoop()->getBackend());
     }
 
     /**
