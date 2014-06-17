@@ -133,6 +133,7 @@ class Client
         \uv_read_start($this->getResource(), function($resource, $length, $buffer) use($client) {
             if($length < 0) {
                 $client->close();
+                return;
             }
             $client->emit(new Event('data'), [$client, $buffer, $length, false]);
         });
