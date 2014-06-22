@@ -117,7 +117,7 @@ class Loop
      */
     public function runOnce()
     {
-        \uv_run_once($this->loop);
+        \uv_run($this->loop, \UV::RUN_ONCE);
 
         return $this;
     }
